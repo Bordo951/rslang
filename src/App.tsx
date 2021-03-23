@@ -1,8 +1,11 @@
-import React from "react";
+import React from 'react';
+import ElectronicTextbook from './pages/ElectronicTextbook';
 
 const App: React.FC = () => {
   return (
-      <div></div>
+    <div>
+      <ElectronicTextbook />
+    </div>
   );
 };
 
