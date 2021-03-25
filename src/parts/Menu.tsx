@@ -2,9 +2,10 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 
-const MainMenu = styled.nav``;
+const MainMenu = styled.nav`
+`;
 const MenuList = styled.ul`
-    width: 80%;
+    width: 100%;
     height: 70px;
     margin: 0 auto;    
     padding: 0;
@@ -33,7 +34,7 @@ const MenuItem = styled.li`
         text-decoration: none;
         text-align: center;
         background-color: transparent;
-        margin-top: -5px;
+        margin-top: -1px;
         font-weight: bold;
     
         &:before {
@@ -127,7 +128,7 @@ const Menu: React.FC = () => {
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/text-book" className='textbook' data-name="Textbook">
+                    <NavLink to="/text-book/group=1" className='textbook' data-name="Textbook">
                         <span data-name="Textbook"></span>
                     </NavLink>
                 </MenuItem>
