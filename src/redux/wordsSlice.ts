@@ -15,6 +15,8 @@ type WordType = {
   transcription: string;
   word: string;
   wordTranslate: string;
+  group: number;
+  page: number;
 };
 
 type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -59,12 +61,22 @@ export const wordsReducer = (
 };
 
 //thunk
-export const fetchWordsData = () => async (dispatch: AppDispatch) => {
+export const fetchWordsData = (groupNum: number, pageNum: number) => async (
+  dispatch: AppDispatch
+) => {
   const url = 'https://vhoreho-rslang.herokuapp.com/words';
   dispatch(setRequestStatus('loading'));
+  const queryParams = {
+    params: {
+      page: pageNum?.toString(),
+      group: groupNum?.toString(),
+    },
+  };
   try {
-    const { data } = await axios.get<WordType[]>(url);
+    const { data } = await axios.get<WordType[]>(url, queryParams);
     const words = data.map((el) => ({
+      group: el.group,
+      page: el.page,
       audio: el.audio,
       audioExample: el.audioExample,
       audioMeaning: el.audioMeaning,
