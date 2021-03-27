@@ -41,7 +41,7 @@ const MenuItem = styled.li`
             content: attr(data-name);
         }
         
-        &.home {
+        &[data-name = 'Home'] {
             border-color: #F27C7E;
             &:before {
                 color: #F27C7E;
@@ -51,7 +51,7 @@ const MenuItem = styled.li`
             }
         }
         
-        &.textbook {
+        &[data-name = 'Textbook'] {
             border-color: #B0B6FB;
             &:before {
                 color: #B0B6FB;
@@ -61,7 +61,7 @@ const MenuItem = styled.li`
             }
         }
         
-        &.games {
+        &[data-name = 'Mini-Games'] {
             border-color: #EA9D5F;            
             &:before {
                 color: #EA9D5F;
@@ -71,7 +71,7 @@ const MenuItem = styled.li`
             }
         } 
         
-        &.settings {
+        &[data-name = 'Settings'] {
             border-color: #DE81B8;
             &:before {
                 color: #DE81B8;
@@ -81,7 +81,7 @@ const MenuItem = styled.li`
             }
         }    
         
-        &.statistic {
+        &[data-name = 'Statistic'] {
             border-color: #ACC158;
             &:before {
                 color: #ACC158;
@@ -107,14 +107,14 @@ const MenuItem = styled.li`
             }
         }
         
-        &:hover {
+        &:hover,
+        &.active {
             color: #FFFFFF;
             
             span {
                 top: 0px;
             }
-        }
-        
+        }        
     }
 `;
 
@@ -123,27 +123,27 @@ const Menu: React.FC = () => {
         <MainMenu>
             <MenuList>
                 <MenuItem>
-                    <NavLink exact to="/" className="home" data-name="Home">
+                    <NavLink exact to="/" data-name="Home">
                         <span data-name="Home"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/text-book/group=1" className='textbook' data-name="Textbook">
+                    <NavLink to="/text-book" data-name="Textbook">
                         <span data-name="Textbook"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/mini-games" className='games' data-name="Mini-Games">
+                    <NavLink to="/mini-games" data-name="Mini-Games">
                         <span data-name="Mini-Games"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/settings" className='settings' data-name="Settings">
+                    <NavLink to="/settings" data-name="Settings">
                         <span data-name="Settings"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/statistics" className='statistic' data-name="Statistic">
+                    <NavLink to="/statistics" data-name="Statistic">
                         <span data-name="Statistic"></span>
                     </NavLink>
                 </MenuItem>

@@ -20,6 +20,7 @@ import MiniGames from "./MiniGames";
 import Settings from "./Settings";
 import Statistics from "./Statistics";
 import {Group1, Group2, Group3, Group4, Group5, Group6} from "../components/electronicTextbook/groups";
+import GroupsGrid from "../components/electronicTextbook/GroupsGrid";
 
 const Container = styled.div`
   width: 100%;
@@ -81,6 +82,7 @@ const ElectronicTextbook: React.FC = () => {
           <h2>Electronic textbook</h2>
         </section>
         <TopMenu/>
+        <GroupsGrid/>
       </Main>
       {/*{status === 'loading' && <div>Loading...</div>}*/}
       {/*{status === 'failed' && <div>{error}</div>}*/}
@@ -107,22 +109,22 @@ const ElectronicTextbook: React.FC = () => {
             <Group6 />
           </Route>
         </Switch>
-        <Container>
-          {/*<WordsSlider />*/}
-          {/*{words.map((word) => {*/}
-          {/*  return <div>{word.word}</div>;*/}
-          {/*})}*/}
-          <div>
-            <button onClick={() => handleNextPage(groupNum, pageNum)}>
-              nextPage
-            </button>
-            <button onClick={() => handlePrevPage(groupNum, pageNum)}>
-              PrevPage
-            </button>
-          </div>
-        </Container>
+        {/*<Container>*/}
+        {/*  /!*<WordsSlider />*!/*/}
+        {/*  /!*{words.map((word) => {*!/*/}
+        {/*  /!*  return <div>{word.word}</div>;*!/*/}
+        {/*  /!*})}*!/*/}
+        {/*  <div>*/}
+        {/*    <button onClick={() => handleNextPage(groupNum, pageNum)}>*/}
+        {/*      nextPage*/}
+        {/*    </button>*/}
+        {/*    <button onClick={() => handlePrevPage(groupNum, pageNum)}>*/}
+        {/*      PrevPage*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+        {/*</Container>*/}
 
-        <SideMenu />
+        {/*<SideMenu />*/}
       </HashRouter>
       {/* )} */}
     </div>

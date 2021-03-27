@@ -9,6 +9,7 @@ import MainPage from "./pages/MainPage";
 import Statistics from "./pages/Statistics";
 import Settings from "./pages/Settings";
 import Menu from "./parts/Menu";
+import Footer from "./parts/Footer";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -66,7 +67,7 @@ const App: React.FC = () => {
             <Route path="/statistics/" component={Statistics} />
             {/*<Route path="/signup">{userName !== "" ? <Redirect to="/" /> : <SignUp />}</Route>*/}
         </Switch>
-        {/*<Footer />*/}
+        <Footer/>
     </HashRouter>
   );
 };
