@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, HashRouter, Switch} from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import "./fonts/fonts.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./parts/Header";
 import ElectronicTextbook from './pages/ElectronicTextbook';
 import MiniGames from "./pages/MiniGames";
@@ -10,6 +11,8 @@ import Statistics from "./pages/Statistics";
 import Settings from "./pages/Settings";
 import Menu from "./parts/Menu";
 import Footer from "./parts/Footer";
+
+// <link href="https://fonts.googleapis.com/css?family=Permanent+Marker:regular" rel="stylesheet" />;
 
 const GlobalStyle = createGlobalStyle`
   * {
