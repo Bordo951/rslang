@@ -1,7 +1,5 @@
 import React from 'react';
-import Header from '../components/MainPage/Header/Header';
 import styled from 'styled-components';
-import Footer from '../components/MainPage/Footer/Footer';
 import Team from '../components/MainPage/Team';
 import Promo from '../components/MainPage/Promo';
 
