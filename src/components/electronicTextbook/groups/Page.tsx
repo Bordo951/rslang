@@ -17,6 +17,7 @@ const Page: React.FC = () => {
   const status = useSelector(getRequestStatus);
   const error = useSelector(getErrorMessage);
   const dispatch = useDispatch();
+  let address = 'https://vhoreho-rslang.herokuapp.com/';
   let { pageId } = useParams<{ pageId: string }>();
   console.log(words);
   useEffect(() => {
@@ -33,8 +34,15 @@ const Page: React.FC = () => {
           <Swiper slidesPerView={1}>
             {`pageNum${pageId}`}
             {words.map((word) => {
+              let wordAudio = new Audio(`${address}${word.audio}`);
+              let wordAudioMeaning = new Audio(
+                `${address}${word.audioMeaning}`
+              );
+              let wordAudioExample = new Audio(
+                `${address}${word.audioExample}`
+              );
               return (
-                <SwiperSlide>
+                <SwiperSlide key={word.id}>
                   {/* <Card>
                     <CardInner>
                       <CardFront>
@@ -44,19 +52,26 @@ const Page: React.FC = () => {
                       </CardBack>
                     </CardInner>
                   </Card> */}
+                  <img src={`${address}${word.image}`} />
                   <div>{word.word}</div>
-                  {/* <div>{word.transcription}</div>
+                  <div>{word.transcription}</div>
+                  <button onClick={() => wordAudio.play()}>playWord</button>
                   <div>{word.wordTranslate}</div>
+                  <div>{word.textMeaning}</div>
+                  <button onClick={() => wordAudioMeaning.play()}>
+                    playwordAudioMeaning
+                  </button>
+                  <div>{word.textMeaningTranslate}</div>
                   <div>{word.textExample}</div>
-                  <div>{word.image}</div>
-                  <div>{word.audio}</div>
-                  <div>{word.audioMeaning}</div>
-                  <div>{word.audioExample}</div>
+                  <button onClick={() => wordAudioExample.play()}>
+                    playwordAudioExample{' '}
+                  </button>
+                  <div>{word.textExampleTranslate}</div>
                   <button>Add to myWords</button>
                   <button>Add Hard</button>
                   <button>Add to Deleted</button>
                   <div>Result</div>
-                  <div>Show if word is in hards</div> */}
+                  <div>Show if word is in hards</div>
                 </SwiperSlide>
               );
             })}
