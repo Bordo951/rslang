@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getWordsData,
@@ -7,12 +7,23 @@ import {
   getRequestStatus,
 } from '../../../redux/wordsSlice';
 
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
+import {
+  PageInner,
+  Card,
+  CardInner,
+  CardFront,
+  CardBack,
+  ImageContainer,
+  CardRotateBtn,
+  CardContent,
+  CardContentBlock,
+  CardContentBlockWord,
+} from './PageStyle';
 
 const Page: React.FC = () => {
-  let match = useRouteMatch();
   const words = useSelector(getWordsData);
   const status = useSelector(getRequestStatus);
   const error = useSelector(getErrorMessage);
@@ -23,16 +34,16 @@ const Page: React.FC = () => {
   useEffect(() => {
     dispatch(fetchWordsData(words[0]?.group, +pageId.slice(5)));
   }, [dispatch, pageId]);
-
+  const [isCardRotated, setIsCardRotated] = useState<boolean>(false);
+  console.log(isCardRotated);
   return (
     <div>
       {status === 'loading' && <div>Loading...</div>}
       {status === 'failed' && <div>{error}</div>}
       {status === 'succeeded' && words !== null && (
-        <div>
-          {/* {word.word} */}
+        <PageInner>
+          {`pageNum${pageId}`}
           <Swiper slidesPerView={1}>
-            {`pageNum${pageId}`}
             {words.map((word) => {
               let wordAudio = new Audio(`${address}${word.audio}`);
               let wordAudioMeaning = new Audio(
@@ -43,40 +54,87 @@ const Page: React.FC = () => {
               );
               return (
                 <SwiperSlide key={word.id}>
-                  {/* <Card>
-                    <CardInner>
+                  <Card>
+                    <CardInner isCardRotated={isCardRotated}>
                       <CardFront>
-                        
+                        <ImageContainer>
+                          <img src={`${address}${word.image}`} />
+                        </ImageContainer>
+                        <CardRotateBtn onClick={() => setIsCardRotated(true)}>
+                          <i className='fas fa-sync-alt'></i>
+                        </CardRotateBtn>
+                        <CardContent>
+                          <CardContentBlock>
+                            <CardContentBlockWord>
+                              <span>{word.word} </span>
+                              <button onClick={() => wordAudio.play()}>
+                                <i className='fas fa-volume-down'></i>
+                              </button>
+                            </CardContentBlockWord>
+                          </CardContentBlock>
+                          <CardContentBlock>
+                            <div>{word.textMeaning}</div>
+                            <button onClick={() => wordAudioMeaning.play()}>
+                              <i className='fas fa-volume-down'></i>
+                            </button>
+                          </CardContentBlock>
+                          <CardContentBlock>
+                            <div>{word.textExample}</div>
+                            <button onClick={() => wordAudioExample.play()}>
+                              <i className='fas fa-volume-down'></i>
+                            </button>
+                          </CardContentBlock>
+                          <button>Add to myWords</button>
+                          <button>Add Hard</button>
+                          <button>Add to Deleted</button>
+                          <div>Result</div>
+                          <div>Show if word is in hards</div>
+                        </CardContent>
                       </CardFront>
                       <CardBack>
+                        <CardRotateBtn onClick={() => setIsCardRotated(false)}>
+                          <i className='fas fa-sync-alt'></i>
+                        </CardRotateBtn>
+                        <CardContent>
+                          <CardContentBlock>
+                            <CardContentBlockWord>
+                              <span>{word.word} </span>
+                              <button onClick={() => wordAudio.play()}>
+                                <i className='fas fa-volume-down'></i>
+                              </button>
+                              <span>{word.transcription} </span>
+
+                              <div>{word.wordTranslate}</div>
+                            </CardContentBlockWord>
+                          </CardContentBlock>
+                          <CardContentBlock>
+                            <div>{word.textMeaning}</div>
+                            <button onClick={() => wordAudioMeaning.play()}>
+                              <i className='fas fa-volume-down'></i>
+                            </button>
+                            <div>{word.textMeaningTranslate}</div>
+                          </CardContentBlock>
+                          <CardContentBlock>
+                            <div>{word.textExample}</div>
+                            <button onClick={() => wordAudioExample.play()}>
+                              <i className='fas fa-volume-down'></i>
+                            </button>
+                            <div>{word.textExampleTranslate}</div>
+                          </CardContentBlock>
+                          <button>Add to myWords</button>
+                          <button>Add Hard</button>
+                          <button>Add to Deleted</button>
+                          <div>Result</div>
+                          <div>Show if word is in hards</div>
+                        </CardContent>
                       </CardBack>
                     </CardInner>
-                  </Card> */}
-                  <img src={`${address}${word.image}`} />
-                  <div>{word.word}</div>
-                  <div>{word.transcription}</div>
-                  <button onClick={() => wordAudio.play()}>playWord</button>
-                  <div>{word.wordTranslate}</div>
-                  <div>{word.textMeaning}</div>
-                  <button onClick={() => wordAudioMeaning.play()}>
-                    playwordAudioMeaning
-                  </button>
-                  <div>{word.textMeaningTranslate}</div>
-                  <div>{word.textExample}</div>
-                  <button onClick={() => wordAudioExample.play()}>
-                    playwordAudioExample{' '}
-                  </button>
-                  <div>{word.textExampleTranslate}</div>
-                  <button>Add to myWords</button>
-                  <button>Add Hard</button>
-                  <button>Add to Deleted</button>
-                  <div>Result</div>
-                  <div>Show if word is in hards</div>
+                  </Card>
                 </SwiperSlide>
               );
             })}
           </Swiper>
-        </div>
+        </PageInner>
       )}
     </div>
   );
