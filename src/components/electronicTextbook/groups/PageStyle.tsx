@@ -7,11 +7,6 @@ export const Card = styled.div`
   height: 600px;
   perspective: 1000px;
   margin: 55px auto;
-  button {
-    border: none;
-    background-color: transparent;
-    display: inline-block;
-  }
   .fas {
     font-size: 26px;
     position: relative;
@@ -49,16 +44,14 @@ export const CardBack = styled.div`
   backface-visibility: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
 `;
 
-export const CardContent = styled.div``;
-export const CardContentBlock = styled.div`
-  border-bottom: 1px solid #ccc;
-  display: flex;
-  flex-direction: column;
-  padding: 2px 6px;
-  position: relative;
+export const CardContent = styled.div`
+  padding: 5px 10px;
 `;
+
 export const CardContentBlockWord = styled.div`
   display: flex;
   justify-content: center;
@@ -111,4 +104,51 @@ export const CardRotateBtn = styled.button`
   &:hover .fas {
     transform: scale(1.1);
   }
+`;
+export const PlaySounBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 4px 0;
+  button {
+    border: 1px solid #800202;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d1d1d1;
+    .fas {
+      font-size: 34px;
+      color: #800202;
+    }
+  }
+`;
+export const CardLearnBtn = styled.button`
+  background-color: #e0f8ff;
+  width: 100%;
+  border: 1px solid #bad9e2;
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-bottom: 4px;
+`;
+export const CardHardBtn = styled.button`
+  background-color: #e0f8ff;
+  width: 100%;
+  width: 100%;
+  border: 1px solid #bad9e2;
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-bottom: 4px;
+`;
+export const CardDeleteBtn = styled.button`
+  background-color: #e0f8ff;
+  width: 100%;
+  width: 100%;
+  border: 1px solid #bad9e2;
+  border-radius: 4px;
+  padding: 4px 0;
+`;
+export const CardText = styled.p`
+  margin-bottom: 0;
 `;

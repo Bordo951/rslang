@@ -9,7 +9,10 @@ import {
 
 import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Pagination } from 'swiper/core';
 import 'swiper/swiper.scss';
+import 'swiper/components/pagination/pagination.scss';
+
 import {
   PageInner,
   Card,
@@ -19,23 +22,27 @@ import {
   ImageContainer,
   CardRotateBtn,
   CardContent,
-  CardContentBlock,
   CardContentBlockWord,
+  PlaySounBtn,
+  CardText,
+  CardLearnBtn,
+  CardHardBtn,
+  CardDeleteBtn,
 } from './PageStyle';
 
+SwiperCore.use([Navigation, Pagination]);
 const Page: React.FC = () => {
   const words = useSelector(getWordsData);
+  console.log(words);
   const status = useSelector(getRequestStatus);
   const error = useSelector(getErrorMessage);
   const dispatch = useDispatch();
   let address = 'https://vhoreho-rslang.herokuapp.com/';
   let { pageId } = useParams<{ pageId: string }>();
-  console.log(words);
   useEffect(() => {
     dispatch(fetchWordsData(words[0]?.group, +pageId.slice(5)));
   }, [dispatch, pageId]);
   const [isCardRotated, setIsCardRotated] = useState<boolean>(false);
-  console.log(isCardRotated);
   return (
     <div>
       {status === 'loading' && <div>Loading...</div>}
@@ -43,7 +50,7 @@ const Page: React.FC = () => {
       {status === 'succeeded' && words !== null && (
         <PageInner>
           {`pageNum${pageId}`}
-          <Swiper slidesPerView={1}>
+          <Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
             {words.map((word) => {
               let wordAudio = new Audio(`${address}${word.audio}`);
               let wordAudioMeaning = new Audio(
@@ -52,6 +59,16 @@ const Page: React.FC = () => {
               let wordAudioExample = new Audio(
                 `${address}${word.audioExample}`
               );
+              const playAll = () => {
+                wordAudio.play();
+                wordAudio.onended = function () {
+                  wordAudioMeaning.play();
+                };
+                wordAudioMeaning.onended = function () {
+                  wordAudioExample.play();
+                };
+              };
+
               return (
                 <SwiperSlide key={word.id}>
                   <Card>
@@ -64,29 +81,19 @@ const Page: React.FC = () => {
                           <i className='fas fa-sync-alt'></i>
                         </CardRotateBtn>
                         <CardContent>
-                          <CardContentBlock>
-                            <CardContentBlockWord>
-                              <span>{word.word} </span>
-                              <button onClick={() => wordAudio.play()}>
-                                <i className='fas fa-volume-down'></i>
-                              </button>
-                            </CardContentBlockWord>
-                          </CardContentBlock>
-                          <CardContentBlock>
-                            <div>{word.textMeaning}</div>
-                            <button onClick={() => wordAudioMeaning.play()}>
+                          <CardContentBlockWord>
+                            <span>{word.word} </span>
+                          </CardContentBlockWord>
+                          <CardText>{word.textMeaning}</CardText>
+                          <CardText>{word.textExample}</CardText>
+                          <PlaySounBtn>
+                            <button onClick={() => playAll()}>
                               <i className='fas fa-volume-down'></i>
                             </button>
-                          </CardContentBlock>
-                          <CardContentBlock>
-                            <div>{word.textExample}</div>
-                            <button onClick={() => wordAudioExample.play()}>
-                              <i className='fas fa-volume-down'></i>
-                            </button>
-                          </CardContentBlock>
-                          <button>Add to myWords</button>
-                          <button>Add Hard</button>
-                          <button>Add to Deleted</button>
+                          </PlaySounBtn>
+                          <CardLearnBtn>Добавить в изученные</CardLearnBtn>
+                          <CardHardBtn>Добавить в сложные</CardHardBtn>
+                          <CardDeleteBtn>Удалить из изученных</CardDeleteBtn>
                           <div>Result</div>
                           <div>Show if word is in hards</div>
                         </CardContent>
@@ -96,34 +103,33 @@ const Page: React.FC = () => {
                           <i className='fas fa-sync-alt'></i>
                         </CardRotateBtn>
                         <CardContent>
-                          <CardContentBlock>
-                            <CardContentBlockWord>
-                              <span>{word.word} </span>
+                          <CardContentBlockWord>
+                            <span>{word.word} </span>
+                            <PlaySounBtn>
                               <button onClick={() => wordAudio.play()}>
                                 <i className='fas fa-volume-down'></i>
                               </button>
-                              <span>{word.transcription} </span>
-
-                              <div>{word.wordTranslate}</div>
-                            </CardContentBlockWord>
-                          </CardContentBlock>
-                          <CardContentBlock>
-                            <div>{word.textMeaning}</div>
+                            </PlaySounBtn>
+                            <span>{word.transcription} </span>
+                            <div>{word.wordTranslate}</div>
+                          </CardContentBlockWord>
+                          <div>{word.textMeaning}</div>
+                          <PlaySounBtn>
                             <button onClick={() => wordAudioMeaning.play()}>
                               <i className='fas fa-volume-down'></i>
                             </button>
-                            <div>{word.textMeaningTranslate}</div>
-                          </CardContentBlock>
-                          <CardContentBlock>
-                            <div>{word.textExample}</div>
+                          </PlaySounBtn>
+                          <div>{word.textMeaningTranslate}</div>
+                          <div>{word.textExample}</div>
+                          <PlaySounBtn>
                             <button onClick={() => wordAudioExample.play()}>
                               <i className='fas fa-volume-down'></i>
                             </button>
-                            <div>{word.textExampleTranslate}</div>
-                          </CardContentBlock>
-                          <button>Add to myWords</button>
-                          <button>Add Hard</button>
-                          <button>Add to Deleted</button>
+                          </PlaySounBtn>
+                          <div>{word.textExampleTranslate}</div>
+                          <CardLearnBtn>Добавить в изученные</CardLearnBtn>
+                          <CardHardBtn>Добавить в сложные</CardHardBtn>
+                          <CardDeleteBtn>Удалить из изученных</CardDeleteBtn>
                           <div>Result</div>
                           <div>Show if word is in hards</div>
                         </CardContent>

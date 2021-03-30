@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getWordsData,
-  fetchWordsData,
-  getErrorMessage,
-  getRequestStatus,
-} from '../redux/wordsSlice';
+import { useSelector } from 'react-redux';
+import { getWordsData } from '../redux/wordsSlice';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { HashRouter } from 'react-router-dom';
