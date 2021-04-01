@@ -28,10 +28,6 @@ const Group: React.FC<Props> = ({ groupNum }) => {
   let match = useRouteMatch();
   let historyPageId = +useHistory().location.pathname.slice(-1);
 
-  if (Number.isNaN(historyPageId)) {
-    window.location.href = '#' + match.path + '/page=0';
-  }
-
   let [pageNum, setPageNum] = useState<number>(
     historyPageId > 0 ? historyPageId : 0
   );
