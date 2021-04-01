@@ -27,6 +27,11 @@ const Group: React.FC<Props> = ({ groupNum }) => {
   const dispatch = useDispatch();
   let match = useRouteMatch();
   let historyPageId = +useHistory().location.pathname.slice(-1);
+
+  if (Number.isNaN(historyPageId)) {
+    window.location.href = '#' + match.path + '/page=0';
+  }
+
   let [pageNum, setPageNum] = useState<number>(
     historyPageId > 0 ? historyPageId : 0
   );
@@ -35,38 +40,51 @@ const Group: React.FC<Props> = ({ groupNum }) => {
     setPageNum(0);
     dispatch(fetchWordsData(groupNum - 1, pageNum));
   }, [groupNum]);
+
+  let nextPageNum = pageNum === 29 ? 0 : pageNum + 1;
+  let prevPageNum = pageNum === 0 ? 29 : pageNum - 1;
+  let currentPageNum = pageNum + 1;
+
   const handleNextPage = () => {
-    pageNum !== 30 ? setPageNum(pageNum + 1) : setPageNum(pageNum);
+    setPageNum(nextPageNum);
   };
   const handlePrevPage = () => {
-    pageNum !== 1 ? setPageNum(pageNum - 1) : setPageNum(pageNum);
+    setPageNum(prevPageNum);
   };
+
   return (
     <div>
+      {status === 'succeeded' && words !== null && (
+          <div>
+            <p>{`Group:${groupNum}`}</p>
+            <p>{`PageNumber:${currentPageNum}`}</p>
+            <div>
+              <Link
+                  onClick={() => handlePrevPage()}
+                  to={`${match.url}/page=${prevPageNum}`}
+                  style={{ fontSize: '30px' }}
+              >
+                Previous
+              </Link>
+            </div>
+          </div>
+      )}
+      {status === 'loading' && <div>Loading...</div>}
+      {status === 'failed' && <div>{error}</div>}
       <Switch>
         <Route path={`${match.path}/:pageId`}>
           <Page />
         </Route>
       </Switch>
-      {status === 'loading' && <div>Loading...</div>}
-      {status === 'failed' && <div>{error}</div>}
       {status === 'succeeded' && words !== null && (
         <div>
-          {`Group-${groupNum}`}
           <div>
             <Link
               onClick={() => handleNextPage()}
-              to={`${match.url}/page=${pageNum + 1}`}
+              to={`${match.url}/page=${nextPageNum}`}
               style={{ fontSize: '30px', margin: '30px' }}
             >
-              +
-            </Link>
-            <Link
-              onClick={() => handlePrevPage()}
-              to={`${match.url}/page=${pageNum - 1}`}
-              style={{ fontSize: '30px' }}
-            >
-              -
+              Next
             </Link>
           </div>
         </div>

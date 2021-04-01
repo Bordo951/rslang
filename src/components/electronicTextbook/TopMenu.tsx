@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {useState} from 'react';
+import {NavLink, useHistory} from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -84,22 +84,22 @@ const GroupsMenu = styled.div`
 const TopMenu: React.FC = () => {
   return (
     <GroupsMenu>
-      <NavLink data-name='group1' exact to='/text-book/group=1/page=0'>
+      <NavLink data-name='group1' to='/text-book/group=1/'>
         Group 1
       </NavLink>
-      <NavLink data-name='group2' to='/text-book/group=2/page=0'>
+      <NavLink data-name='group2' to='/text-book/group=2/'>
         Group 2
       </NavLink>
-      <NavLink data-name='group3' to='/text-book/group=3/page=0'>
+      <NavLink data-name='group3' to='/text-book/group=3/'>
         Group 3
       </NavLink>
-      <NavLink data-name='group4' to='/text-book/group=4/page=0'>
+      <NavLink data-name='group4' to='/text-book/group=4/'>
         Group 4
       </NavLink>
-      <NavLink data-name='group5' to='/text-book/group=5/page=0'>
+      <NavLink data-name='group5' to='/text-book/group=5/'>
         Group 5
       </NavLink>
-      <NavLink data-name='group6' to='/text-book/group=6/page=0'>
+      <NavLink data-name='group6' to='/text-book/group=6/'>
         Group 6
       </NavLink>
     </GroupsMenu>

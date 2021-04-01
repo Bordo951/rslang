@@ -48,6 +48,7 @@ const DeveloperCard = styled.div`
     font-weight: normal;
     color: #808080;   
     margin-bottom: 20px;
+    line-height: 1.2;
     
   }
   h3 {
@@ -56,7 +57,6 @@ const DeveloperCard = styled.div`
     color: #252525;
     margin: 0px 0px 10px;
     line-height: 1.2;
-    // font-size: 1.2rem;
     
     @media (max-width: 587px) {
       font-size: 1.4rem;
@@ -129,7 +129,7 @@ const Team: React.FC = () => {
         </DeveloperCard>
         <DeveloperCard>
           <div>
-            <img src="./images/user.jpg" alt="Vlad" />
+            <img src="./images/vlad.jpg" alt="Vlad" />
           </div>
           <h3>Владислав Горех</h3>
           <h5>Backend-разработка</h5>
