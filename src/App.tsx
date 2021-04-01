@@ -11,6 +11,8 @@ import Statistics from "./pages/Statistics";
 import Settings from "./pages/Settings";
 import Menu from "./parts/Menu";
 import Footer from "./parts/Footer";
+import SavannahEntrancePage from './components/mini-games/Savanna/SavannahEntrancePage';
+import SavannahGamePage from './components/mini-games/Savanna/Savannah';
 
 // <link href="https://fonts.googleapis.com/css?family=Permanent+Marker:regular" rel="stylesheet" />;
 
@@ -56,21 +58,23 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App: React.FC = () => {
+const App: React.FC = ( ) => {
   return (
     <HashRouter>
-        <GlobalStyle />
-        <Header />
-        <Menu/>
-        <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route path="/text-book/" component={ElectronicTextbook} />
-            <Route path="/mini-games/" component={MiniGames} />
-            <Route path="/settings/" component={Settings} />
-            <Route path="/statistics/" component={Statistics} />
-            {/*<Route path="/signup">{userName !== "" ? <Redirect to="/" /> : <SignUp />}</Route>*/}
-        </Switch>
-        <Footer/>
+      <GlobalStyle />
+      <Header />
+      <Menu />
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route path="/text-book/" component={ElectronicTextbook} />
+        <Route path="/mini-games/" component={MiniGames} />
+        <Route path="/settings/" component={Settings} />
+        <Route path="/statistics/" component={Statistics} />
+        <Route path="/savannah-entrance-page/" component={SavannahEntrancePage} />
+        <Route path="/savannah/" component={SavannahGamePage} />
+        {/*<Route path="/signup">{userName !== "" ? <Redirect to="/" /> : <SignUp />}</Route>*/}
+      </Switch>
+      <Footer />
     </HashRouter>
   );
 };
