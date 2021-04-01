@@ -82,24 +82,28 @@ const GroupsMenu = styled.div`
 `;
 
 const TopMenu: React.FC = () => {
+  let isActiveGroup = (groupId:any):boolean => {
+        return window.location.href.includes("group=" + groupId);
+  };
+
   return (
     <GroupsMenu>
-      <NavLink data-name='group1' to='/text-book/group=1/'>
+      <NavLink className={isActiveGroup(1) ? 'active' : ''} data-name='group1' to='/text-book/group=1/page=0'>
         Group 1
       </NavLink>
-      <NavLink data-name='group2' to='/text-book/group=2/'>
+      <NavLink className={isActiveGroup(2) ? 'active' : ''} data-name='group2' to='/text-book/group=2/page=0'>
         Group 2
       </NavLink>
-      <NavLink data-name='group3' to='/text-book/group=3/'>
+      <NavLink className={isActiveGroup(3) ? 'active' : ''} data-name='group3' to='/text-book/group=3/page=0'>
         Group 3
       </NavLink>
-      <NavLink data-name='group4' to='/text-book/group=4/'>
+      <NavLink className={isActiveGroup(4) ? 'active' : ''} data-name='group4' to='/text-book/group=4/page=0'>
         Group 4
       </NavLink>
-      <NavLink data-name='group5' to='/text-book/group=5/'>
+      <NavLink className={isActiveGroup(5) ? 'active' : ''} data-name='group5' to='/text-book/group=5/page=0'>
         Group 5
       </NavLink>
-      <NavLink data-name='group6' to='/text-book/group=6/'>
+      <NavLink className={isActiveGroup(6) ? 'active' : ''} data-name='group6' to='/text-book/group=6/page=0'>
         Group 6
       </NavLink>
     </GroupsMenu>
