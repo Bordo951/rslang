@@ -27,32 +27,32 @@ const GroupsGrid: React.FC = () => {
   return (
     <GridContainer>
       <GroupContainer>
-        <NavLink exact to='/text-book/group=1'>
+        <NavLink exact to='/text-book/group=1/page=0'>
           <h3>Group1</h3>
         </NavLink>
       </GroupContainer>
       <GroupContainer>
-        <NavLink to='/text-book/group=2'>
+        <NavLink to='/text-book/group=2/page=0'>
           <h3>Group2</h3>
         </NavLink>
       </GroupContainer>
       <GroupContainer>
-        <NavLink to='/text-book/group=3'>
+        <NavLink to='/text-book/group=3/page=0'>
           <h3>Group3</h3>
         </NavLink>
       </GroupContainer>
       <GroupContainer>
-        <NavLink to='/text-book/group=4'>
+        <NavLink to='/text-book/group=4/page=0'>
           <h3>Group4</h3>
         </NavLink>
       </GroupContainer>
       <GroupContainer>
-        <NavLink to='/text-book/group=5'>
+        <NavLink to='/text-book/group=5/page=0'>
           <h3>Group5</h3>
         </NavLink>
       </GroupContainer>
       <GroupContainer>
-        <NavLink to='/text-book/group=6'>
+        <NavLink to='/text-book/group=6/page=0'>
           <h3>Group6</h3>
         </NavLink>
       </GroupContainer>

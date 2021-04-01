@@ -56,7 +56,6 @@ const ElectronicTextbook: React.FC = () => {
           <h2>Electronic textbook</h2>
         </section>
         <TopMenu />
-        {/* <GroupsGrid /> */}
       </Main>
       <HashRouter>
         {/*<TopMenu/>*/}
@@ -78,6 +77,9 @@ const ElectronicTextbook: React.FC = () => {
           </Route>
           <Route path='/text-book/group=6'>
             <Group groupNum={6} />
+          </Route>
+          <Route path='/text-book/'>
+            <GroupsGrid />
           </Route>
         </Switch>
         {/*<SideMenu />*/}
