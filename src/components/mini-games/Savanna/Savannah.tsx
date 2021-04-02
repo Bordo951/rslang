@@ -29,6 +29,25 @@ const AnswerWord = styled.div`
   align-items: center;
   justify-content: space-around;
 
+  input {
+    background-image: linear-gradient(to right, #7ed8f3 0%, blue 51%, #ece9e6 100%);
+    padding: 8px 0.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 10px #62a5f1;
+    border-radius: 10px;
+    display: block;
+    outline:none;
+ &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #ca3333;
+    text-decoration: none;
+  }
+  }
+
   ul {
     display: flex;
     justify-content: space-evenly;
@@ -168,11 +187,11 @@ const SavannahGamePage: React.FC = () => {
 
     @keyframes down {
       0% {
-        transform: translate(-50%, -30%);
+        top: -30%
       }
 
       100% {
-        transform: translate(-50%, 700%);
+        top:60%
       }
     }
   `;
@@ -182,9 +201,9 @@ const SavannahGamePage: React.FC = () => {
   };
   return (
     <Page>
-      <Words onMouseDown={() => addAnimation()}>
+     {state.turnOn && <Words onMouseDown={() => addAnimation()}>
         <span>{state.verifiableWords}</span>
-      </Words>
+      </Words>}
       <Container>
         <button>Music</button>
         <Titile>Саванна</Titile>
@@ -206,7 +225,9 @@ const SavannahGamePage: React.FC = () => {
             key={`${word.word}${words[state.index].id}`}
             value={word.wordTranslate}
             data-value={word.word}
-            onClick={(e) => hendlerClick(e)}
+            onClick={(e) => {
+              addAnimation()
+              hendlerClick(e)}}
           />
         ))}
       </AnswerWord>
