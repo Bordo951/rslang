@@ -53,38 +53,40 @@ const ElectronicTextbook: React.FC = () => {
     <div>
       <Main>
         <section className='section-title'>
-          <h2>Electronic textbook</h2>
+          <h2>Электронный учебник</h2>
         </section>
-        <TopMenu />
       </Main>
       <HashRouter>
-        {/*<TopMenu/>*/}
         <Switch>
           <Route path='/text-book/group=1'>
+            <TopMenu />
             <Group groupNum={1} />
           </Route>
           <Route path='/text-book/group=2'>
+            <TopMenu />
             <Group groupNum={2} />
           </Route>
           <Route path='/text-book/group=3'>
+            <TopMenu />
             <Group groupNum={3} />
           </Route>
           <Route path='/text-book/group=4'>
+            <TopMenu />
             <Group groupNum={4} />
           </Route>
           <Route path='/text-book/group=5'>
+            <TopMenu />
             <Group groupNum={5} />
           </Route>
           <Route path='/text-book/group=6'>
+            <TopMenu />
             <Group groupNum={6} />
           </Route>
           <Route path='/text-book/'>
             <GroupsGrid />
           </Route>
         </Switch>
-        {/*<SideMenu />*/}
       </HashRouter>
-      {/* )} */}
     </div>
   );
 };

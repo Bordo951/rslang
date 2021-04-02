@@ -89,22 +89,22 @@ const TopMenu: React.FC = () => {
   return (
     <GroupsMenu>
       <NavLink className={isActiveGroup(1) ? 'active' : ''} data-name='group1' to='/text-book/group=1/page=0'>
-        Group 1
+          Starter
       </NavLink>
       <NavLink className={isActiveGroup(2) ? 'active' : ''} data-name='group2' to='/text-book/group=2/page=0'>
-        Group 2
+          Elementary
       </NavLink>
       <NavLink className={isActiveGroup(3) ? 'active' : ''} data-name='group3' to='/text-book/group=3/page=0'>
-        Group 3
+          Intermediate
       </NavLink>
       <NavLink className={isActiveGroup(4) ? 'active' : ''} data-name='group4' to='/text-book/group=4/page=0'>
-        Group 4
+          Upper-Intermediate
       </NavLink>
       <NavLink className={isActiveGroup(5) ? 'active' : ''} data-name='group5' to='/text-book/group=5/page=0'>
-        Group 5
+          Advanced
       </NavLink>
       <NavLink className={isActiveGroup(6) ? 'active' : ''} data-name='group6' to='/text-book/group=6/page=0'>
-        Group 6
+          Proficiency
       </NavLink>
     </GroupsMenu>
   );

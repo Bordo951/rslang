@@ -13,7 +13,27 @@ const GridContainer = styled.div`
 `;
 
 const GroupContainer = styled.div`
-  background-image: url('https://place-hold.it/300x200');
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+  &[data-name = 'starter'] {
+    background-image: url('/assets/images/starter.png');
+  }
+  &[data-name = 'elementary'] {
+    background-image: url('/assets/images/elementary.png');
+  }
+  &[data-name = 'intermediate'] {
+    background-image: url('/assets/images/intermediate.png');
+  }
+  &[data-name = 'upper'] {
+    background-image: url('/assets/images/upper.png');
+  }
+  &[data-name = 'advanced'] {
+    background-image: url('/assets/images/advanced.png');
+  }
+  &[data-name = 'proficiency'] {
+    background-image: url('/assets/images/proficiency.png');
+  }
 
   a {
     display: block;
@@ -26,34 +46,34 @@ const GroupContainer = styled.div`
 const GroupsGrid: React.FC = () => {
   return (
     <GridContainer>
-      <GroupContainer>
+      <GroupContainer data-name="starter">
         <NavLink exact to='/text-book/group=1/page=0'>
-          <h3>Group1</h3>
+          <h3>Starter</h3>
         </NavLink>
       </GroupContainer>
-      <GroupContainer>
+      <GroupContainer data-name="elementary">
         <NavLink to='/text-book/group=2/page=0'>
-          <h3>Group2</h3>
+          <h3>Elementary</h3>
         </NavLink>
       </GroupContainer>
-      <GroupContainer>
+      <GroupContainer data-name="intermediate">
         <NavLink to='/text-book/group=3/page=0'>
-          <h3>Group3</h3>
+          <h3>Intermediate</h3>
         </NavLink>
       </GroupContainer>
-      <GroupContainer>
+      <GroupContainer data-name="upper">
         <NavLink to='/text-book/group=4/page=0'>
-          <h3>Group4</h3>
+          <h3>Upper-Intermediate</h3>
         </NavLink>
       </GroupContainer>
-      <GroupContainer>
+      <GroupContainer data-name="advanced">
         <NavLink to='/text-book/group=5/page=0'>
-          <h3>Group5</h3>
+          <h3>Advanced</h3>
         </NavLink>
       </GroupContainer>
-      <GroupContainer>
+      <GroupContainer data-name="proficiency">
         <NavLink to='/text-book/group=6/page=0'>
-          <h3>Group6</h3>
+          <h3>Proficiency</h3>
         </NavLink>
       </GroupContainer>
     </GridContainer>
