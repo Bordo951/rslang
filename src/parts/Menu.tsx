@@ -41,7 +41,7 @@ const MenuItem = styled.li`
             content: attr(data-name);
         }
         
-        &[data-name = 'Home'] {
+        &[data-name = 'Главная'] {
             border-color: #F27C7E;
             &:before {
                 color: #F27C7E;
@@ -51,7 +51,7 @@ const MenuItem = styled.li`
             }
         }
         
-        &[data-name = 'Textbook'] {
+        &[data-name = 'Учебник'] {
             border-color: #B0B6FB;
             &:before {
                 color: #B0B6FB;
@@ -61,7 +61,7 @@ const MenuItem = styled.li`
             }
         }
         
-        &[data-name = 'Mini-Games'] {
+        &[data-name = 'Игры'] {
             border-color: #EA9D5F;            
             &:before {
                 color: #EA9D5F;
@@ -71,7 +71,7 @@ const MenuItem = styled.li`
             }
         } 
         
-        &[data-name = 'Settings'] {
+        &[data-name = 'Настройки'] {
             border-color: #DE81B8;
             &:before {
                 color: #DE81B8;
@@ -81,7 +81,7 @@ const MenuItem = styled.li`
             }
         }    
         
-        &[data-name = 'Statistic'] {
+        &[data-name = 'Статистика'] {
             border-color: #ACC158;
             &:before {
                 color: #ACC158;
@@ -123,28 +123,28 @@ const Menu: React.FC = () => {
         <MainMenu>
             <MenuList>
                 <MenuItem>
-                    <NavLink exact to="/" data-name="Home">
-                        <span data-name="Home"></span>
+                    <NavLink exact to="/" data-name="Главная">
+                        <span data-name="Главная"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/text-book" data-name="Textbook">
-                        <span data-name="Textbook"></span>
+                    <NavLink to="/text-book" data-name="Учебник">
+                        <span data-name="Учебник"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/mini-games" data-name="Mini-Games">
-                        <span data-name="Mini-Games"></span>
+                    <NavLink to="/mini-games" data-name="Игры">
+                        <span data-name="Игры"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/settings" data-name="Settings">
-                        <span data-name="Settings"></span>
+                    <NavLink to="/settings" data-name="Настройки">
+                        <span data-name="Настройки"></span>
                     </NavLink>
                 </MenuItem>
                 <MenuItem>
-                    <NavLink to="/statistics" data-name="Statistic">
-                        <span data-name="Statistic"></span>
+                    <NavLink to="/statistics" data-name="Статистика">
+                        <span data-name="Статистика"></span>
                     </NavLink>
                 </MenuItem>
             </MenuList>
