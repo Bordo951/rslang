@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWordsData, fetchWordsData, getErrorMessage, getRequestStatus } from '../../../redux/wordsSlice';
 import { useRouteMatch } from 'react-router-dom';
+import { GrMusic } from 'react-icons/gr';
 
 const Page = styled.div`
   background: url(/images/Savannah.jpg) center center/cover no-repeat fixed;
@@ -15,6 +16,26 @@ const Page = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+
+  button{
+    height:2rem;
+    width: 2rem;
+    background-image: linear-gradient(to right, #1c2122 0%, gray 51%, #ece9e6 100%);
+    padding: 0.2rem 0.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    box-shadow: 0 0 10px #b6b8b9;
+    border-radius: 10px;
+    display: block;
+    outline:none;
+ &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #f10e0e;
+    text-decoration: none;
+  }
+  }
 `;
 const Titile = styled.h3`
   font-size: 3rem;
@@ -40,15 +61,15 @@ const AnswerWord = styled.div`
     box-shadow: 0 0 10px #62a5f1;
     border-radius: 10px;
     display: block;
-    outline:none;
- &:hover {
-    background-position: right center; /* change the direction of the change here */
-    color: #ca3333;
-    text-decoration: none;
-  }
+    outline: none;
+    &:hover {
+      background-position: right center; /* change the direction of the change here */
+      color: #ca3333;
+      text-decoration: none;
+    }
   }
 
-  ul {
+  /* ul {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
@@ -66,7 +87,7 @@ const AnswerWord = styled.div`
       background-color: #ffffff;
       cursor: pointer;
     }
-  }
+  } */
 `;
 const Statistics = styled.div``;
 
@@ -176,7 +197,7 @@ const SavannahGamePage: React.FC = () => {
     justify-content: center;
     border: 1px rgb(124, 213, 235) solid;
     height: 5rem;
-    width:5rem;
+    width: 5rem;
     border-radius: 50%;
     background-color: rgba(149, 223, 241, 0.856);
     position: absolute;
@@ -187,11 +208,11 @@ const SavannahGamePage: React.FC = () => {
 
     @keyframes down {
       0% {
-        top: -30%
+        top: -30%;
       }
 
       100% {
-        top:60%
+        top: 60%;
       }
     }
   `;
@@ -201,11 +222,15 @@ const SavannahGamePage: React.FC = () => {
   };
   return (
     <Page>
-     {state.turnOn && <Words onMouseDown={() => addAnimation()}>
-        <span>{state.verifiableWords}</span>
-      </Words>}
+      {state.turnOn && (
+        <Words onMouseDown={() => addAnimation()}>
+          <span>{state.verifiableWords}</span>
+        </Words>
+      )}
       <Container>
-        <button>Music</button>
+        <button>
+          <GrMusic />
+        </button>
         <Titile>Саванна</Titile>
         <Statistics>
           <button type="button" className="btn btn-danger">
@@ -226,8 +251,9 @@ const SavannahGamePage: React.FC = () => {
             value={word.wordTranslate}
             data-value={word.word}
             onClick={(e) => {
-              addAnimation()
-              hendlerClick(e)}}
+              addAnimation();
+              hendlerClick(e);
+            }}
           />
         ))}
       </AnswerWord>
