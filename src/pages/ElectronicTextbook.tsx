@@ -111,7 +111,6 @@ const ElectronicTextbook: React.FC = () => {
           </Switch>
         </HashRouter>
       </Main>
-
     </div>
   );
 };

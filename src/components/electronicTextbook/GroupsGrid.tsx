@@ -11,7 +11,7 @@ const GridContainer = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 10px;
-  background: rgba(240, 243, 243, .9);
+  background: rgb(240, 243, 243);
   
   @media (max-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
@@ -25,7 +25,12 @@ const GridContainer = styled.div`
     grid-template-rows: repeat(3,170px);
   }
   @media (max-width: 576px) {
-    width: 100%;
+    width: 90%;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6,270px);
+  }
+  @media (max-width: 420px) {
+    width: 85%;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6,200px);
   }
@@ -34,6 +39,8 @@ const GridContainer = styled.div`
 const GroupContainer = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
+  transition-duration: 0.3s;
+      -webkit-transition-duration: 0.3s;
   
   &[data-name = 'starter'] {
     background-image: url('/assets/images/starter.png');    
@@ -71,6 +78,9 @@ const GroupContainer = styled.div`
         color: #E02DAE;
     }
   }
+  &:hover {
+    background-color: #fff;
+  }
 
   a {
     display: block;
@@ -78,12 +88,12 @@ const GroupContainer = styled.div`
     height: 100%;
     text-decoration: none;
     transform: perspective(1px) translateZ(0);
-        -webkit-transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-        -webkit-transition-duration: 0.3s;
+      -webkit-transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);        
     transition-duration: 0.3s;
-        -webkit-transition-property: box-shadow;
+      -webkit-transition-duration: 0.3s;        
     transition-property: box-shadow;
+      -webkit-transition-property: box-shadow;
     
     &:hover {
         box-shadow: 0 0 8px rgb(0 0 0 / 60%);

@@ -49,7 +49,6 @@ const Page: React.FC = () => {
       {status === 'failed' && <div>{error}</div>}
       {status === 'succeeded' && words !== null && (
         <PageInner>
-          {`pageNum${pageId}`}
           <Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
             {words.map((word) => {
               let wordAudio = new Audio(`${address}${word.audio}`);
