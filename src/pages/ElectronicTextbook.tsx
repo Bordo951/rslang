@@ -17,6 +17,7 @@ import Statistics from './Statistics';
 
 import Group from '../components/electronicTextbook/groups/Group';
 import GroupsGrid from '../components/electronicTextbook/GroupsGrid';
+import SectionTitle from "../parts/SectionTitle";
 
 const Container = styled.div`
   width: 100%;
@@ -27,35 +28,11 @@ const Container = styled.div`
   margin-right: auto;
 `;
 
-const Main = styled.main`
-  background: #f0f3f3;
-
-  .section-title {
-    background-image: url('/assets/images/section-bg.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 20px 0;
-
-    h2 {
-      text-align: center;
-      font-family: 'Bubblegum Sans', cursive, sans-serif;
-      font-size: 36px;
-      font-weight: 600;
-      color: #fff;
-      margin: 0;
-    }
-  }
-`;
-
 const ElectronicTextbook: React.FC = () => {
   const words = useSelector(getWordsData);
   return (
     <div>
-      <Main>
-        <section className='section-title'>
-          <h2>Электронный учебник</h2>
-        </section>
-      </Main>
+      <SectionTitle title="Электронный учебник" />
       <HashRouter>
         <Switch>
           <Route path='/text-book/group=1'>
