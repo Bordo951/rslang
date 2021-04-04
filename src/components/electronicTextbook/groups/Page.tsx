@@ -25,13 +25,19 @@ import {
   CardContentBlockWord,
   PlaySounBtn,
   CardText,
+  CardsBtnsRow,
   CardLearnBtn,
   CardHardBtn,
   CardDeleteBtn,
+  TitleRow
 } from './PageStyle';
 
+interface PageInterface {
+  groupNum: number;
+}
+
 SwiperCore.use([Navigation, Pagination]);
-const Page: React.FC = () => {
+const Page: React.FC<PageInterface> = ({ groupNum }) => {
   const words = useSelector(getWordsData);
   console.log(words);
   const status = useSelector(getRequestStatus);
@@ -77,58 +83,65 @@ const Page: React.FC = () => {
                           <img src={`${address}${word.image}`} />
                         </ImageContainer>
                         <CardRotateBtn onClick={() => setIsCardRotated(true)}>
-                          <i className='fas fa-sync-alt'></i>
+                          <i data-group-id = {groupNum} className='fas fa-sync-alt'/>
                         </CardRotateBtn>
                         <CardContent>
                           <CardContentBlockWord>
-                            <span>{word.word} </span>
+                            <span data-group-id = {groupNum}>{word.word} </span>
                           </CardContentBlockWord>
-                          <CardText dangerouslySetInnerHTML={{__html: word.textMeaning}} />
-                          <CardText dangerouslySetInnerHTML={{__html: word.textExample}} />
                           <PlaySounBtn>
-                            <button onClick={() => playAll()}>
-                              <i className='fas fa-volume-down'></i>
+                            <button data-group-id = {groupNum} onClick={() => playAll()}>
+                              <i className='fas fa-volume-down'/>
                             </button>
                           </PlaySounBtn>
-                          <CardLearnBtn>Добавить в изученные</CardLearnBtn>
-                          <CardHardBtn>Добавить в сложные</CardHardBtn>
-                          <CardDeleteBtn>Удалить из изученных</CardDeleteBtn>
+                          <CardText dangerouslySetInnerHTML={{__html: word.textMeaning}} />
+                          <CardText dangerouslySetInnerHTML={{__html: word.textExample}} />
+                          <CardsBtnsRow>
+                            <CardLearnBtn data-group-id = {groupNum}>Изучить</CardLearnBtn>
+                            <CardHardBtn data-group-id = {groupNum}>Сложно</CardHardBtn>
+                            <CardDeleteBtn data-group-id = {groupNum}>Изучено</CardDeleteBtn>
+                          </CardsBtnsRow>
                           <div>Result</div>
                           <div>Show if word is in hards</div>
                         </CardContent>
                       </CardFront>
                       <CardBack>
                         <CardRotateBtn onClick={() => setIsCardRotated(false)}>
-                          <i className='fas fa-sync-alt'></i>
+                          <i data-group-id = {groupNum} className='fas fa-sync-alt'/>
                         </CardRotateBtn>
                         <CardContent>
                           <CardContentBlockWord>
-                            <span>{word.word} </span>
+                            <TitleRow>
+                              <div data-group-id = {groupNum}>{word.word} </div>
+                              <div dangerouslySetInnerHTML={{__html: word.transcription }} />
+                            </TitleRow>
                             <PlaySounBtn>
-                              <button onClick={() => wordAudio.play()}>
-                                <i className='fas fa-volume-down'></i>
+                              <button data-group-id = {groupNum} onClick={() => wordAudio.play()}>
+                                <i className='fas fa-volume-down'/>
                               </button>
                             </PlaySounBtn>
-                            <span dangerouslySetInnerHTML={{__html: word.transcription }} />
-                            <div dangerouslySetInnerHTML={{__html: word.wordTranslate}} />
+                            {/*<span dangerouslySetInnerHTML={{__html: word.transcription }} />*/}
+                            <div data-group-id = {groupNum} dangerouslySetInnerHTML={{__html: word.wordTranslate}} />
                           </CardContentBlockWord>
                           <div dangerouslySetInnerHTML={{__html:word.textMeaning}} />
                           <PlaySounBtn>
-                            <button onClick={() => wordAudioMeaning.play()}>
-                              <i className='fas fa-volume-down'></i>
+                            <button data-group-id = {groupNum} onClick={() => wordAudioMeaning.play()}>
+                              <i className='fas fa-volume-down'/>
                             </button>
                           </PlaySounBtn>
                           <div dangerouslySetInnerHTML={{__html: word.textMeaningTranslate }} />
                           <div dangerouslySetInnerHTML={{__html: word.textExample}} />
                           <PlaySounBtn>
-                            <button onClick={() => wordAudioExample.play()}>
-                              <i className='fas fa-volume-down'></i>
+                            <button data-group-id = {groupNum} onClick={() => wordAudioExample.play()}>
+                              <i className='fas fa-volume-down'/>
                             </button>
                           </PlaySounBtn>
                           <div dangerouslySetInnerHTML={{__html: word.textExampleTranslate}} />
-                          <CardLearnBtn>Добавить в изученные</CardLearnBtn>
-                          <CardHardBtn>Добавить в сложные</CardHardBtn>
-                          <CardDeleteBtn>Удалить из изученных</CardDeleteBtn>
+                          <CardsBtnsRow>
+                            <CardLearnBtn data-group-id = {groupNum}>Изучить</CardLearnBtn>
+                            <CardHardBtn data-group-id = {groupNum}>Сложно</CardHardBtn>
+                            <CardDeleteBtn data-group-id = {groupNum}>Изучено</CardDeleteBtn>
+                          </CardsBtnsRow>
                           <div>Result</div>
                           <div>Show if word is in hards</div>
                         </CardContent>
