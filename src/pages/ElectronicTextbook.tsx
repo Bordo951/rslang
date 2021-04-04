@@ -17,6 +17,7 @@ import Statistics from './Statistics';
 
 import Group from '../components/electronicTextbook/groups/Group';
 import GroupsGrid from '../components/electronicTextbook/GroupsGrid';
+import SectionTitle from "../parts/SectionTitle";
 
 const Container = styled.div`
   width: 100%;
@@ -27,58 +28,11 @@ const Container = styled.div`
   margin-right: auto;
 `;
 
-const Main = styled.main`
-  background-color: rgb(210, 210, 210);
-  background-image: url('/assets/images/textbook_bg.png');
-  background-repeat: repeat;
-  background-attachment: fixed;
-  background-position: 50% 191px;
-
-  .section-title {
-    background-image: url('/assets/images/section-bg.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 20px 0;
-
-    h2 {
-      text-align: center;
-      font-family: 'Bubblegum Sans', cursive, sans-serif;
-      font-size: 36px;
-      font-weight: 600;
-      color: #fff;
-      margin: 0;      
-    }
-    
-    @media (max-width: 992px) {
-      padding: 10px 0;
-      
-      h2 {
-        font-size: 30px;
-      }      
-    }
-    
-    @media (max-width: 769px) {
-      padding: 10px 0;
-      
-      h2 {
-        font-size: 25px;
-        line-height: 1.5;
-      }      
-    }
-    @media (max-width: 769px) {
-      padding: 5px 0;     
-    }
-  }
-`;
-
 const ElectronicTextbook: React.FC = () => {
   const words = useSelector(getWordsData);
   return (
     <div>
-      <Main>
-        <section className='section-title'>
-          <h2>Электронный учебник</h2>
-        </section>
+        <SectionTitle title="Электронный учебник" />
         <HashRouter>
           <Switch>
             <Route path='/text-book/group=1'>
@@ -110,7 +64,6 @@ const ElectronicTextbook: React.FC = () => {
             </Route>
           </Switch>
         </HashRouter>
-      </Main>
     </div>
   );
 };

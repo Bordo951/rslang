@@ -1,9 +1,12 @@
 import React from "react";
+import SectionTitle from "../parts/SectionTitle";
 
 
 const Statistics: React.FC = () => {
     return (
-        <div>Statistics</div>
+        <div>
+            <SectionTitle title="Статистика" />
+        </div>
     );
 };
 

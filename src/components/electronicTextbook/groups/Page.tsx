@@ -83,8 +83,8 @@ const Page: React.FC = () => {
                           <CardContentBlockWord>
                             <span>{word.word} </span>
                           </CardContentBlockWord>
-                          <CardText>{word.textMeaning}</CardText>
-                          <CardText>{word.textExample}</CardText>
+                          <CardText dangerouslySetInnerHTML={{__html: word.textMeaning}} />
+                          <CardText dangerouslySetInnerHTML={{__html: word.textExample}} />
                           <PlaySounBtn>
                             <button onClick={() => playAll()}>
                               <i className='fas fa-volume-down'></i>
@@ -109,23 +109,23 @@ const Page: React.FC = () => {
                                 <i className='fas fa-volume-down'></i>
                               </button>
                             </PlaySounBtn>
-                            <span>{word.transcription} </span>
-                            <div>{word.wordTranslate}</div>
+                            <span dangerouslySetInnerHTML={{__html: word.transcription }} />
+                            <div dangerouslySetInnerHTML={{__html: word.wordTranslate}} />
                           </CardContentBlockWord>
-                          <div>{word.textMeaning}</div>
+                          <div dangerouslySetInnerHTML={{__html:word.textMeaning}} />
                           <PlaySounBtn>
                             <button onClick={() => wordAudioMeaning.play()}>
                               <i className='fas fa-volume-down'></i>
                             </button>
                           </PlaySounBtn>
-                          <div>{word.textMeaningTranslate}</div>
-                          <div>{word.textExample}</div>
+                          <div dangerouslySetInnerHTML={{__html: word.textMeaningTranslate }} />
+                          <div dangerouslySetInnerHTML={{__html: word.textExample}} />
                           <PlaySounBtn>
                             <button onClick={() => wordAudioExample.play()}>
                               <i className='fas fa-volume-down'></i>
                             </button>
                           </PlaySounBtn>
-                          <div>{word.textExampleTranslate}</div>
+                          <div dangerouslySetInnerHTML={{__html: word.textExampleTranslate}} />
                           <CardLearnBtn>Добавить в изученные</CardLearnBtn>
                           <CardHardBtn>Добавить в сложные</CardHardBtn>
                           <CardDeleteBtn>Удалить из изученных</CardDeleteBtn>
