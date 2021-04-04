@@ -15,6 +15,13 @@ const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    
+    @media (max-width: 992px) {
+        width: 90%;       
+    }
+    @media (max-width: 576px) {
+        width: 95%;       
+    }
 `;
 
 const Logo = styled.div`
@@ -31,6 +38,10 @@ const Logo = styled.div`
         
         img {
            width: 150px;
+           
+           @media (max-width: 576px) {
+              width: 100px;       
+            }
         }
     }
 `;
@@ -48,6 +59,11 @@ const Authorization = styled.button`
     &:hover {
         background: rgb(0,194,201);
         color: #fff;
+    }
+    @media (max-width: 576px) {
+        font-size: 16px;
+        width: 100px;
+        height: 40px;       
     }
 `;
 

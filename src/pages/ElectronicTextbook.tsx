@@ -32,38 +32,38 @@ const ElectronicTextbook: React.FC = () => {
   const words = useSelector(getWordsData);
   return (
     <div>
-      <SectionTitle title="Электронный учебник" />
-      <HashRouter>
-        <Switch>
-          <Route path='/text-book/group=1'>
-            <TopMenu />
-            <Group groupNum={1} />
-          </Route>
-          <Route path='/text-book/group=2'>
-            <TopMenu />
-            <Group groupNum={2} />
-          </Route>
-          <Route path='/text-book/group=3'>
-            <TopMenu />
-            <Group groupNum={3} />
-          </Route>
-          <Route path='/text-book/group=4'>
-            <TopMenu />
-            <Group groupNum={4} />
-          </Route>
-          <Route path='/text-book/group=5'>
-            <TopMenu />
-            <Group groupNum={5} />
-          </Route>
-          <Route path='/text-book/group=6'>
-            <TopMenu />
-            <Group groupNum={6} />
-          </Route>
-          <Route path='/text-book/'>
-            <GroupsGrid />
-          </Route>
-        </Switch>
-      </HashRouter>
+        <SectionTitle title="Электронный учебник" />
+        <HashRouter>
+          <Switch>
+            <Route path='/text-book/group=1'>
+              <TopMenu />
+              <Group groupNum={1} />
+            </Route>
+            <Route path='/text-book/group=2'>
+              <TopMenu />
+              <Group groupNum={2} />
+            </Route>
+            <Route path='/text-book/group=3'>
+              <TopMenu />
+              <Group groupNum={3} />
+            </Route>
+            <Route path='/text-book/group=4'>
+              <TopMenu />
+              <Group groupNum={4} />
+            </Route>
+            <Route path='/text-book/group=5'>
+              <TopMenu />
+              <Group groupNum={5} />
+            </Route>
+            <Route path='/text-book/group=6'>
+              <TopMenu />
+              <Group groupNum={6} />
+            </Route>
+            <Route path='/text-book/'>
+              <GroupsGrid />
+            </Route>
+          </Switch>
+        </HashRouter>
     </div>
   );
 };
