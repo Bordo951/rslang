@@ -6,7 +6,11 @@ interface SectionTitleInterface {
 }
 
 const Main = styled.main`
-  background: #f0f3f3;
+  background-color: rgb(210, 210, 210);
+  background-image: url('/assets/images/textbook_bg.png');
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: 50% 191px;
 
   .section-title {
     background-image: url('/assets/images/section-bg.jpg');
@@ -21,6 +25,26 @@ const Main = styled.main`
       font-weight: 600;
       color: #fff;
       margin: 0;
+    }
+
+    @media (max-width: 992px) {
+      padding: 10px 0;
+
+      h2 {
+        font-size: 30px;
+      }
+    }
+
+    @media (max-width: 769px) {
+      padding: 10px 0;
+
+      h2 {
+        font-size: 25px;
+        line-height: 1.5;
+      }
+    }
+    @media (max-width: 769px) {
+      padding: 5px 0;
     }
   }
 `;
