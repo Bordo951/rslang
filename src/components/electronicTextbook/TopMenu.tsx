@@ -30,17 +30,7 @@ const GroupsMenu = styled.div`
     }
   }
   a[data-name='group2'] {
-    background-color: #bfe4f9;
-    color: #008bc1;
-    border: 2px solid #bfe4f9;
-    &:hover,
-    &.active {
-      background-color: #79caf9;
-      border: 2px solid #008bc1;
-    }
-  }
-  a[data-name='group3'] {
-    background-color: #ffa953;
+  background-color: #ffa953;
     color: #e35b09;
     border: 2px solid #ffa953;
     &:hover,
@@ -48,6 +38,16 @@ const GroupsMenu = styled.div`
       background-color: #ff962c;
       border: 2px solid #e35b09;
     }
+  }
+  a[data-name='group3'] {
+    background-color: #fef156;
+    color: #fe9e1d;
+    border: 2px solid #fef156;
+    &:hover,
+    &.active {
+      background-color: #feee3a;
+      border: 2px solid #fe9e1d;
+    }    
   }
   a[data-name='group4'] {
     background-color: #c0df89;
@@ -60,6 +60,16 @@ const GroupsMenu = styled.div`
     }
   }
   a[data-name='group5'] {
+  background-color: #bfe4f9;
+    color: #008bc1;
+    border: 2px solid #bfe4f9;
+    &:hover,
+    &.active {
+      background-color: #79caf9;
+      border: 2px solid #008bc1;
+    }
+  }
+  a[data-name='group6'] {
     background-color: #c8bfe7;
     color: #a349a4;
     border: 2px solid #c8bfe7;
@@ -67,16 +77,6 @@ const GroupsMenu = styled.div`
     &.active {
       background-color: #a490e7;
       border: 2px solid #a349a4;
-    }
-  }
-  a[data-name='group6'] {
-    background-color: #fef156;
-    color: #fe9e1d;
-    border: 2px solid #fef156;
-    &:hover,
-    &.active {
-      background-color: #feee3a;
-      border: 2px solid #fe9e1d;
     }
   }
 `;
@@ -89,22 +89,22 @@ const TopMenu: React.FC = () => {
   return (
     <GroupsMenu>
       <NavLink className={isActiveGroup(1) ? 'active' : ''} data-name='group1' to='/text-book/group=1/page=0'>
-          Starter
+          Начинающий
       </NavLink>
       <NavLink className={isActiveGroup(2) ? 'active' : ''} data-name='group2' to='/text-book/group=2/page=0'>
-          Elementary
+          Базовый
       </NavLink>
       <NavLink className={isActiveGroup(3) ? 'active' : ''} data-name='group3' to='/text-book/group=3/page=0'>
-          Intermediate
+          Средний
       </NavLink>
       <NavLink className={isActiveGroup(4) ? 'active' : ''} data-name='group4' to='/text-book/group=4/page=0'>
-          Upper-Intermediate
+          Выше среднего
       </NavLink>
       <NavLink className={isActiveGroup(5) ? 'active' : ''} data-name='group5' to='/text-book/group=5/page=0'>
-          Advanced
+          Продвинутый
       </NavLink>
       <NavLink className={isActiveGroup(6) ? 'active' : ''} data-name='group6' to='/text-book/group=6/page=0'>
-          Proficiency
+          Ночитель
       </NavLink>
     </GroupsMenu>
   );

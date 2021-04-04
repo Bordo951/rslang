@@ -28,7 +28,11 @@ const Container = styled.div`
 `;
 
 const Main = styled.main`
-  background: #f0f3f3;
+  background-color: rgb(210, 210, 210);
+  background-image: url('/assets/images/textbook_bg.png');
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: 50% 191px;
 
   .section-title {
     background-image: url('/assets/images/section-bg.jpg');
@@ -42,7 +46,27 @@ const Main = styled.main`
       font-size: 36px;
       font-weight: 600;
       color: #fff;
-      margin: 0;
+      margin: 0;      
+    }
+    
+    @media (max-width: 992px) {
+      padding: 10px 0;
+      
+      h2 {
+        font-size: 30px;
+      }      
+    }
+    
+    @media (max-width: 769px) {
+      padding: 10px 0;
+      
+      h2 {
+        font-size: 25px;
+        line-height: 1.5;
+      }      
+    }
+    @media (max-width: 769px) {
+      padding: 5px 0;     
     }
   }
 `;
@@ -55,38 +79,39 @@ const ElectronicTextbook: React.FC = () => {
         <section className='section-title'>
           <h2>Электронный учебник</h2>
         </section>
+        <HashRouter>
+          <Switch>
+            <Route path='/text-book/group=1'>
+              <TopMenu />
+              <Group groupNum={1} />
+            </Route>
+            <Route path='/text-book/group=2'>
+              <TopMenu />
+              <Group groupNum={2} />
+            </Route>
+            <Route path='/text-book/group=3'>
+              <TopMenu />
+              <Group groupNum={3} />
+            </Route>
+            <Route path='/text-book/group=4'>
+              <TopMenu />
+              <Group groupNum={4} />
+            </Route>
+            <Route path='/text-book/group=5'>
+              <TopMenu />
+              <Group groupNum={5} />
+            </Route>
+            <Route path='/text-book/group=6'>
+              <TopMenu />
+              <Group groupNum={6} />
+            </Route>
+            <Route path='/text-book/'>
+              <GroupsGrid />
+            </Route>
+          </Switch>
+        </HashRouter>
       </Main>
-      <HashRouter>
-        <Switch>
-          <Route path='/text-book/group=1'>
-            <TopMenu />
-            <Group groupNum={1} />
-          </Route>
-          <Route path='/text-book/group=2'>
-            <TopMenu />
-            <Group groupNum={2} />
-          </Route>
-          <Route path='/text-book/group=3'>
-            <TopMenu />
-            <Group groupNum={3} />
-          </Route>
-          <Route path='/text-book/group=4'>
-            <TopMenu />
-            <Group groupNum={4} />
-          </Route>
-          <Route path='/text-book/group=5'>
-            <TopMenu />
-            <Group groupNum={5} />
-          </Route>
-          <Route path='/text-book/group=6'>
-            <TopMenu />
-            <Group groupNum={6} />
-          </Route>
-          <Route path='/text-book/'>
-            <GroupsGrid />
-          </Route>
-        </Switch>
-      </HashRouter>
+
     </div>
   );
 };
