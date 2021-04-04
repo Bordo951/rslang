@@ -34,7 +34,7 @@ const GroupsMenu = styled.div`
     }
   }
   a[data-name='group2'] {
-  background-color: #ffa953;
+    background-color: #ffa953;
     color: #e35b09;
     border: 2px solid #ffa953;
     &:hover,

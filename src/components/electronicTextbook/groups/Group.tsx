@@ -37,32 +37,57 @@ const PageLinkWrapper = styled.div`
   }
   a {
     text-decoration: none;
-    font-family: 'BubblegumSans-Regular', cursive;
-    font-size: 25px;
-    text-transform: capitalize;
     display: inline-block;
-    padding: 5px;
-    border: 2px solid;    
-    border-radius: 10px;
+    padding: 20px 25px;  
+    transition-duration: .5s;
+      -webkit-transition-duration: .5s;
     
     &[data-group-id='1'] {
-      background-color: #FFCCCC;
-      border: #ffcccc;
+      background-color: #FF9393;
+      &:hover {
+        background-color: #F94141;
+      }
     }
     &[data-group-id='2'] {
       background-color: #FFA953;
+      &:hover {
+        background-color: #FF8100;
+      }
     }
     &[data-group-id='3'] {
       background-color: #FEF156;
+      &:hover {
+        background-color: #FFFC00;
+      }
     }
     &[data-group-id='4'] {
       background-color: #C0DF89;
+      &:hover {
+        background-color: #4CB717;
+      }
     }
     &[data-group-id='5'] {
       background-color: #BFE4F9;
+      &:hover {
+        background-color: #008BCC;
+      }
     }
     &[data-group-id='6'] {
       background-color: #C8BFE7;
+      &:hover {
+        background-color: #A349A4;
+      }
+    }
+    
+    &.left-arrow {
+      //background-color: red;
+        -webkit-mask: url('/assets/images/left-arrow.svg') no-repeat center;
+      mask: url('/assets/images/left-arrow.svg') no-repeat center;
+    }
+    &.right-arrow {
+      //background-color: red;
+        -webkit-mask: url('/assets/images/right-arrow.svg') no-repeat center;
+      mask: url('/assets/images/right-arrow.svg') no-repeat center;
     }
   }
   p {
@@ -126,7 +151,7 @@ const Group: React.FC<Props> = ({ groupNum }) => {
       {status === 'failed' && <div>{error}</div>}
       <Switch>
         <Route path={`${match.path}/:pageId`}>
-          <Page />
+          <Page groupNum={groupNum}/>
         </Route>
       </Switch>
       {status === 'succeeded' && words !== null && (
@@ -136,8 +161,8 @@ const Group: React.FC<Props> = ({ groupNum }) => {
                 onClick={() => handlePrevPage()}
                 to={`${match.url}/page=${prevPageNum}`}
                 data-group-id = {groupNum}
+                className='left-arrow'
             >
-              Предыдущая
             </Link>
           </div>
           {status === 'succeeded' && words !== null && (
@@ -147,12 +172,11 @@ const Group: React.FC<Props> = ({ groupNum }) => {
           )}
           <div data-group-id = {groupNum}>
             <Link
-
               onClick={() => handleNextPage()}
               to={`${match.url}/page=${nextPageNum}`}
               data-group-id = {groupNum}
+              className='right-arrow'
             >
-              Следующая
             </Link>
           </div>
         </PageLinkWrapper>
