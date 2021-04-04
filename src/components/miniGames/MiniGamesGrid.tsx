@@ -1,7 +1,7 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 
 import styled from 'styled-components';
+import MiniGamesLevels from "./MiniGamesLevels";
 
 const GridContainer = styled.div`
   display: grid;
@@ -38,27 +38,36 @@ const GroupContainer = styled.div`
 `;
 
 const MiniGamesGrid: React.FC = () => {
+    let startGame = (gameId: number) => {
+        let selectedLevel = (document.getElementById('level-game-' + gameId)) as HTMLSelectElement;
+        let selectedIndex = selectedLevel.selectedIndex;
+        let selectedOption = selectedLevel.options[selectedIndex];
+        let selectedGroup = selectedOption.value;
+
+        window.location.href = '#/mini-games/game-' + gameId + '?group=' + selectedGroup;
+    };
+
     return (
         <GridContainer>
             <GroupContainer data-name="game-1">
-                <NavLink exact to='/mini-games/game-1'>
-                    <h3>Game 1</h3>
-                </NavLink>
+                <h3>Игра 1</h3>
+                <MiniGamesLevels gameId={1}/>
+                <button onClick={() => startGame(1)}>Начать игру</button>
             </GroupContainer>
             <GroupContainer data-name="game-2">
-                <NavLink to='/mini-games/game-2'>
-                    <h3>Game 2</h3>
-                </NavLink>
+                <h3>Игра 2</h3>
+                <MiniGamesLevels gameId={2}/>
+                <button onClick={() => startGame(2)}>Начать игру</button>
             </GroupContainer>
             <GroupContainer data-name="game-3">
-                <NavLink to='/mini-games/game-3'>
-                    <h3>Game 3</h3>
-                </NavLink>
+                <h3>Игра 3</h3>
+                <MiniGamesLevels gameId={3}/>
+                <button onClick={() => startGame(3)}>Начать игру</button>
             </GroupContainer>
             <GroupContainer data-name="game-4">
-                <NavLink to='/mini-games/game-4'>
-                    <h3>Game 4</h3>
-                </NavLink>
+                <h3>Игра 4</h3>
+                <MiniGamesLevels gameId={4}/>
+                <button onClick={() => startGame(4)}>Начать игру</button>
             </GroupContainer>
         </GridContainer>
     );

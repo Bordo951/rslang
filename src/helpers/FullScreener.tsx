@@ -6,7 +6,11 @@ const StyledButton = styled.button`
   border: 2px solid gray;
 `;
 
-const FullScreener: React.FC = () => {
+interface FullScreenerInterface {
+    targetObjectId: string
+}
+
+const FullScreener: React.FC<FullScreenerInterface> = ({targetObjectId}) => {
     const document: any = window.document;
     document.cancelFullScreen = document.cancelFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen;
 
@@ -23,7 +27,7 @@ const FullScreener: React.FC = () => {
     };
 
     return (
-        <StyledButton onClick={() => enterFullscreen('game')}>
+        <StyledButton onClick={() => enterFullscreen(targetObjectId)}>
             FullScreen Game
         </StyledButton>
     );
