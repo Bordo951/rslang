@@ -1,9 +1,12 @@
 import React from "react";
+import SectionTitle from "../parts/SectionTitle";
 
 
 const Settings: React.FC = () => {
     return (
-        <div>Settings</div>
+        <div>
+            <SectionTitle title="Настройки" />
+        </div>
     );
 };
 

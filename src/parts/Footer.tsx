@@ -15,6 +15,19 @@ const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    
+    @media (max-width: 992px) {
+        width: 90%;       
+    }
+    
+     @media (max-width: 769px) {
+        width: 95%;       
+     }
+    
+    @media (max-width: 576px) {
+        width: 100%;
+        flex-direction: column-reverse;
+    }
 `;
 
 const Logo = styled.div`
@@ -32,6 +45,10 @@ const Logo = styled.div`
            width: 150px;
         }
     }
+    
+    @media (max-width: 576px) {
+       margin: 5px 0;
+    }
 `;
 const Authors = styled.div`
     width: 100%;
@@ -47,6 +64,10 @@ const Authors = styled.div`
         font-family: 'BubblegumSans-Regular', cursive;
         font-size: 22px;
         text-transform: capitalize;
+        
+        @media (max-width: 576px) {
+            font-size: 18px;
+        }
     }
     img {
          width: 25px   
@@ -54,23 +75,32 @@ const Authors = styled.div`
     a {
         text-decoration: none;
         display: flex;
-        align-items: center;
+        align-items: start;
         color: #5c5c5c;
         transition: all 0.3s ease-in-out 0s;
         &:hover {
             color: #9D479E;
         }
-    }
-    
+    }    
 `;
 const Copyright = styled.p`    
-    padding: 5px 0;
+    padding: 8px 0 5px;
     background: url('/assets/images/footer_hr.jpg') center top repeat-x;
     text-align: center;
     background-color: #008c99;
     margin: 0px;
     line-height: 35px;
     color: #FFFFFF;
+    
+    @media (max-width: 992px) {
+        line-height: 24px;        
+    }
+    
+    @media (max-width: 576px) {
+        padding: 8px 5px 5px;
+        font-size: 14px;
+        line-height: 20px;        
+    }
 `
 
 
@@ -99,7 +129,7 @@ const Footer: React.FC = () => {
                         </li>
                         <li>
                             <a href='https://github.com/Bordo951' target='_blank'>
-                                <img src='/assets/images/apprentice_boy.svg' alt='apprentice_girl'/>
+                                <img src='/assets/images/apprentice_girl.svg' alt='apprentice_girl'/>
                                 Irina Selivanova
                             </a>
                         </li>

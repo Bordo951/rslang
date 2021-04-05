@@ -28,152 +28,150 @@ const MenuItem = styled.li`
     display: inline-block;
     width: 100%;
     height: 70px;
-    overflow: hidden;
-    line-height: 65px;
-    text-decoration: none;
-    text-align: center;
-    background-color: transparent;
-    margin-top: -1px;
-    font-weight: bold;
-
-    &:before {
-      content: attr(data-name);
-    }
-
-    &[data-name='Home'] {
-      border-color: #f27c7e;
-      &:before {
-        color: #f27c7e;
-      }
-      span {
-        background: #f27c7e;
-      }
-    }
-
-    &[data-name='Textbook'] {
-      border-color: #b0b6fb;
-      &:before {
-        color: #b0b6fb;
-      }
-      span {
-        background: #b0b6fb;
-      }
-    }
-
-    &[data-name='Mini-Games'] {
-      border-color: #ea9d5f;
-      &:before {
-        color: #ea9d5f;
-      }
-      span {
-        background: #ea9d5f;
-      }
-    }
-
-    &[data-name='Settings'] {
-      border-color: #de81b8;
-      &:before {
-        color: #de81b8;
-      }
-      span {
-        background: #de81b8;
-      }
-    }
-
-    &[data-name='Statistic'] {
-      border-color: #acc158;
-      &:before {
-        color: #acc158;
-      }
-      span {
-        background: #acc158;
-      }
-    }
-
-    &[data-name='Dictionary'] {
-      border-color: #003172;
-      &:before {
-        color: #003172;
-      }
-      span {
-        background: #003172;
-      }
-    }
-
-    &[data-name='Dictionary'] {
-      border-color: #009620;
-      &:before {
-        color: #009620;
-      }
-      span {
-        background: #009620;
-      }
-    }
-
-    span {
-      width: inherit;
-      line-height: 65px;
-      bottom: auto;
-      top: -70px;
-      left: 0px;
-      transition: top 0.3s ease-in-out;
-      display: block;
-      position: absolute;
-
-      &:before {
-        content: attr(data-name);
-        color: white;
-      }
-    }
-
-    &:hover,
-    &.active {
-      color: #ffffff;
-
-      span {
-        top: 0px;
-      }
+    margin: 0 auto;    
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+const MenuItem = styled.li`
+    list-style-type: none;
+    display: inline;
+    width: 20%;
+    margin-right: 1px;
+    font-family: 'Bubblegum Sans',cursive,sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    
+    a {
+        cursor: pointer;
+        position: relative;
+        border-top: 5px solid;
+        display: inline-block;
+        width: 100%;
+        height: 70px;
+        overflow: hidden;
+        line-height: 65px;
+        text-decoration: none;
+        text-align: center;
+        background-color: transparent;
+        margin-top: -1px;
+        font-weight: bold;
+    
+        &:before {
+            content: attr(data-name);
+        }
+        
+        &[data-name = 'Главная'] {
+            border-color: #F27C7E;
+            &:before {
+                color: #F27C7E;
+            }            
+            span {
+                background: #F27C7E;
+            }
+        }
+        
+        &[data-name = 'Учебник'] {
+            border-color: #B0B6FB;
+            &:before {
+                color: #B0B6FB;
+            }            
+            span {
+                background: #B0B6FB;
+            }
+        }
+        
+        &[data-name = 'Игры'] {
+            border-color: #EA9D5F;            
+            &:before {
+                color: #EA9D5F;
+            }            
+            span {
+                background: #EA9D5F;
+            }
+        } 
+        
+        &[data-name = 'Настройки'] {
+            border-color: #DE81B8;
+            &:before {
+                color: #DE81B8;
+            }            
+            span {
+                background: #DE81B8;
+            }
+        }    
+        
+        &[data-name = 'Статистика'] {
+            border-color: #ACC158;
+            &:before {
+                color: #ACC158;
+            }
+            span {
+                background: #ACC158;
+            }
+        }          
+        
+        span {
+            width: inherit;
+            line-height: 65px;
+            bottom: auto;
+            top: -70px;
+            left: 0px;
+            transition: top .3s ease-in-out;
+            display: block;
+            position: absolute;
+            
+            &:before {
+                content: attr(data-name);
+                color: white;
+            }
+        }
+        
+        &:hover,
+        &.active {
+            color: #FFFFFF;
+            
+            span {
+                top: 0px;
+            }
+        }        
     }
   }
 `;
 
 const Menu: React.FC = () => {
-  return (
-    <MainMenu>
-      <MenuList>
-        <MenuItem>
-          <NavLink exact to='/' data-name='Home'>
-            <span data-name='Home'></span>
-          </NavLink>
-        </MenuItem>
-        <MenuItem>
-          <NavLink to='/text-book' data-name='Textbook'>
-            <span data-name='Textbook'></span>
-          </NavLink>
-        </MenuItem>
-        <MenuItem>
-          <NavLink to='/mini-games' data-name='Mini-Games'>
-            <span data-name='Mini-Games'></span>
-          </NavLink>
-        </MenuItem>
-        <MenuItem>
-          <NavLink to='/settings' data-name='Settings'>
-            <span data-name='Settings'></span>
-          </NavLink>
-        </MenuItem>
-        <MenuItem>
-          <NavLink to='/statistics' data-name='Statistic'>
-            <span data-name='Statistic'></span>
-          </NavLink>
-        </MenuItem>
-        <MenuItem>
-          <NavLink to='/dictionary' data-name='Dictionary'>
-            <span data-name='Dictionary'></span>
-          </NavLink>
-        </MenuItem>
-      </MenuList>
-    </MainMenu>
-  );
+    return (
+        <MainMenu>
+            <MenuList>
+                <MenuItem>
+                    <NavLink exact to="/" data-name="Главная">
+                        <span data-name="Главная"></span>
+                    </NavLink>
+                </MenuItem>
+                <MenuItem>
+                    <NavLink to="/text-book" data-name="Учебник">
+                        <span data-name="Учебник"></span>
+                    </NavLink>
+                </MenuItem>
+                <MenuItem>
+                    <NavLink to="/mini-games" data-name="Игры">
+                        <span data-name="Игры"></span>
+                    </NavLink>
+                </MenuItem>
+                <MenuItem>
+                    <NavLink to="/settings" data-name="Настройки">
+                        <span data-name="Настройки"></span>
+                    </NavLink>
+                </MenuItem>
+                <MenuItem>
+                    <NavLink to="/statistics" data-name="Статистика">
+                        <span data-name="Статистика"></span>
+                    </NavLink>
+                </MenuItem>
+            </MenuList>
+        </MainMenu>
+    );
 };
 
 export default Menu;
