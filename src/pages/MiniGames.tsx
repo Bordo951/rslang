@@ -6,7 +6,7 @@ const MiniGames: React.FC = () => {
   return (
     <div>
       MiniGames
-      <NavLink to="/savannah-entrance-page" data-name="Savannah Entrance-page">
+      <NavLink  to="/savannah" data-name="Savannah mini-game">
         <Button>Savannah</Button>
       </NavLink>
     </div>

@@ -11,7 +11,6 @@ import Statistics from "./pages/Statistics";
 import Settings from "./pages/Settings";
 import Menu from "./parts/Menu";
 import Footer from "./parts/Footer";
-import SavannahEntrancePage from './components/mini-games/Savanna/SavannahEntrancePage';
 import SavannahGamePage from './components/mini-games/Savanna/Savannah';
 
 // <link href="https://fonts.googleapis.com/css?family=Permanent+Marker:regular" rel="stylesheet" />;
@@ -70,7 +69,6 @@ const App: React.FC = ( ) => {
         <Route path="/mini-games/" component={MiniGames} />
         <Route path="/settings/" component={Settings} />
         <Route path="/statistics/" component={Statistics} />
-        <Route path="/savannah-entrance-page/" component={SavannahEntrancePage} />
         <Route path="/savannah/" component={SavannahGamePage} />
         {/*<Route path="/signup">{userName !== "" ? <Redirect to="/" /> : <SignUp />}</Route>*/}
       </Switch>

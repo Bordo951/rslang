@@ -1,12 +1,17 @@
-import React, { useEffect, useReducer } from 'react';
-import { WordType } from '../../../redux/wordsSlice';
-import { VscChromeClose } from 'react-icons/vsc';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { getWordsData, fetchWordsData, getErrorMessage, getRequestStatus } from '../../../redux/wordsSlice';
-import { useRouteMatch } from 'react-router-dom';
-import { GrMusic } from 'react-icons/gr';
-
+import React, { useEffect, useReducer, useRef } from "react";
+import { WordType } from "../../../redux/wordsSlice";
+import { VscChromeClose } from "react-icons/vsc";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getWordsData,
+  fetchWordsData,
+  getErrorMessage,
+  getRequestStatus,
+} from "../../../redux/wordsSlice";
+import { NavLink, useRouteMatch } from "react-router-dom";
+import { VscSettingsGear } from "react-icons/vsc";
+import { Button, Form, Spinner } from "react-bootstrap";
 const Page = styled.div`
   background: url(/images/Savannah.jpg) center center/cover no-repeat fixed;
   height: 100vh;
@@ -17,10 +22,16 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
 
-  button{
-    height:2rem;
+  > button {
+    margin: 0.3rem 0 0 0.3rem;
+    height: 2rem;
     width: 2rem;
-    background-image: linear-gradient(to right, #1c2122 0%, gray 51%, #ece9e6 100%);
+    background-image: linear-gradient(
+      to right,
+      #1c2122 0%,
+      gray 51%,
+      #ece9e6 100%
+    );
     padding: 0.2rem 0.2rem;
     text-align: center;
     text-transform: uppercase;
@@ -29,29 +40,35 @@ const Container = styled.div`
     box-shadow: 0 0 10px #b6b8b9;
     border-radius: 10px;
     display: block;
-    outline:none;
- &:hover {
-    background-position: right center; /* change the direction of the change here */
-    color: #f10e0e;
-    text-decoration: none;
-  }
+    outline: none;
+    &:hover {
+      background-position: right center;
+      color: #f10e0e;
+      text-decoration: none;
+    }
   }
 `;
 const Titile = styled.h3`
   font-size: 3rem;
+  margin-left: 14%;
   font-weight: 900;
-  font-family: 'BubblegumSans-Regular';
+  font-family: "BubblegumSans-Regular";
   color: rgb(0, 206, 209);
   text-shadow: 3px 2px 3px rgb(2, 2, 2);
 `;
 const AnswerWord = styled.div`
   display: flex;
-  height: 100%;
-  align-items: center;
+  height: 60%;
+  align-items: flex-end;
   justify-content: space-around;
 
   input {
-    background-image: linear-gradient(to right, #7ed8f3 0%, blue 51%, #ece9e6 100%);
+    background-image: linear-gradient(
+      to right,
+      #7ed8f3 0%,
+      blue 51%,
+      #e7af76 100%
+    );
     padding: 8px 0.2rem;
     text-align: center;
     text-transform: uppercase;
@@ -63,47 +80,41 @@ const AnswerWord = styled.div`
     display: block;
     outline: none;
     &:hover {
-      background-position: right center; /* change the direction of the change here */
+      background-position: right center;
       color: #ca3333;
       text-decoration: none;
     }
   }
-
-  /* ul {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-  }
-
-  li {
-    display: inline-block;
-    width: max-content;
-    border: 1px black solid;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.808);
-    padding: 2px 0.2rem;
-    &:hover {
-      transform: scale(1.1);
-      background-color: #ffffff;
-      cursor: pointer;
-    }
-  } */
 `;
-const Statistics = styled.div``;
 
-const Words = styled.div`
+const SettingsBtn = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px rgb(124, 213, 235) solid;
-  height: 5rem;
-  border-radius: 50%;
-  background-color: rgba(149, 223, 241, 0.856);
-  position: absolute;
-  left: 50%;
-  top: -15%;
-  transform: translate(-50%, 0);
+  flex-direction: column;
 `;
+
+const SettingsWindow = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  height: max-content;
+  background: url(/images/settings.png) center center/cover no-repeat;
+  font-family: "BubblegumSans-Regular", cursive;
+  border-radius: 10px;
+  form {
+    display: flex;
+    justify-content: center;
+
+    > div {
+      margin: 0 5px 15px 5px;
+    }
+  }
+`;
+
 const randomGroup = Math.floor(Math.random() * 5);
 const randomPage = Math.floor(Math.random() * 28);
 
@@ -115,15 +126,22 @@ const SavannahGamePage: React.FC = () => {
   const dispatchWordCard = useDispatch();
   const pageId = randomPage;
   const goupe = randomGroup;
-  const address = 'https://vhoreho-rslang.herokuapp.com/';
+  const address = "https://vhoreho-rslang.herokuapp.com/";
   const guessedWords: string[] = [];
+  console.log("🔥", status === "loading");
   const initialState = {
     index: 0,
-    verifiableWords: ' ',
+    verifiableWords: " ",
     arrWords: [],
     counter: 0,
-    verifiableWordsAudio: '',
-    turnOn: false,
+    verifiableWordsAudio: "",
+    isTurnOn: false,
+    isWordDown: false,
+    counterLife: 5,
+    isMusic: true,
+    speed: 8,
+    idSpeed: " ",
+    isSettingsWindow: false,
   };
 
   type stateType = {
@@ -132,7 +150,13 @@ const SavannahGamePage: React.FC = () => {
     arrWords: WordType[];
     counter: number;
     verifiableWordsAudio: string;
-    turnOn: boolean;
+    isTurnOn: boolean;
+    isWordDown: boolean;
+    counterLife: number;
+    isMusic: boolean;
+    speed: number;
+    idSpeed: string;
+    isSettingsWindow: boolean;
   };
 
   type Action = {
@@ -155,12 +179,18 @@ const SavannahGamePage: React.FC = () => {
     const wordsCopy = [...words];
     const arrWords = [wordsCopy.splice(state.index, 1)[0]];
     while (arrWords.length < 4) {
-      const wordTranslate = wordsCopy.splice(Math.floor(Math.random() * (wordsCopy.length - 1)), 1)[0];
+      const wordTranslate = wordsCopy.splice(
+        Math.floor(Math.random() * (wordsCopy.length - 1)),
+        1
+      )[0];
       arrWords.push(wordTranslate);
     }
-    dispatch({ type: 'arrWords', value: arrWords });
-    dispatch({ type: 'verifiableWords', value: words[state.index]?.word });
-    dispatch({ type: 'verifiableWordsAudio', value: words[state.index]?.audio });
+    dispatch({ type: "arrWords", value: arrWords });
+    dispatch({ type: "verifiableWords", value: words[state.index]?.word });
+    dispatch({
+      type: "verifiableWordsAudio",
+      value: words[state.index]?.audio,
+    });
   }, [state.index, words]);
 
   const shuffle = (arr: WordType[]) => {
@@ -174,37 +204,90 @@ const SavannahGamePage: React.FC = () => {
     return arr;
   };
 
+  const speed = `${state.speed}s`;
   let wordAudio = new Audio(`${address}${state.verifiableWordsAudio}`);
+  let faildAudio = new Audio("audio/faild.mp3");
   const hendlerClick = (e: any) => {
     if (state.verifiableWords === e.target.attributes[1].value) {
-      dispatch({ type: 'counter', value: state.counter + 1 });
-      dispatch({ type: 'index', value: state.index + 1 });
-      wordAudio.play();
+      dispatch({ type: "counter", value: state.counter + 1 });
+      dispatch({ type: "index", value: state.index + 1 });
+      state.isMusic ? wordAudio.play() : wordAudio.pause();
 
       guessedWords.push(state.verifiableWords);
-    } else {
+    } else if (state.verifiableWords !== e.target.attributes[1].value) {
+      state.isMusic ? faildAudio.play() : faildAudio.pause();
+      dispatch({ type: "counterLife", value: state.counterLife - 1 });
       if (state.counter > 0) {
-        dispatch({ type: 'counter', value: state.counter - 1 });
+        dispatch({ type: "counter", value: state.counter - 1 });
       } else {
         state.counter = 0;
       }
     }
-    console.log('🔥', guessedWords);
+    console.log("🔥", guessedWords);
   };
+
+  const Statistics = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(10, 10, 10, 0.308);
+    width: 23%;
+    ul {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-evenly;
+      width: ${state.counterLife * 2.5}rem;
+      list-style-type: none;
+      height: 2rem;
+      text-align: center;
+    }
+
+    li {
+      display: inline-block;
+      width: 2rem;
+      padding: 8px 0.4rem;
+      background: url(/images/heart.svg) center center/cover no-repeat;
+    }
+
+    a {
+      margin: 0.3rem 0.3rem 0 0;
+      align-self: flex-end;
+    }
+
+    div {
+      margin-top: 5px;
+      color: rgba(252, 106, 22, 0.803);
+      font-size: 1.5rem;
+      font-family: "BubblegumSans-Regular";
+      text-shadow: 1px 1px 1px rgb(255, 253, 253);
+      span {
+        text-shadow: 3px 3px 3px rgba(241, 4, 4, 0.774);
+        color: whitesmoke;
+        font-size: 2rem;
+        font-family: "BubblegumSans-Regular";
+        margin-right: 0.8rem;
+      }
+    }
+  `;
+
   const Words = styled.div`
+    font-size: 2rem;
+    font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px rgb(124, 213, 235) solid;
-    height: 5rem;
-    width: 5rem;
-    border-radius: 50%;
-    background-color: rgba(149, 223, 241, 0.856);
+    height: calc(max-content + 3rem);
+    width: max-content;
+    border-radius: 10%;
+    background-color: rgba(20, 70, 82, 0.856);
+    color: rgb(245, 245, 245);
+    padding: 0 0.2rem;
     position: absolute;
     left: 50%;
     top: -30%;
     transform: translate(-50%, 0);
-    animation: down 10s linear;
+    animation: ${state.isTurnOn ? `down linear ${speed}` : ""};
 
     @keyframes down {
       0% {
@@ -217,30 +300,146 @@ const SavannahGamePage: React.FC = () => {
     }
   `;
 
+  const Loading = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(7, 6, 5, 0.322);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    > div {
+      color: white;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  `;
+
   const addAnimation = () => {
-    dispatch({ type: 'turnOn', value: true });
+    dispatch({ type: "isTurnOn", value: true });
   };
+
+  const checkOnlyOne = (e: any) => {
+    dispatch({ type: "speed", value: e.target.value });
+    dispatch({ type: "idSpeed", value: e.target.id });
+  };
+  if (state.isWordDown === true) {
+    state.isMusic ? faildAudio.play() : faildAudio.pause();
+    dispatch({ type: "counterLife", value: state.counterLife - 1 });
+    if (state.counter > 0) {
+      dispatch({ type: "counter", value: state.counter - 1 });
+    } else {
+      state.counter = 0;
+    }
+    dispatch({ type: "isWordDown", value: false });
+  }
+
+  const switchMusic = (e: any) => {
+    dispatch({ type: "isMusic", value: !state.isMusic });
+  };
+
+  const showSettingWindow = () => {
+    dispatch({ type: "isSettingsWindow", value: true });
+    dispatch({ type: "isTurnOn", value: false });
+  };
+  const closeSettingWindow = () => {
+    dispatch({ type: "isSettingsWindow", value: false });
+    dispatch({ type: "isTurnOn", value: true });
+  };
+
   return (
     <Page>
-      {state.turnOn && (
-        <Words onMouseDown={() => addAnimation()}>
-          <span>{state.verifiableWords}</span>
-        </Words>
+      {status === "loading" && (
+        <Loading>
+          <div>
+            <Spinner animation="grow" variant="success" />
+            <Spinner animation="grow" variant="danger" />
+            <Spinner animation="grow" variant="warning" />
+          </div>
+          <div>Loading...</div>
+        </Loading>
       )}
+      <Words
+        onAnimationEnd={() => {
+          dispatch({ type: "isWordDown", value: true });
+        }}
+      >
+        <span>{state.verifiableWords}</span>
+      </Words>
       <Container>
-        <button>
-          <GrMusic />
-        </button>
+        <SettingsBtn>
+          <button
+            type="button"
+            className="btn btn-dark"
+            onClick={() => showSettingWindow()}
+          >
+            <div className="d-flex align-items-center">
+              <VscSettingsGear />
+              Settings
+            </div>
+          </button>
+        </SettingsBtn>
+        {state.isSettingsWindow && (
+          <SettingsWindow>
+            Скорость игры:
+            <Form>
+              <Form.Check
+                checked={state.idSpeed === "beginner"}
+                type="radio"
+                id="beginner"
+                value="60"
+                label="Начинающий"
+                onChange={(e) => checkOnlyOne(e)}
+              />
+
+              <Form.Check
+                checked={state.idSpeed === "midle"}
+                type="radio"
+                id="midle"
+                value="8"
+                label="Средний"
+                onChange={(e) => checkOnlyOne(e)}
+              />
+              <Form.Check
+                checked={state.idSpeed === "high"}
+                type="radio"
+                value="4"
+                id="high"
+                label="Полиглот"
+                onChange={(e) => checkOnlyOne(e)}
+              />
+            </Form>
+            <Form>
+              <Form.Check
+                type="switch"
+                id="custom-switch"
+                label="Music"
+                checked={state.isMusic}
+                onChange={(e) => switchMusic(e)}
+              />
+            </Form>
+            <Button variant="success" onClick={() => closeSettingWindow()}>
+              OK
+            </Button>
+          </SettingsWindow>
+        )}
         <Titile>Саванна</Titile>
         <Statistics>
-          <button type="button" className="btn btn-danger">
-            <VscChromeClose />
-          </button>
-          <ul>
-            <li>life</li>
-          </ul>
-          <div>{state.index + 1}/20</div>
-          <div>{state.counter}</div>
+          <NavLink to="/mini-games/" data-name="Mini Games">
+            <button type="button" className="btn btn-danger">
+              <VscChromeClose />
+            </button>
+          </NavLink>
+
+          <ul>{new Array(state.counterLife).fill(<li />)}</ul>
+          <div>
+            <span>Слов:</span>
+            {state.index + 1} / 20
+          </div>
+          <div>
+            <span>Очки:</span>
+            {state.counter}
+          </div>
         </Statistics>
       </Container>
       <AnswerWord>
