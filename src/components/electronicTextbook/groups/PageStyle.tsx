@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const PageInner = styled.div``;
 
 export const Card = styled.div`
-  width: 400px;
+  width: 600px;
   height: 600px;
   perspective: 1000px;
-  margin: 55px auto;
+  margin: 10px auto 55px;
   .fas {
     font-size: 26px;
     position: relative;
@@ -49,7 +49,18 @@ export const CardBack = styled.div`
 `;
 
 export const CardContent = styled.div`
+  margin: 0 auto;
   padding: 5px 10px;
+  
+  div {
+    margin-bottom: 0;
+    font-family: 'Lato-Regular',sans-serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: normal;
+    color: #808080;
+    text-align: center;
+  }
 `;
 
 export const CardContentBlockWord = styled.div`
@@ -60,6 +71,33 @@ export const CardContentBlockWord = styled.div`
   .fas {
     padding-left: 4px;
   }
+  span, div {
+    margin: 10px;
+    font-family: 'BubblegumSans-Regular',cursive;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: 1px 2px 3px #666;
+    
+    &[data-group-id='1'] {
+      color: #F94141;
+    }
+    &[data-group-id='2'] {
+      color: #FF8100;
+    }
+    &[data-group-id='3'] {
+      color: #FFFC00;
+    }
+    &[data-group-id='4'] {
+      color: #4CB717;
+    }
+    &[data-group-id='5'] {
+      color: #008BCC;
+    }
+    &[data-group-id='6'] {
+      color: #A349A4;
+    }
+  }    
 `;
 export const ImageContainer = styled.div`
   border-top-left-radius: 4px;
@@ -97,58 +135,171 @@ export const CardRotateBtn = styled.button`
   background-color: transparent;
   border: none;
   .fas {
-    font-size: 34px;
-    color: #800202;
+    font-size: 35px;
     transition: all 0.2s ease;
   }
+  i[data-group-id='1']{
+    color: #F94141;
+  }
+  i[data-group-id='2']{
+    color: #FF8100;
+  }
+  i[data-group-id='3']{
+    color: #FFFC00;
+  }
+  i[data-group-id='4']{
+    color: #4CB717;
+  }
+  i[data-group-id='5']{
+    color: #008BCC;
+  }
+  i[data-group-id='6']{
+    color: #A349A4;
+  }
+  
   &:hover .fas {
     transform: scale(1.1);
   }
 `;
 export const PlaySounBtn = styled.div`
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 4px 0;
+  margin-bottom: 5px;
+  
   button {
-    border: 1px solid #800202;
     border-radius: 50%;
     width: 44px;
     height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #d1d1d1;
-    .fas {
-      font-size: 34px;
-      color: #800202;
+    background-color: #fff;    
+    transform: perspective(1px) translateZ(0);
+      -webkit-transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);        
+    transition-duration: 0.3s;
+      -webkit-transition-duration: 0.3s;        
+    transition-property: box-shadow;
+      -webkit-transition-property: box-shadow;
+    
+    &:hover {
+      box-shadow: 0 0 8px rgb(0 0 0 / 60%);
     }
+    
+    .fas {
+      font-size: 35px;
+    }
+    
+    &[data-group-id='1'] {
+      border: 2px solid #F94141;      
+      i {
+        color: #F94141;
+      }
+    }
+    &[data-group-id='2'] {
+      border: 2px solid #FF8100;      
+      i {
+        color: #FF8100;
+      }
+    }
+    &[data-group-id='3'] {
+      border: 2px solid #FFFC00;      
+      i {
+        color: #FFFC00;
+      }
+    }   
+    &[data-group-id='4'] {
+      border: 2px solid #4CB717;      
+      i {
+        color: #4CB717;
+      }
+    }    
+    &[data-group-id='5'] {
+      border: 2px solid #008BCC;      
+      i {
+        color: #008BCC;
+      }
+    } 
+    &[data-group-id='6'] {
+      border: 2px solid #A349A4;      
+      i {
+        color: #A349A4;
+      }
+    }    
   }
 `;
+export const TitleRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
+export const CardsBtnsRow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 10px;
+    
+    button {
+      padding: 5px 10px;      
+      border-radius: 10px;
+      font-family: 'BubblegumSans-Regular',cursive;
+      font-weight: 600;
+      transform: perspective(1px) translateZ(0);
+        -webkit-transform: perspective(1px) translateZ(0);
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0);        
+      transition-duration: 0.3s;
+        -webkit-transition-duration: 0.3s;        
+      transition-property: box-shadow;
+        -webkit-transition-property: box-shadow;
+        
+      &:hover {
+        box-shadow: 0 0 8px rgb(0 0 0 / 60%);
+      }     
+    }
+    button[data-group-id='1'] {
+      background-color: #ffcccc;
+      border: 2px solid #cb4728;
+      color: #cb4728;
+    }
+    button[data-group-id='2'] {
+      background-color: #ffa953;
+      border: 2px solid #e35b09;
+      color: #e35b09;
+    }
+    button[data-group-id='3'] {
+      background-color: #fef156;
+      border: 2px solid #fe9e1d;
+      color: #fe9e1d;
+    }
+    button[data-group-id='4'] {
+      background-color: #c0df89;
+      border: 2px solid #77b632;
+      color: #77b632;
+    }
+    button[data-group-id='5'] {
+      background-color: #bfe4f9;
+      border: 2px solid #008bc1;
+      color: #008bc1;
+    }
+    button[data-group-id='6'] {
+      background-color: #c8bfe7;
+      border: 2px solid #a349a4;
+      color: #a349a4;
+    }
+`;
 export const CardLearnBtn = styled.button`
-  background-color: #e0f8ff;
-  width: 100%;
-  border: 1px solid #bad9e2;
-  border-radius: 4px;
-  padding: 4px 0;
-  margin-bottom: 4px;
 `;
 export const CardHardBtn = styled.button`
-  background-color: #e0f8ff;
-  width: 100%;
-  width: 100%;
-  border: 1px solid #bad9e2;
-  border-radius: 4px;
-  padding: 4px 0;
-  margin-bottom: 4px;
 `;
 export const CardDeleteBtn = styled.button`
-  background-color: #e0f8ff;
-  width: 100%;
-  width: 100%;
-  border: 1px solid #bad9e2;
-  border-radius: 4px;
-  padding: 4px 0;
 `;
 export const CardText = styled.p`
   margin-bottom: 0;
+  font-family: 'Lato-Regular',sans-serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: normal;
+  color: #808080;
+  text-align: center;
 `;

@@ -16,9 +16,13 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     
+    @media (max-width: 992px) {
+        width: 90%;       
+    }
+    
      @media (max-width: 769px) {
         width: 95%;       
-    }
+     }
     
     @media (max-width: 576px) {
         width: 100%;
