@@ -12,14 +12,15 @@ export const MiniGamesWordsGroup = () => {
 };
 
 export const MiniGamesWordsPage = () => {
-    const parsed: any = parseHash();
-
-    return Number.isInteger(+parsed.query.page) ? +parsed.query.page : 0;
+    // const parsed: any = parseHash();
+return Math.floor(Math.random() * 28)
+    // return Number.isInteger(+parsed.query.page) ? +parsed.query.page : 0;
 };
+const randomPage = Math.floor(Math.random() * 28);
 
 export const MiniGamesWordsFetcher = () => {
     let group = MiniGamesWordsGroup();
-    let page = MiniGamesWordsPage();
+    let page = randomPage;
 
     const dispatch = useDispatch();
 
