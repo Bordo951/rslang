@@ -296,10 +296,10 @@ type stateType = {
   index: number;
   verifiableWords: string;
   arrWords: WordType[];
-  counter: number;
   verifiableWordsAudio: string;
   isTurnOn: boolean;
   isWordDown: boolean;
+  counter: number;
   counterLife: number;
   isMusic: boolean;
   speed: number;
