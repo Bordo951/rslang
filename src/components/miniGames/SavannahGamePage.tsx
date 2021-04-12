@@ -312,8 +312,8 @@ const SavannahGamePage: React.FC = () => {
   const address = "https://vhoreho-rslang.herokuapp.com/";
   let guessedWords = useRef<string[]>([]);
 
-  const group = MiniGamesWordsGroup();
-  const page = MiniGamesWordsPage();
+  // const group = MiniGamesWordsGroup();
+  // const page = MiniGamesWordsPage();
   const words = MiniGamesWordsFetcher();
   const initialState: stateType = {
     index: 0,
