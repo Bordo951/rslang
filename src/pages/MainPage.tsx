@@ -30,7 +30,6 @@ const Description = styled.p`
 const Screen = styled.img`
   margin: 40px;
   width: 50%;
-  width: 50%;
   @media (max-width: 768px) {
     width: 70%;
   }

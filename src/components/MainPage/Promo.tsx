@@ -56,7 +56,7 @@ const Promo: React.FC = () => {
     <div className="position-relative">
       <Video src="/video/promo-video.mp4" autoPlay muted loop preload="true" typeof="video/mp4" />
       <PromoText>
-        <h3>Изучи аглийский не выходя из дома</h3>
+        <h3>Изучай аглийский не выходя из дома</h3>
         <p>
           Благодоря этому приложению вы сможете увеличить свой словарный запас на 4000 слов, улучшить способности в
           воспиятии ангийского на слух и многое другое
