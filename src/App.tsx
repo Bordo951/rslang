@@ -56,21 +56,22 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App: React.FC = () => {
+const App: React.FC = ( ) => {
   return (
     <HashRouter>
-        <GlobalStyle />
-        <Header />
-        <Menu/>
-        <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route path="/text-book/" component={ElectronicTextbook} />
-            <Route path="/mini-games/" component={MiniGames} />
-            <Route path="/settings/" component={Settings} />
-            <Route path="/statistics/" component={Statistics} />
-            {/*<Route path="/signup">{userName !== "" ? <Redirect to="/" /> : <SignUp />}</Route>*/}
-        </Switch>
-        <Footer/>
+      <GlobalStyle />
+      <Header />
+      <Menu />
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route path="/text-book/" component={ElectronicTextbook} />
+        <Route path="/mini-games/" component={MiniGames} />
+        <Route path="/settings/" component={Settings} />
+        <Route path="/statistics/" component={Statistics} />
+       
+        {/*<Route path="/signup">{userName !== "" ? <Redirect to="/" /> : <SignUp />}</Route>*/}
+      </Switch>
+      <Footer />
     </HashRouter>
   );
 };

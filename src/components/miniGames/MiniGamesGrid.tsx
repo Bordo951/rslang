@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import MiniGamesLevels from "./MiniGamesLevels";
 
@@ -16,7 +16,7 @@ const GroupContainer = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   
-  &[data-name = 'game-1'] {
+  &[data-name = 'Savannah'] {
     background-image: url('/assets/images/game-1.png');
   }
   &[data-name = 'game-2'] {
@@ -49,13 +49,15 @@ const MiniGamesGrid: React.FC = () => {
 
     return (
         <GridContainer>
-            <GroupContainer data-name="game-1">
-                <h3>Игра 1</h3>
+            <GroupContainer data-name="Savannah">
+                <h3>Саванна</h3>
                 <MiniGamesLevels gameId={1}/>
+                <NavLink to = "/mini-games/savannah/">
                 <button onClick={() => startGame(1)}>Начать игру</button>
+                </NavLink>
             </GroupContainer>
             <GroupContainer data-name="game-2">
-                <h3>Игра 2</h3>
+                <h3>Memory</h3>
                 <MiniGamesLevels gameId={2}/>
                 <button onClick={() => startGame(2)}>Начать игру</button>
             </GroupContainer>
