@@ -8,20 +8,15 @@ const TeamInformation = styled.div`
   justify-content: center;
 `;
 const DeveloperCard = styled.div`
-  // border: 4px rgba(82, 209, 247) solid;
-  // box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
   width: 23%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  // background-color: rgba(82, 209, 247, 0.726);
-  // border-radius: 10px;
   margin: 0 0.2rem;
   padding: 0.2rem;
   text-align: center;
   div {
-    margin: 0px 0px 15px;
+    margin: 0 0 15px;
     max-width: 200px;
     max-height: 196px;
     clip-path: polygon(20% 0, 80% 0, 100% 50%, 80% 100%, 20% 100%, 0% 50%);
@@ -32,18 +27,17 @@ const DeveloperCard = styled.div`
   }
   img {
     max-width: 100%;
-    
     width: 99%;
     height: 99%;
     clip-path: polygon(20% 0, 80% 0, 100% 50%, 80% 100%, 20% 100%, 0% 50%);
   }
   p {
-    background-color: rgba(246, 249, 250, 0.41);
-    border-radius: 10px;
+    font-family: 'BubblegumSans-Regular', cursive, sans-serif;
+    color: #5c5c5c;
   }
   h5 {
     font-family: 'Lato-Regular', sans-serif;
-    font-size: 22px;
+    font-size: 20px;
     font-style: italic;
     font-weight: normal;
     color: #808080;   
@@ -53,9 +47,10 @@ const DeveloperCard = styled.div`
   }
   h3 {
     font-family: 'Bubblegum Sans', cursive, sans-serif;
+    font-size: 24px;
     font-weight: 600;
     color: #252525;
-    margin: 0px 0px 10px;
+    margin: 0 0 10px;
     line-height: 1.2;
     
     @media (max-width: 587px) {
@@ -69,30 +64,28 @@ const DeveloperCard = styled.div`
 `;
 
 const TeamContainer = styled.div`
-  background-color: rgba(240, 243, 243, .7);
-  width: 90%;
-  margin: 30px auto;
+  background-color: #F0F3F3;
+  width: 80%;
+  margin: 0 auto;
   padding: 1rem;
-  // border-radius: 20px;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 `;
 
 const Title = styled.h3`
   font-family: 'BubblegumSans-Regular', cursive, sans-serif;
   font-weight: 600;
   font-size: 30px;
-  padding: 0px 0px 20px;
+  margin: 20px;
+  padding: 0 0 20px;
   text-align: center;
   width: 100%;
   display: inline-block;
-  // border-radius: 20px;
   color: #2f2f2f;
-  // text-shadow: 2px 1px 3px rgb(5, 5, 5);
-  // background-color: rgba(255, 255, 255, 0.74);
   position: relative;
   
   &:after {
-    // background-color: #008c99;
+    background-color: #008c99;
     background-image: url('/assets/images/title_bg_white.png');
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -100,50 +93,58 @@ const Title = styled.h3`
     width: 210px;
     height: 20px;
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     margin: 0 auto;
     background-size: 100% 100%;
-  }
-      
+  }      
 `;
 const Team: React.FC = () => {
-  return (
-    <TeamContainer>
-      <Title>О команде</Title>
-      <TeamInformation>
-        <DeveloperCard>
-          <div>
-            <img src="./images/farrykh.png" alt="Farrykh" />
-          </div>
-          <h3>Фаррух Хусанов</h3>
-          <h5>FrontEnd-разработка</h5>
-        </DeveloperCard>
-        <DeveloperCard>
-          <div>
-            <img src="./images/irina.png" alt="Irina" />
-          </div>
-          <h3>Ирина Селиванова</h3>
-          <h5>FrontEnd-разработка</h5>
-        </DeveloperCard>
-        <DeveloperCard>
-          <div>
-            <img src="./images/vlad.jpg" alt="Vlad" />
-          </div>
-          <h3>Владислав Горех</h3>
-          <h5>Backend-разработка</h5>
-        </DeveloperCard>
-        <DeveloperCard>
-          <div>
-            <img src="./images/kiryl.png" alt="Kiryl" />
-          </div>
-          <h3>Кирилл Плющеня</h3>
-          <h5>FrontEnd-разработка</h5>
-        </DeveloperCard>
-      </TeamInformation>
-    </TeamContainer>
-  );
+    return (
+        <TeamContainer>
+            <Title>О команде</Title>
+            <TeamInformation>
+                <DeveloperCard>
+                    <div>
+                        <img src="./images/farrykh.png" alt="Farrykh"/>
+                    </div>
+                    <h3>Фаррух<br/> Хусанов</h3>
+                    <h5>FrontEnd-разработка</h5>
+                    <p>Проведение митингов. Реализация логики основного приложения. Разработка отображения данных,
+                        получаемых с сервера. Работа с Redux.
+                        Реализация авторизации. </p>
+                </DeveloperCard>
+                <DeveloperCard>
+                    <div>
+                        <img src="./images/irina.png" alt="Irina"/>
+                    </div>
+                    <h3>Ирина<br/> Селиванова</h3>
+                    <h5>FrontEnd-разработка</h5>
+                    <p>Распределение задач. Проведение митингов. Дизайн приложения. Реализация страницы электронного
+                        учебника. Разработка навигации приложения.</p>
+                </DeveloperCard>
+                <DeveloperCard>
+                    <div>
+                        <img src="./images/vlad.jpg" alt="Vlad"/>
+                    </div>
+                    <h3>Владислав<br/> Горех</h3>
+                    <h5>Backend-разработка</h5>
+                    <p>Участие в митингах. Реализация методов API backend. Разработка способов хранения данных
+                        пользователя на стороне сервера.</p>
+                </DeveloperCard>
+                <DeveloperCard>
+                    <div>
+                        <img src="./images/kiryl.png" alt="Kiryl"/>
+                    </div>
+                    <h3>Кирилл<br/> Плющеня</h3>
+                    <h5>FrontEnd-разработка</h5>
+                    <p>Участие в митингах. Реализация promo-страницы. Реализация мини-игры Саванна. Помощь в поиске
+                        решений поставленных задач.</p>
+                </DeveloperCard>
+            </TeamInformation>
+        </TeamContainer>
+    );
 };
 
 export default Team;
