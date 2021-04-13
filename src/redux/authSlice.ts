@@ -3,11 +3,16 @@ import { AppDispatch, AppState } from './store';
 
 //types
 type UserType = {
-  name: string;
+  id: string;
   token: string;
 };
 
 type SignUpType = {
+  email: string;
+  password: string;
+};
+
+type SignInType = {
   email: string;
   password: string;
 };
@@ -29,7 +34,7 @@ export type AuthState = {
 // initial state
 const initState: AuthState = {
   user: {
-    name: '',
+    id: '',
     token: '',
   },
   status: 'idle',
@@ -51,7 +56,7 @@ export const authReducer = (
     case 'auth/setUserData':
       return {
         user: {
-          name: action.payload.username,
+          id: action.payload.userId,
           token: action.payload.token,
         },
         status: 'succeeded',
@@ -67,7 +72,7 @@ export const authReducer = (
       return {
         status: 'idle',
         user: {
-          name: '',
+          id: '',
           token: '',
         },
         signUpErrors: {
@@ -83,8 +88,8 @@ export const authReducer = (
     case 'auth/setLogInErrorMessage':
       return {
         user: {
+          id: '',
           token: '',
-          name: '',
         },
         status: 'failed',
         signUpErrors: {
@@ -98,8 +103,8 @@ export const authReducer = (
     case 'auth/setSignUpErrors':
       return {
         user: {
+          id: '',
           token: '',
-          name: '',
         },
         status: 'failed',
         signUpErrors: {
@@ -140,15 +145,43 @@ export const userSingUp = ({ email, password }: SignUpType) => async (
   dispatch(setRequestStatus('loading'));
   try {
     const { data } = await axios.post(url, params);
-    console.log(data);
+    dispatch(userlogIn({ email, password }));
   } catch (error) {
     const { email, password } = error.response.data.errors;
   }
 };
+//{Gfhjkm_123asd", email: "FarrukhTest@blablmail.com"}
+export const userlogIn = ({ email, password }: SignInType) => async (
+  dispatch: AppDispatch,
+  getState: () => AppState
+) => {
+  const url = 'https://vhoreho-rslang.herokuapp.com/signin';
+  const params: SignInType = {
+    email,
+    password,
+  };
+  dispatch(setRequestStatus('loading'));
+  try {
+    const { data } = await axios.post(url, params);
+    dispatch(setUserData(data.userId, data.token));
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('userId', data.userId);
+  } catch (error) {
+    const { email, password } = error.response.data.errors;
+  }
+};
+export const logOut = () => async (
+  dispatch: AppDispatch,
+  getState: () => AppState
+) => {
+  dispatch(clearUserData());
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
+};
 
 //actions
-const setUserData = (username: string, token: string) =>
-  ({ type: 'auth/setUserData', payload: { username, token } } as const);
+const setUserData = (userId: string, token: string) =>
+  ({ type: 'auth/setUserData', payload: { userId, token } } as const);
 
 const clearUserData = () => ({ type: 'auth/clearUserData' } as const);
 
@@ -177,4 +210,4 @@ export const getLogInErrorMessage = (state: AppState) =>
   state.auth.logInError.msg;
 export const getSignUpErrors = (state: AppState) => state.auth.signUpErrors;
 export const getRequestStatus = (state: AppState) => state.auth.status;
-export const getUserName = (state: AppState) => state.auth.user.name;
+export const getUserId = (state: AppState) => state.auth.user.id;

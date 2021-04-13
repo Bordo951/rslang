@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { userSingUp } from '../../redux/authSlice';
+import { userlogIn } from '../../redux/authSlice';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -10,25 +10,24 @@ const Form = styled.form`
     margin-bottom: 10px;
   }
 `;
-
 interface PageInterface {
-  setSignUpOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  setLogInOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
 
-const SignUp: React.FC<PageInterface> = ({ setSignUpOpen }) => {
+const LogIn: React.FC<PageInterface> = ({ setLogInOpen }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch();
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(userSingUp({ email, password }));
-    setSignUpOpen(false);
+    dispatch(userlogIn({ email, password }));
+    setLogInOpen(false);
   };
 
   return (
     <div>
-      Sign Up
       <Form onSubmit={(e) => handleSignUp(e)}>
+        <h4>Login</h4>
         <label htmlFor='mail'>Email</label>
         <input
           value={email}
@@ -49,4 +48,4 @@ const SignUp: React.FC<PageInterface> = ({ setSignUpOpen }) => {
   );
 };
 
-export default SignUp;
+export default LogIn;
