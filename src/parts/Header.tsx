@@ -9,13 +9,8 @@ const HeaderContainer = styled.header`
   width: 100%;
   margin: 0;
   padding: 6px 0;
-<<<<<<< HEAD
   background: url('/assets/images/header_bg.png') repeat #ffffff;
-=======
-  background: url("/assets/images/header_bg.png") repeat #ffffff;
->>>>>>> 3abbf48607b5913163f297dc3283bf5677f46f48
 `;
-
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
@@ -46,7 +41,6 @@ const Logo = styled.div`
 
     img {
       width: 150px;
-<<<<<<< HEAD
     }
 
     a {
@@ -61,11 +55,6 @@ const Logo = styled.div`
         @media (max-width: 576px) {
           width: 100px;
         }
-=======
-
-      @media (max-width: 576px) {
-        width: 100px;
->>>>>>> 3abbf48607b5913163f297dc3283bf5677f46f48
       }
     }
   }
@@ -75,7 +64,6 @@ const Authorization = styled.button`
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgb(10, 209, 189);
   border-radius: 10px;
-<<<<<<< HEAD
   font-family: 'Bubblegum Sans', cursive, sans-serif;
   font-size: 18px;
   font-weight: 600;
@@ -83,14 +71,7 @@ const Authorization = styled.button`
   width: 100px;
   height: 50px;
   margin-right: 5px;
-=======
-  font-family: "Bubblegum Sans", cursive, sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: rgb(10, 209, 189);
-  width: 170px;
-  height: 50px;
->>>>>>> 3abbf48607b5913163f297dc3283bf5677f46f48
+
   &:hover {
     background: rgb(0, 194, 201);
     color: #fff;
@@ -100,7 +81,6 @@ const Authorization = styled.button`
     width: 100px;
     height: 40px;
   }
-<<<<<<< HEAD
 `;
 
 const SignForm = styled.div`
@@ -124,16 +104,10 @@ const Header: React.FC = () => {
     setUserSavedId(localStorage.getItem('userId'));
   }, []);
   console.log(userSavedId);
-=======
-`;
-
-const Header: React.FC = () => {
->>>>>>> 3abbf48607b5913163f297dc3283bf5677f46f48
   return (
     <HeaderContainer>
       <Container>
         <Logo>
-<<<<<<< HEAD
           <a href='https://rs.school/js/' target='_blank'>
             <img src='/assets/images/logo.png' alt='logo' />
           </a>
@@ -164,7 +138,6 @@ const Header: React.FC = () => {
             </Authorization>
           </div>
         )}
-
         {isSignUpOpen && (
           <SignForm>
             <SignUp setSignUpOpen={setSignUpOpen} />
@@ -175,13 +148,6 @@ const Header: React.FC = () => {
             <LogIn setLogInOpen={setLogInOpen} />
           </SignForm>
         )}
-=======
-          <a href="https://rs.school/js/" target="_blank">
-            <img src="/assets/images/logo.png" alt="logo" />
-          </a>
-        </Logo>
-        <Authorization>Sign Up</Authorization>
->>>>>>> 3abbf48607b5913163f297dc3283bf5677f46f48
       </Container>
     </HeaderContainer>
   );
