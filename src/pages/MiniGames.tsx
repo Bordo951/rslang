@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {Route, Switch} from "react-router";
 import MiniGamesGrid from "../components/miniGames/MiniGamesGrid";
 import {HashRouter} from "react-router-dom";
-import {Game1, Game2, Game3, Game4} from '../components/miniGames';
+import  {SavannahGamePage, Game2, Game3, Game4} from '../components/miniGames';
 import SectionTitle from "../parts/SectionTitle";
 
 const MiniGames: React.FC = () => {
@@ -12,8 +12,8 @@ const MiniGames: React.FC = () => {
             <SectionTitle title="Мини-игры" />
             <HashRouter>
                 <Switch>
-                    <Route path='/mini-games/game-1'>
-                        <Game1 />
+                <Route path="/mini-games/savannah/">
+                        <SavannahGamePage />
                     </Route>
                     <Route path='/mini-games/game-2'>
                         <Game2 />
