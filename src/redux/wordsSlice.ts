@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AppDispatch, AppState } from './store';
 
 //types
-type WordType = {
+export type WordType = {
   audio: string;
   audioExample: string;
   audioMeaning: string;
