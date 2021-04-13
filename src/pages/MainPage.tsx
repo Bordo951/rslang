@@ -1,31 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import Team from '../components/MainPage/Team';
+import AboutApp from "../components/MainPage/AboutApp";
 import Promo from '../components/MainPage/Promo';
 
 const Main = styled.div`
-  background: url(/images/london.jpg) center center/cover no-repeat fixed;
-`;
-
-const Description = styled.p`
-  background-color: rgba(255, 255, 255, 0.7);
-  width: 70%;
-  margin: 10px auto;
-  padding: 0.8rem 0.3rem;
-  border: 10px #52d0f7 solid;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-align: center;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
-
-  @media (max-width: 721px) {
-    font-size: 1rem;
-  }
-  @media (max-width: 567px) {
-    width: 90%;
-    font-size: 1rem;
-  }
+  //background: url(/images/london.jpg) center center/cover no-repeat fixed;
+  background-color: rgb(210, 210, 210);
+  background-image: url('/assets/images/product_bg.png');
+  background-size: center/cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 `;
 const Screen = styled.img`
   margin: 40px;
@@ -56,50 +41,56 @@ const VideoOnScreen = styled.iframe`
   }
 `;
 const Title = styled.h3`
-  width: max-content;
-  font-weight: 900;
-  padding: 0.4rem;
-  margin: 0 auto;
-  border-radius: 20px;
-  color: rgb(252, 8, 8);
-  text-shadow: 2px 1px 3px rgb(5, 5, 5);
-  background-color: rgba(255, 255, 255, 0.74);
-  font-family: PermanentMarker;
+  font-family: 'BubblegumSans-Regular', cursive, sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  margin: 20px;
+  padding: 0 0 20px;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  color: #2f2f2f; 
+  position: relative;
+  
+  &:after {
+    background-color: #008c99;
+    background-image: url('/assets/images/title_bg_white.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    content: "";
+    width: 210px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-size: 100% 100%;
+  }   
 `;
 const Container = styled.div`
-  background-color: rgba(82, 209, 247, 0.693);
-  width: 90%;
+  width: 80%;
   margin: 30px auto;
   padding: 1rem;
-  border-radius: 20px;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
+  background-color: #F0F3F3;
+  border-radius: 5px;
 `;
 
 const MainPage: React.FC = () => {
   return (
       <Main>
         <Promo />
-        <Container>
-          <Title>Почему наше приложение?</Title>
-          <Description>
-            Наша команда с любовью собрала мощнейшее приложение для изучения английского языка, которая будет полезна и
-            тем, кто начинает учить язык с нуля, и обладателям уровня intermideate. Приложение максимально приспособлены
-            для того, чтобы учить английский где угодно и когда угодно. Электронный наставник всегда под рукой, он готов
-            к занятиям в любую вашу свободную минуту. Выполнять задания можно, например, в метро по дороге на работу, в
-            парке на скамейке или ночью, лежа в кровати.
-          </Description>
-        </Container>
-        <Container>
-          <Title>
-            Видео пакажет функционал <br /> нашего приложения
-          </Title>
-          <div className="d-flex justify-content-center position-relative">
-            <Screen src="./images/monitor.png" alt="screen" />
-            <VideoOnScreen src="https://www.youtube.com/embed/WYetg3AuLE4" />
-          </div>
-        </Container>
-        <Team />
+        <AboutApp/>
+          <Team />
+          <Container>
+              <Title>Промо</Title>
+              <div className="d-flex justify-content-center position-relative">
+                  <Screen src="./images/monitor.png" alt="screen" />
+                  <VideoOnScreen src="https://www.youtube.com/embed/WYetg3AuLE4" />
+              </div>
+          </Container>
       </Main>
   );
 };
