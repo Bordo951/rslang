@@ -29,7 +29,7 @@ import {
   CardLearnBtn,
   CardHardBtn,
   CardDeleteBtn,
-  TitleRow
+  TitleRow,
 } from './PageStyle';
 
 interface PageInterface {
