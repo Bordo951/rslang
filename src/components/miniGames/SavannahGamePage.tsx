@@ -1,26 +1,26 @@
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import React, {useCallback, useEffect, useReducer, useRef} from "react";
 import {MiniGamesStateType, SavannahGameInitialState, MiniGamesAction} from './MiniGamesStateType';
 import {shuffleWords} from '../../helpers/WordsShuffler';
 import {pickTranslatableWords} from '../../helpers/TranslatableWordsPicker';
-import { VscChromeClose } from "react-icons/vsc";
 import styled from "styled-components";
-import GameControls from "./GameControls";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
-  getWordsData,
-  fetchWordsData,
-  // getErrorMessage,
-  getRequestStatus,
+    getWordsData,
+    fetchWordsData,
+    // getErrorMessage,
+    getRequestStatus,
 } from "../../redux/wordsSlice";
-import { NavLink, useRouteMatch } from "react-router-dom";
-import { VscSettingsGear } from "react-icons/vsc";
-import { Button, Form, Spinner } from "react-bootstrap";
 import MiniGamesWordsFetcher, {
-  MiniGamesWordsGroup,
-  MiniGamesWordsPage,
+    MiniGamesWordsGroup,
+    MiniGamesWordsPage,
 } from "./MiniGamesWordsFetcher";
-import {loadAudio} from "../../helpers/AudioPlayer";
+import {loadAudio, loadFailedAudio} from "../../helpers/AudioPlayer";
 import {guessWord} from "../../helpers/WordGuesser";
+import MiniGameStatistics from "./MiniGamesStatistics";
+import MiniGamesGameOver from "./MiniGamesGameOver";
+import MiniGamesLoader from "./MiniGamesLoader";
+import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
+import MiniGamesSettingsButton from "./MiniGamesSettingsButton";
 
 const GameContainer = styled.div` 
   background: url(${SavannahGameInitialState.gameBackground}) center center/cover no-repeat;
@@ -97,126 +97,6 @@ const AnswerWord = styled.div`
   }
 `;
 
-const SettingsBtn = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const SettingsWindow = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: max-content;
-  height: max-content;
-  background: url(/images/settings.png) center center/cover no-repeat;
-  font-family: "BubblegumSans-Regular", cursive;
-  border-radius: 10px;
-  form {
-    display: flex;
-    justify-content: center;
-
-    > div {
-      margin: 0 5px 15px 5px;
-    }
-  }
-`;
-
-const Loading = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(7, 6, 5, 0.322);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  > div {
-    color: white;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-`;
-const GameOver = styled.div<{lengthWords: number}>`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  z-index: 3;
-  background: url("https://i.pinimg.com/originals/bc/8a/3f/bc8a3f3da923e06aaae99fa28bbfdce3.png")
-    center center/cover no-repeat fixed;
-  width: 100%;
-  height: 100vh;
-  h3 {
-    margin: 0 auto;
-    font-size: 4rem;
-    font-weight: 900;
-    font-family: "BubblegumSans-Regular";
-    color: rgb(0, 206, 209);
-  }
-  h4 {
-    text-shadow: 3px 2px 3px rgb(247, 243, 5);
-    color: white;
-    font-size: 3rem;
-    font-weight: 800;
-    font-family: "BubblegumSans-Regular", cursive;
-  }
-  P {
-    font-weight: 600;
-    background-color: rgba(255, 255, 255, 0.7);
-    width: 25%;
-    margin-left: 3rem;
-    padding: 0.8rem 0.3rem;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    text-align: center;
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
-  }
-  ol {
-    margin: 0 0 5rem 3rem;
-    max-width:  ${(p) => {
-    return p.lengthWords < 6? `35%` : `55%`
-  }};
-    width: max-content;
-    min-width: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0.8rem 0.3rem;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-align: center;
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.5);
-    list-style-position: inside;
-  }
-
-  li {
-    border-radius: 10px;
-    padding: 5px 0.3rem;
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
-    margin: 0.5rem 1rem;
-    background-color: rgba(255, 255, 255, 0.7);
-    font-style: oblique;
-  }
-  span {
-    font-weight: 800;
-    background-color: rgba(245, 4, 4, 0.7);
-    text-shadow: 3px 2px 3px rgb(247, 243, 5);
-    color: white;
-    margin: 5rem auto 3rem;
-    padding: 0.5rem 0.3rem;
-    border-radius: 10px;
-    font-size: 4rem;
-    text-align: center;
-    box-shadow: 0 0 5px 5px rgba(60, 238, 223, 0.2);
-  }
-`;
 const ButtonClose = styled.button`
   height: 2.8rem;
 `;
@@ -240,7 +120,7 @@ const Words = styled.div<Partial<MiniGamesStateType>>`
   transform: translate(-50%, 0);
   animation: ${(p) => {
     return p.isTurnOn ? `down linear ${p.speed}s` : "";
-  }};
+}};
 
   @keyframes down {
     0% {
@@ -253,295 +133,160 @@ const Words = styled.div<Partial<MiniGamesStateType>>`
   }
 `;
 
-const Statistics = styled.div<Partial<MiniGamesStateType>>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(10, 10, 10, 0.308);
-  width: 23%;
-  ul {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-evenly;
-    width: ${(p) => (p.counterLife || 0) * 2.5}rem;
-    list-style-type: none;
-    height: 2rem;
-    text-align: center;
-  }
-
-  li {
-    display: inline-block;
-    width: 2rem;
-    padding: 8px 0.4rem;
-    background: url(/images/heart.svg) center center/cover no-repeat;
-  }
-
-  a {
-    margin: 0.3rem 0.3rem 0 0;
-    align-self: flex-end;
-  }
-
-  div {
-    margin-top: 5px;
-    color: rgba(252, 106, 22, 0.803);
-    font-size: 1.5rem;
-    font-family: "BubblegumSans-Regular";
-    text-shadow: 1px 1px 1px rgb(255, 253, 253);
-    span {
-      text-shadow: 3px 3px 3px rgba(241, 4, 4, 0.774);
-      color: whitesmoke;
-      font-size: 2rem;
-      font-family: "BubblegumSans-Regular";
-      margin-right: 0.8rem;
-    }
-  }
-`;
-
-
 
 const SavannahGamePage: React.FC = () => {
-  const status = useSelector(getRequestStatus);
-  let guessedWords = useRef<string[]>([]);
+    const status = useSelector(getRequestStatus);
+    let guessedWords = useRef<string[]>([]);
 
-  // const group = MiniGamesWordsGroup();
-  // const page = MiniGamesWordsPage();
-  const words = MiniGamesWordsFetcher();
-  console.log('dataWords for Game 1', words);
+    // const group = MiniGamesWordsGroup();
+    // const page = MiniGamesWordsPage();
+    const words = MiniGamesWordsFetcher();
+    console.log('dataWords for Game 1', words);
 
-  function reducer(state: MiniGamesStateType, action: MiniGamesAction) {
-    return { ...state, [action.type]: action.value };
-  }
-  const [state, dispatch] = useReducer(reducer, SavannahGameInitialState);
-
-  useEffect(() => {
-    addAnimation();
-    if (!words.length) return;
-
-    let translatableWords = pickTranslatableWords(words, state.index);
-    let verifiableWords = words[state.index]?.word;
-    let verifiableWordsAudio = words[state.index]?.audio;
-
-    dispatch({ type: "translatableWords", value: translatableWords });
-    dispatch({ type: "verifiableWords", value:verifiableWords });
-    dispatch({ type: "verifiableWordsAudio", value: verifiableWordsAudio });
-  }, [state.index, state.counter, words]);
-
-  let wordAudio = loadAudio(state.verifiableWordsAudio);
-  let faildAudio = new Audio("audio/faild.mp3");
-
-  const handleSuccessGuess = () => {
-    dispatch({ type: "counter", value: state.counter + 1 });
-    dispatch({ type: "index", value: state.index + 1 });
-    state.isMusic ? wordAudio.play() : wordAudio.pause();
-    guessedWords.current.push(state.verifiableWords);
-  };
-
-  const handleFailedGuess = () => {
-    state.isMusic ? faildAudio.play() : faildAudio.pause();
-    dispatch({ type: "counterLife", value: state.counterLife - 1 });
-    if (state.counter > 0) {
-      dispatch({ type: "counter", value: state.counter - 1 });
-    } else {
-      state.counter = 0;
+    function reducer(state: MiniGamesStateType, action: MiniGamesAction) {
+        return {...state, [action.type]: action.value};
     }
-  };
 
-  const hendlerClick = (e: any) => {
-    guessWord(e, state, handleSuccessGuess.bind(this), handleFailedGuess.bind(this));
-  };
+    const [state, dispatch] = useReducer(reducer, SavannahGameInitialState);
 
-  const addAnimation = () => {
-    dispatch({ type: "isTurnOn", value: true });
-  };
+    useEffect(() => {
+        addAnimation();
+        if (!words.length) return;
 
-  const checkOnlyOne = (e: any) => {
-    dispatch({ type: "speed", value: e.target.value });
-    dispatch({ type: "idSpeed", value: e.target.id });
-  };
+        let translatableWords = pickTranslatableWords(words, state.index);
+        let verifiableWords = words[state.index]?.word;
+        let verifiableWordsAudio = words[state.index]?.audio;
 
-  if (state.isWordDown === true) {
-    state.isMusic ? faildAudio.play() : faildAudio.pause();
-    dispatch({ type: "counterLife", value: state.counterLife - 1 });
-    if (state.counter > 0) {
-      dispatch({ type: "counter", value: state.counter - 1 });
-    } else {
-      state.counter = 0;
+        dispatch({type: "translatableWords", value: translatableWords});
+        dispatch({type: "verifiableWords", value: verifiableWords});
+        dispatch({type: "verifiableWordsAudio", value: verifiableWordsAudio});
+    }, [state.index, state.counter, words]);
+
+    let wordAudio = loadAudio(state.verifiableWordsAudio);
+    let faildAudio = loadFailedAudio();
+
+    const handleSuccessGuess = () => {
+        dispatch({type: "counter", value: state.counter + 1});
+        dispatch({type: "index", value: state.index + 1});
+        state.isMusic ? wordAudio.play() : wordAudio.pause();
+        guessedWords.current.push(state.verifiableWords);
+    };
+
+    const handleFailedGuess = () => {
+        state.isMusic ? faildAudio.play() : faildAudio.pause();
+        dispatch({type: "counterLife", value: state.counterLife - 1});
+        if (state.counter > 0) {
+            dispatch({type: "counter", value: state.counter - 1});
+        } else {
+            state.counter = 0;
+        }
+    };
+
+    const repeatGame = () => {
+        dispatch({type: "counterLife", value: 5});
+        dispatch({type: "index", value: 0});
+        dispatch({type: "counter", value: 0});
+        guessedWords.current = [];
+    };
+
+    const handleClick = (e: any) => {
+        guessWord(e, state, handleSuccessGuess.bind(this), handleFailedGuess.bind(this));
+    };
+
+    const addAnimation = () => {
+        dispatch({type: "isTurnOn", value: true});
+    };
+
+    const checkOnlyOne = (e: any) => {
+        dispatch({type: "speed", value: e.target.value});
+        dispatch({type: "idSpeed", value: e.target.id});
+    };
+
+    if (state.isWordDown === true) {
+        state.isMusic ? faildAudio.play() : faildAudio.pause();
+        dispatch({type: "counterLife", value: state.counterLife - 1});
+        if (state.counter > 0) {
+            dispatch({type: "counter", value: state.counter - 1});
+        } else {
+            state.counter = 0;
+        }
+        dispatch({type: "isWordDown", value: false});
     }
-    dispatch({ type: "isWordDown", value: false });
-  }
 
-  const switchMusic = () => {
-    dispatch({ type: "isMusic", value: !state.isMusic });
-  };
+    const switchMusic = () => {
+        dispatch({type: "isMusic", value: !state.isMusic});
+    };
 
-  const showSettingWindow = () => {
-    dispatch({ type: "isSettingsWindow", value: true });
-    dispatch({ type: "isTurnOn", value: false });
-  };
-  const closeSettingWindow = () => {
-    dispatch({ type: "isSettingsWindow", value: false });
-    dispatch({ type: "isTurnOn", value: true });
-  };
+    const showSettingWindow = () => {
+        dispatch({type: "isSettingsWindow", value: true});
+        dispatch({type: "isTurnOn", value: false});
+    };
+    const closeSettingWindow = () => {
+        dispatch({type: "isSettingsWindow", value: false});
+        dispatch({type: "isTurnOn", value: true});
+    };
 
-  const Word = useCallback(() => {
-    if (status !== "loading" && state.counterLife >= 1) {
-      return (
-        <Words
-          speed={state.speed}
-          isTurnOn={state.isTurnOn}
-          onAnimationEnd={() => {
-            dispatch({ type: "isWordDown", value: true });
-          }}
-        >
-          <span>{state.verifiableWords}</span>
-        </Words>
-      );
-    } else {
-      return null;
-    }
-  }, [state, status]);
-  return (
-    <GameContainer id="game">
-      {(state.counterLife < 1 || state.index === 20) && (
-        <GameOver lengthWords={guessedWords.current.length}>
-          <div className="d-flex">
-            <NavLink to="/mini-games/" data-name="Mini Games">
-              <button type="button" className="btn btn-danger">
-                <VscChromeClose />
-              </button>
-            </NavLink>
-          </div>
-          <h4 className="mx-auto">Конец игры</h4>
-          <p>Правильных слов: {guessedWords.current.length}</p>
-          {!!guessedWords.current.length ? (
-            <ol>
-              {guessedWords.current.map((word) => (
-                <li key={`${word}@!${status}`}>{word}</li>
-              ))}
-            </ol>
-          ) : (
-            <span>Все получиться!Попробуй еще раз</span>
-          )}
-          <Button
-            variant="success"
-            className="mx-auto w-25"
-            onClick={() => {
-              dispatch({ type: "counterLife", value: 5 });
-              dispatch({ type: "index", value: 0 });
-              dispatch({ type: "counter", value: 0 });
-              guessedWords.current = [];
-            }}
-          >
-            Повторить
-          </Button>
-        </GameOver>
-      )}
-      {status === "loading" && (
-        <Loading>
-          <div>
-            <Spinner animation="grow" variant="success" />
-            <Spinner animation="grow" variant="danger" />
-            <Spinner animation="grow" variant="warning" />
-          </div>
-          <div>Loading...</div>
-        </Loading>
-      )}
-      {state.index !== 20 && <Word />}
-      <Container>
-        <SettingsBtn>
-          <button
-            type="button"
-            className="btn btn-dark"
-            onClick={() => showSettingWindow()}
-          >
-            <div className="d-flex align-items-center">
-              <VscSettingsGear />
-              Settings
-            </div>
-          </button>
-        </SettingsBtn>
-        {state.isSettingsWindow && (
-          <SettingsWindow>
-            <GameControls />
-            Скорость игры:
-            <Form>
-              <Form.Check
-                checked={state.idSpeed === "beginner"}
-                type="radio"
-                id="beginner"
-                value="15"
-                label="Начинающий"
-                onChange={(e) => checkOnlyOne(e)}
-              />
-
-              <Form.Check
-                checked={state.idSpeed === "midle"}
-                type="radio"
-                id="midle"
-                value="8"
-                label="Средний"
-                onChange={(e) => checkOnlyOne(e)}
-              />
-              <Form.Check
-                checked={state.idSpeed === "high"}
-                type="radio"
-                value="4"
-                id="high"
-                label="Полиглот"
-                onChange={(e) => checkOnlyOne(e)}
-              />
-            </Form>
-            <Form>
-              <Form.Check
-                type="switch"
-                id="custom-switch"
-                label="Music"
-                checked={state.isMusic}
-                onChange={() => switchMusic()}
-              />
-            </Form>
-            <Button variant="success" onClick={() => closeSettingWindow()}>
-              OK
-            </Button>
-          </SettingsWindow>
-        )}
-        <Statistics counterLife={state.counterLife}>
-          <NavLink to="/mini-games/" data-name="Mini Games">
-            <button type="button" className="btn btn-danger">
-              <VscChromeClose />
-            </button>
-          </NavLink>
-          <ul>
-            {new Array(state.counterLife).fill(1).map((_, index) => (
-              <li key={index} />
-            ))}
-          </ul>
-          <div>
-            <span>Слов:</span>
-            {state.index + 1} / 20
-          </div>
-          <div>
-            <span>Очки:</span>
-            {state.counter}
-          </div>
-        </Statistics>
-      </Container>
-      <AnswerWord>
-        {shuffleWords(state.translatableWords).map((word) => (
-          <input
-            type="button"
-            key={`${word.word}${words[state.index]}`}
-            value={word.wordTranslate}
-            data-value={word.word}
-            onClick={(e) => {
-              addAnimation();
-              hendlerClick(e);
-            }}
-          />
-        ))}
-      </AnswerWord>
-    </GameContainer>
-  );
+    const Word = useCallback(() => {
+        if (status !== "loading" && state.counterLife >= 1) {
+            return (
+                <Words
+                    speed={state.speed}
+                    isTurnOn={state.isTurnOn}
+                    onAnimationEnd={() => {
+                        dispatch({type: "isWordDown", value: true});
+                    }}
+                >
+                    <span>{state.verifiableWords}</span>
+                </Words>
+            );
+        } else {
+            return null;
+        }
+    }, [state, status]);
+    return (
+        <GameContainer id="game">
+            {(state.counterLife < 1 || state.index === 20) && (
+                <MiniGamesGameOver guessedWords={guessedWords} repeatGameAction={repeatGame}/>
+            )}
+            {(status === "loading") && (
+                <MiniGamesLoader/>
+            )}
+            {state.index !== 20 && <Word/>}
+            <Container>
+                <MiniGamesSettingsButton handleClickOnButton={() => {
+                    showSettingWindow()
+                }}/>
+                {state.isSettingsWindow && (
+                    <MiniGamesSettingsWindows
+                        idSpeed={state.idSpeed}
+                        handleSpeedChange={checkOnlyOne}
+                        isMusic={state.isMusic}
+                        handleSwitchMusic={switchMusic}
+                        closeSettingWindow={closeSettingWindow}
+                    />
+                )}
+                <MiniGameStatistics
+                    counterLife={state.counterLife}
+                    index={state.index}
+                    counter={state.counter}
+                />
+            </Container>
+            <AnswerWord>
+                {shuffleWords(state.translatableWords).map((word) => (
+                    <input
+                        type="button"
+                        key={`${word.word}${words[state.index]}`}
+                        value={word.wordTranslate}
+                        data-value={word.word}
+                        onClick={(e) => {
+                            addAnimation();
+                            handleClick(e);
+                        }}
+                    />
+                ))}
+            </AnswerWord>
+        </GameContainer>
+    );
 };
 
 export default SavannahGamePage;
