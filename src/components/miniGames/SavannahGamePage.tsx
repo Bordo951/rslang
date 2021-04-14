@@ -262,6 +262,9 @@ const Statistics = styled.div<Partial<stateType>>`
     list-style-type: none;
     height: 2rem;
     text-align: center;
+    @media (max-width: 993px) {
+      width: ${(p) => (p.counterLife || 0) * 1.2}rem;
+    }
   }
 
   li {
@@ -269,6 +272,10 @@ const Statistics = styled.div<Partial<stateType>>`
     width: 2rem;
     padding: 8px 0.4rem;
     background: url(/images/heart.svg) center center/cover no-repeat;
+    @media (max-width: 993px) {
+    width:1.2rem;
+    height: 1.2rem;
+  }
   }
 
   a {
@@ -314,7 +321,7 @@ const SavannahGamePage: React.FC = () => {
 
   // const group = MiniGamesWordsGroup();
   // const page = MiniGamesWordsPage();
-  const words = MiniGamesWordsFetcher();
+  const [words,changeWords] = MiniGamesWordsFetcher();
   const initialState: stateType = {
     index: 0,
     verifiableWords: " ",
@@ -425,7 +432,6 @@ const SavannahGamePage: React.FC = () => {
     dispatch({ type: "isSettingsWindow", value: false });
     dispatch({ type: "isTurnOn", value: true });
   };
-
   const Word = useCallback(() => {
     if (status !== "loading" && state.counterLife >= 1) {
       return (
@@ -474,6 +480,7 @@ const SavannahGamePage: React.FC = () => {
               dispatch({ type: "index", value: 0 });
               dispatch({ type: "counter", value: 0 });
               guessedWords.current = [];
+              changeWords()
             }}
           >
             Повторить
