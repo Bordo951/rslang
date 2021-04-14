@@ -99,27 +99,22 @@ const Statistics = styled.div<Partial<stateType>>`
     text-align: center;
     @media (max-width: 993px) {
       width: ${(p) => (p.counterLife || 0) * 1.2}rem;
-
     }
   }
-
   li {
     display: inline-block;
     width: 2rem;
     padding: 8px 0.4rem;
     background: url(/images/heart.svg) center center/cover no-repeat;
     @media (max-width: 993px) {
-    width:1.2rem;
-    height: 1.2rem;
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
-  }
- 
-
   a {
     margin: 0.3rem 0.3rem 0 0;
     align-self: flex-end;
   }
-
   div {
     margin-top: 5px;
     color: rgba(252, 106, 22, 0.803);
@@ -177,7 +172,7 @@ const VerifiableWord = styled.div<Partial<stateType>>`
     );
     opacity: ${(p) => p.opacity};
     display: flex;
-    width: 12rem;
+    width: 13rem;
     padding: 20px 0.3rem;
     text-align: center;
     text-transform: uppercase;
@@ -194,13 +189,13 @@ const VerifiableWord = styled.div<Partial<stateType>>`
       text-decoration: none;
     }
     @media (max-width: 1294px) {
-      width:9rem;
-      font-size:0.8
+      width: 9rem;
+      font-size: 0.8;
     }
     @media (max-width: 993px) {
-      width:7rem;
-      font-size:0.6rem;
-      text-transform:lowercase;
+      width: 7rem;
+      font-size: 0.6rem;
+      text-transform: lowercase;
     }
   }
 `;
@@ -225,7 +220,7 @@ const TranslationWords = styled.div<Partial<stateType>>`
     );
     opacity: ${(p) => p.opacity};
     display: flex;
-    width: 12rem;
+    width: 13rem;
     padding: 20px 0.3rem;
     text-align: center;
     text-transform: uppercase;
@@ -244,13 +239,13 @@ const TranslationWords = styled.div<Partial<stateType>>`
       text-decoration: none;
     }
     @media (max-width: 1294px) {
-      width:9rem;
-      font-size:0.8
+      width: 9rem;
+      font-size: 0.8;
     }
     @media (max-width: 993px) {
-      width:7rem;
-      font-size:0.6rem;
-      text-transform:lowercase;
+      width: 7rem;
+      font-size: 0.6rem;
+      text-transform: lowercase;
     }
   }
 `;

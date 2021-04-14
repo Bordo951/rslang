@@ -1,13 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import SignUp from '../components/forms/SignUp';
+import LogIn from '../components/forms/LogIn';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserId, logOut } from '../redux/authSlice';
 
 const HeaderContainer = styled.header`
   width: 100%;
   margin: 0;
   padding: 6px 0;
-  background: url("/assets/images/header_bg.png") repeat #ffffff;
+  background: url('/assets/images/header_bg.png') repeat #ffffff;
 `;
-
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;

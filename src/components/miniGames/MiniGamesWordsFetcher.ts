@@ -17,8 +17,7 @@ export const MiniGamesWordsPage = () => {
 return Math.floor(Math.random() * 28)
     // return Number.isInteger(+parsed.query.page) ? +parsed.query.page : 0;
 };
-
-// const getRandomPage = () => Math.floor(Math.random() * 28);
+const randomPage = Math.floor(Math.random() * 28);
 
 export const MiniGamesWordsFetcher = () => {
     const [page, setPage] = useState(MiniGamesWordsPage())
