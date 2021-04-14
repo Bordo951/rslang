@@ -13,6 +13,8 @@ import {loadAudio, loadFailedAudio} from "../../helpers/AudioPlayer";
 import {guessWord} from "../../helpers/WordGuesser";
 import MiniGameStatistics from "./MiniGamesStatistics";
 import MiniGamesGameOver from "./MiniGamesGameOver";
+import MiniGamesSettingsButton from "./MiniGamesSettingsButton";
+import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
 
 const GameContainer = styled.div` 
   background: url(${AudioGameInitialState.gameBackground}) center center/cover no-repeat;
@@ -85,6 +87,25 @@ const Game2: React.FC = () => {
         guessedWords.current = [];
     };
 
+    const showSettingWindow = () => {
+        dispatch({type: "isSettingsWindow", value: true});
+        dispatch({type: "isTurnOn", value: false});
+    };
+
+    const checkOnlyOne = (e: any) => {
+        dispatch({type: "speed", value: e.target.value});
+        dispatch({type: "idSpeed", value: e.target.id});
+    };
+
+    const switchMusic = () => {
+        dispatch({type: "isMusic", value: !state.isMusic});
+    };
+
+    const closeSettingWindow = () => {
+        dispatch({type: "isSettingsWindow", value: false});
+        dispatch({type: "isTurnOn", value: true});
+    };
+
     //playSound();
 
     return <div>
@@ -94,6 +115,19 @@ const Game2: React.FC = () => {
             )}
 
             <GameControls/>
+            <MiniGamesSettingsButton handleClickOnButton={() => {
+                showSettingWindow()
+            }}/>
+            {state.isSettingsWindow && (
+                <MiniGamesSettingsWindows
+                    idSpeed={state.idSpeed}
+                    handleSpeedChange={checkOnlyOne}
+                    isMusic={state.isMusic}
+                    handleSwitchMusic={switchMusic}
+                    closeSettingWindow={closeSettingWindow}
+                />
+            )}
+
             <button>Game2, group: {group}, page: {page}</button>
             <br/>
             <button>verifiableWords: {state.verifiableWords},

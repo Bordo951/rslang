@@ -197,11 +197,6 @@ const SavannahGamePage: React.FC = () => {
         dispatch({type: "isTurnOn", value: true});
     };
 
-    const checkOnlyOne = (e: any) => {
-        dispatch({type: "speed", value: e.target.value});
-        dispatch({type: "idSpeed", value: e.target.id});
-    };
-
     if (state.isWordDown === true) {
         state.isMusic ? faildAudio.play() : faildAudio.pause();
         dispatch({type: "counterLife", value: state.counterLife - 1});
@@ -213,14 +208,20 @@ const SavannahGamePage: React.FC = () => {
         dispatch({type: "isWordDown", value: false});
     }
 
-    const switchMusic = () => {
-        dispatch({type: "isMusic", value: !state.isMusic});
-    };
-
     const showSettingWindow = () => {
         dispatch({type: "isSettingsWindow", value: true});
         dispatch({type: "isTurnOn", value: false});
     };
+
+    const checkOnlyOne = (e: any) => {
+        dispatch({type: "speed", value: e.target.value});
+        dispatch({type: "idSpeed", value: e.target.id});
+    };
+
+    const switchMusic = () => {
+        dispatch({type: "isMusic", value: !state.isMusic});
+    };
+
     const closeSettingWindow = () => {
         dispatch({type: "isSettingsWindow", value: false});
         dispatch({type: "isTurnOn", value: true});
