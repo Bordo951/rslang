@@ -102,7 +102,7 @@ const Header: React.FC = () => {
   const [userSavedId, setUserSavedId] = useState<string | null>(null);
   useEffect(() => {
     setUserSavedId(localStorage.getItem('userId'));
-  }, []);
+  }, [dispatch]);
   console.log(userSavedId);
   return (
     <HeaderContainer>
@@ -114,7 +114,12 @@ const Header: React.FC = () => {
         </Logo>
         {userSavedId || userId ? (
           <div>
-            <Authorization onClick={() => dispatch(logOut())}>
+            <Authorization
+              onClick={() => {
+                dispatch(logOut());
+                setUserSavedId(null);
+              }}
+            >
               Log Out
             </Authorization>
           </div>
