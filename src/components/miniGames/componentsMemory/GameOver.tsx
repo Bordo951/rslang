@@ -1,13 +1,5 @@
 import React, { useEffect, useReducer,useRef } from "react";
 import styled from "styled-components";
-import {
-  MiniGamesWordsFetcher,
-  MiniGamesWordsGroup,
-  MiniGamesWordsPage,
-} from "../MiniGamesWordsFetcher";
-import { VscChromeClose, VscSettingsGear } from "react-icons/vsc";
-import { NavLink } from "react-router-dom";
-import { WordType } from "../../../redux/wordsSlice";
 
 const GameOver = styled.div<{lengthWords: number}>`
 display: flex;
@@ -86,45 +78,11 @@ span {
 }
 `;
 
-const GmeOver: React.FC = () => {
+// const GmeOver: React.FC = () => {
  
-    return(<></>
-        // {(state.counterLife < 1 || state.index === 20) && (
-        //     <GameOver lengthWords={guessedWords.current.length}>
-        //       <div className="d-flex">
-        //         <h3>Саванна</h3>
-        //         <NavLink to="/mini-games/" data-name="Mini Games">
-        //           <button type="button" className="btn btn-danger">
-        //             <VscChromeClose />
-        //           </button>
-        //         </NavLink>
-        //       </div>
-        //       <h4 className="mx-auto">Конец игры</h4>
-        //       <p>Правильных слов: {guessedWords.current.length}</p>
-        //       {!!guessedWords.current.length ? (
-        //         <ol>
-        //           {guessedWords.current.map((word) => (
-        //             <li key={`${word}@!${status}`}>{word}</li>
-        //           ))}
-        //         </ol>
-        //       ) : (
-        //         <span>Все получиться!Попробуй еще раз</span>
-        //       )}
-        //       <Button
-        //         variant="success"
-        //         className="mx-auto w-25"
-        //         onClick={() => {
-        //           dispatch({ type: "counterLife", value: 5 });
-        //           dispatch({ type: "index", value: 0 });
-        //           dispatch({ type: "counter", value: 0 });
-        //           guessedWords.current = [];
-        //         }}
-        //       >
-        //         Повторить
-        //       </Button>
-        //     </GameOver>
-        //   )}
-    )
-}
+//     return(<></>
+     
+//     )
+// }
 
 export default GameOver

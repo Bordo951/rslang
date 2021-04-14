@@ -12,34 +12,11 @@ import { getRequestStatus, WordType } from "../../redux/wordsSlice";
 import GameOver from "./componentsMemory/GameOver";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { render } from "@testing-library/react";
 import Loading from "./componentsMemory/Loading";
 
 const GameContainer = styled.div`
   background: url(/images/brain.jpg) center center/cover no-repeat fixed;
   height: 100%;
-`;
-const SettingsWindow = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: max-content;
-  height: max-content;
-  background: url(/images/settings.png) center center/cover no-repeat;
-  font-family: "BubblegumSans-Regular", cursive;
-  border-radius: 10px;
-  form {
-    display: flex;
-    justify-content: center;
-
-    > div {
-      margin: 0 5px 15px 5px;
-    }
-  }
 `;
 const Container = styled.div`
   display: flex;
@@ -79,7 +56,6 @@ const Titile = styled.h3`
   color: rgb(0, 206, 209);
   text-shadow: 3px 2px 3px rgb(2, 2, 2);
 `;
-
 const SettingsBtn = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,7 +74,7 @@ const SettingsBtn = styled.div`
     color: white;
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
-    /* display: block; */
+    display: block;
     &:hover {
       background-position: right center; /* change the direction of the change here */
       color: #fff;
@@ -121,6 +97,10 @@ const Statistics = styled.div<Partial<stateType>>`
     list-style-type: none;
     height: 2rem;
     text-align: center;
+    @media (max-width: 993px) {
+      width: ${(p) => (p.counterLife || 0) * 1.2}rem;
+
+    }
   }
 
   li {
@@ -128,7 +108,12 @@ const Statistics = styled.div<Partial<stateType>>`
     width: 2rem;
     padding: 8px 0.4rem;
     background: url(/images/heart.svg) center center/cover no-repeat;
+    @media (max-width: 993px) {
+    width:1.2rem;
+    height: 1.2rem;
   }
+  }
+ 
 
   a {
     margin: 0.3rem 0.3rem 0 0;
@@ -166,22 +151,24 @@ const CardTimer = styled.div`
   width: 80%;
   border-radius: 20px;
   padding: 20px 0;
+  flex: 6 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const VerifiableWord = styled.div<Partial<stateType>>`
   background-color: rgba(0, 4, 255, 0.5);
   border-radius: 20px;
   padding: 10px 1rem;
   margin: 0 auto;
-  width: 90%;
-  div {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 2rem;
-    grid-row-gap: 2rem;
-    grid-auto-rows: 60px;
-    list-style-type: none;
-  }
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   input {
+    display: block;
     background-image: linear-gradient(
       to right,
       #f857a6 0%,
@@ -190,21 +177,30 @@ const VerifiableWord = styled.div<Partial<stateType>>`
     );
     opacity: ${(p) => p.opacity};
     display: flex;
-    width: 100%;
-    padding: 20px 5px;
+    width: 12rem;
+    padding: 20px 0.3rem;
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
     background-size: 200% auto;
     border-radius: 10px;
     display: block;
-    margin: auto;
+    margin: 3px;
     color: white;
     box-shadow: 0 0 20px #eee;
     &:hover {
       background-position: right center;
       color: #fff;
       text-decoration: none;
+    }
+    @media (max-width: 1294px) {
+      width:9rem;
+      font-size:0.8
+    }
+    @media (max-width: 993px) {
+      width:7rem;
+      font-size:0.6rem;
+      text-transform:lowercase;
     }
   }
 `;
@@ -213,15 +209,14 @@ const TranslationWords = styled.div<Partial<stateType>>`
   border-radius: 20px;
   padding: 10px 1rem;
   margin: 0 auto;
-  width: 90%;
-  div {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 2rem;
-    grid-row-gap: 2rem;
-    list-style-type: none;
-  }
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
   input {
+    display: block;
     background-image: linear-gradient(
       to right,
       #4b6cb7 0%,
@@ -230,21 +225,32 @@ const TranslationWords = styled.div<Partial<stateType>>`
     );
     opacity: ${(p) => p.opacity};
     display: flex;
-    width: 100%;
-    padding: 20px 5px;
+    width: 12rem;
+    padding: 20px 0.3rem;
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
     background-size: 200% auto;
     border-radius: 10px;
     display: block;
-    margin: auto;
+    margin: 3px;
     color: white;
+    word-break: keep-all;
     box-shadow: 0 0 20px #eee;
+    word-break: break-all;
     &:hover {
       background-position: right center;
       color: #fff;
       text-decoration: none;
+    }
+    @media (max-width: 1294px) {
+      width:9rem;
+      font-size:0.8
+    }
+    @media (max-width: 993px) {
+      width:7rem;
+      font-size:0.6rem;
+      text-transform:lowercase;
     }
   }
 `;
@@ -265,10 +271,9 @@ type stateType = {
 };
 const Game2: React.FC = () => {
   const status = useSelector(getRequestStatus);
-  const words = MiniGamesWordsFetcher();
+  const [words, changeWords] = MiniGamesWordsFetcher();
   let guessedWords = useRef<string[]>([]);
   let faildAudio = new Audio("audio/faild.mp3");
-
   // const group = MiniGamesWordsGroup();
   // const page = MiniGamesWordsPage();
   const initialState: stateType = {
@@ -292,21 +297,21 @@ const Game2: React.FC = () => {
     return { ...state, [action.type]: action.value };
   }
   const [state, dispatch] = useReducer(reducer, initialState);
+  // useEffect(() => {
+  //   if (status === "succeeded") {
+  //     let myInterval = setInterval(() => {
+  //       if (state.seconds > 0) {
+  //         dispatch({ type: "seconds", value: state.seconds - 1 });
+  //       } else clearInterval(myInterval);
+  //     }, 1000);
+  //     return () => {
+  //       clearInterval(myInterval);
+  //     };
+  //   }
+  // });
 
   useEffect(() => {
-    let myInterval = setInterval(() => {
-      if (state.seconds > 0) {
-        dispatch({ type: "seconds", value: state.seconds - 1 });
-      } else clearInterval(myInterval);
-    }, 1000);
-    return () => {
-      clearInterval(myInterval);
-    };
-  });
-
-  useEffect(() => {
-    if (state.enWords.length) return;
-    const wordsCopy = words.splice(10);
+    const wordsCopy = [...words].splice(10);
     const enWords = shuffle(wordsCopy).map((obj) => ({
       ...obj,
       isDisabled: false,
@@ -317,7 +322,7 @@ const Game2: React.FC = () => {
     }));
     dispatch({ type: "enWords", value: enWords });
     dispatch({ type: "ruWords", value: ruWords });
-  }, [words, state.counter]);
+  }, [words]);
 
   const hendlerCheck = (e: any) => {
     const verifiableValue = e.target.attributes[1].value;
@@ -370,7 +375,8 @@ const Game2: React.FC = () => {
   if (state.isClickedTranslitionButton && state.isClickedVerifiableButton) {
     if (state.verifiableValue === state.translitionValue) {
       dispatch({ type: "counter", value: state.counter + 1 });
-      guessedWords.current.push(state.verifiableValue);
+      if (!guessedWords.current.includes(state.verifiableValue))
+        guessedWords.current.push(state.verifiableValue);
     } else {
       dispatch({ type: "counterLife", value: state.counterLife - 1 });
       faildAudio.play();
@@ -378,7 +384,6 @@ const Game2: React.FC = () => {
     dispatch({ type: "isClickedTranslitionButton", value: false });
     dispatch({ type: "isClickedVerifiableButton", value: false });
   }
-
   const shuffle = (array: WordType[]) => {
     const arr = [...array];
     let j, temp;
@@ -391,9 +396,27 @@ const Game2: React.FC = () => {
     return arr;
   };
 
+  const newGame = () => {
+    changeWords();
+    dispatch({ type: "counterLife", value: 5 });
+    dispatch({ type: "seconds", value: 60 });
+    dispatch({ type: "counter", value: 0 });
+    guessedWords.current = [];
+    dispatch({
+      type: "enWords",
+      value: state.enWords.map((el) => ({ ...el, isDisabled: false })),
+    });
+    dispatch({
+      type: "ruWords",
+      value: state.ruWords.map((el) => ({ ...el, isDisabled: false })),
+    });
+  };
+
   return (
     <GameContainer id="game">
-      {(state.counterLife < 1 || state.seconds === 0) && (
+      {(state.counterLife < 1 ||
+        state.seconds === 0 ||
+        state.counter === 10) && (
         <GameOver lengthWords={guessedWords.current.length}>
           <div className="d-flex">
             <h3>Memory</h3>
@@ -408,7 +431,7 @@ const Game2: React.FC = () => {
           {!!guessedWords.current.length ? (
             <ol>
               {guessedWords.current.map((word) => (
-                <li key={`${word}@!`}>{word}</li>
+                <li key={`${word}${new Date()}`}>{word}</li>
               ))}
             </ol>
           ) : (
@@ -417,12 +440,7 @@ const Game2: React.FC = () => {
           <Button
             variant="success"
             className="mx-auto w-25"
-            onClick={() => {
-              dispatch({ type: "counterLife", value: 5 });
-              dispatch({ type: "seconds", value: 60 });
-              dispatch({ type: "counter", value: 0 });
-              guessedWords.current = [];
-            }}
+            onClick={() => newGame()}
           >
             Повторить
           </Button>
@@ -455,37 +473,33 @@ const Game2: React.FC = () => {
       </Container>
       <CardTimer>
         <VerifiableWord>
-          <div>
-            {state.enWords.map((verifiable) => (
-              <input
-                disabled={verifiable.isDisabled}
-                style={{ opacity: verifiable.isDisabled ? 0.7 : 1 }}
-                type="button"
-                key={`${verifiable.wordTranslate}${verifiable.id} `}
-                data-value={verifiable.word}
-                onClick={(e) => hendlerCheck(e)}
-                value={verifiable.word}
-              />
-            ))}
-          </div>
+          {state.enWords.map((verifiable) => (
+            <input
+              disabled={verifiable.isDisabled}
+              style={{ opacity: verifiable.isDisabled ? 0.7 : 1 }}
+              type="button"
+              key={`${verifiable.wordTranslate}${verifiable.id} `}
+              data-value={verifiable.word}
+              onClick={(e) => hendlerCheck(e)}
+              value={verifiable.word}
+            />
+          ))}
         </VerifiableWord>
         <Timer>
           <span>{state.seconds}</span>
         </Timer>
         <TranslationWords>
-          <div>
-            {state.ruWords.map((translaation) => (
-              <input
-                style={{ opacity: translaation.isDisabled ? 0.7 : 1 }}
-                disabled={translaation.isDisabled}
-                type="button"
-                key={`${translaation.word}${translaation.id}`}
-                data-value={translaation.word}
-                onClick={(e) => hendlerCheckTranslition(e)}
-                value={translaation.wordTranslate}
-              />
-            ))}
-          </div>
+          {state.ruWords.map((translaation) => (
+            <input
+              style={{ opacity: translaation.isDisabled ? 0.7 : 1 }}
+              disabled={translaation.isDisabled}
+              type="button"
+              key={`${translaation.word}${translaation.id}`}
+              data-value={translaation.word}
+              onClick={(e) => hendlerCheckTranslition(e)}
+              value={translaation.wordTranslate}
+            />
+          ))}
         </TranslationWords>
       </CardTimer>
     </GameContainer>
