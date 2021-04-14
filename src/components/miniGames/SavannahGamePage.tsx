@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useReducer, useRef } from "react";
-import { WordType } from "../../redux/wordsSlice";
+import {MiniGamesStateType, SavannahGameInitialState, MiniGamesAction} from './MiniGamesStateType';
+import {shuffleWords} from '../../helpers/WordsShuffler';
+import {pickTranslatableWords} from '../../helpers/TranslatableWordsPicker';
 import { VscChromeClose } from "react-icons/vsc";
 import styled from "styled-components";
 import GameControls from "./GameControls";
@@ -17,8 +19,11 @@ import MiniGamesWordsFetcher, {
   MiniGamesWordsGroup,
   MiniGamesWordsPage,
 } from "./MiniGamesWordsFetcher";
-const GameContainer = styled.div`
-  background: url(/images/Savannah.jpg) center center/cover no-repeat fixed;
+import {loadAudio} from "../../helpers/AudioPlayer";
+import {guessWord} from "../../helpers/WordGuesser";
+
+const GameContainer = styled.div` 
+  background: url(${SavannahGameInitialState.gameBackground}) center center/cover no-repeat;
   height: 100vh;
   position: relative;
 `;
@@ -216,7 +221,7 @@ const ButtonClose = styled.button`
   height: 2.8rem;
 `;
 
-const Words = styled.div<Partial<stateType>>`
+const Words = styled.div<Partial<MiniGamesStateType>>`
   font-size: 2rem;
   font-weight: 800;
   display: flex;
@@ -248,7 +253,7 @@ const Words = styled.div<Partial<stateType>>`
   }
 `;
 
-const Statistics = styled.div<Partial<stateType>>`
+const Statistics = styled.div<Partial<MiniGamesStateType>>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -292,105 +297,57 @@ const Statistics = styled.div<Partial<stateType>>`
   }
 `;
 
-type stateType = {
-  index: number;
-  verifiableWords: string;
-  arrWords: WordType[];
-  verifiableWordsAudio: string;
-  isTurnOn: boolean;
-  isWordDown: boolean;
-  counter: number;
-  counterLife: number;
-  isMusic: boolean;
-  speed: number;
-  idSpeed: string;
-  isSettingsWindow: boolean;
-};
+
 
 const SavannahGamePage: React.FC = () => {
   const status = useSelector(getRequestStatus);
-  const address = "https://vhoreho-rslang.herokuapp.com/";
   let guessedWords = useRef<string[]>([]);
 
   // const group = MiniGamesWordsGroup();
   // const page = MiniGamesWordsPage();
   const words = MiniGamesWordsFetcher();
-  const initialState: stateType = {
-    index: 0,
-    verifiableWords: " ",
-    arrWords: [],
-    counter: 0,
-    verifiableWordsAudio: "",
-    isTurnOn: false,
-    isWordDown: false,
-    counterLife: 5,
-    isMusic: true,
-    speed: 8,
-    idSpeed: "midle",
-    isSettingsWindow: false,
-  };
+  console.log('dataWords for Game 1', words);
 
-  type Action = {
-    type: keyof stateType;
-    value: stateType[keyof stateType];
-  };
-
-  function reducer(state: stateType, action: Action) {
+  function reducer(state: MiniGamesStateType, action: MiniGamesAction) {
     return { ...state, [action.type]: action.value };
   }
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, SavannahGameInitialState);
 
   useEffect(() => {
     addAnimation();
     if (!words.length) return;
-    const wordsCopy = [...words];
-    const arrWords = [wordsCopy.splice(state.index, 1)[0]];
-    if (state.index - 1 !== 19) {
-      while (arrWords.length < 4) {
-        const wordTranslate = wordsCopy.splice(
-          Math.floor(Math.random() * (wordsCopy.length - 1)),
-          1
-        )[0];
-        arrWords.push(wordTranslate);
-      }
-      dispatch({ type: "arrWords", value: arrWords });
-      dispatch({ type: "verifiableWords", value: words[state.index]?.word });
-      dispatch({
-        type: "verifiableWordsAudio",
-        value: words[state.index]?.audio,
-      });
-    }
-  }, [state.counter, words]);
 
-  const shuffle = (arr: WordType[]) => {
-    var j, temp;
-    for (var i = arr.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      temp = arr[j];
-      arr[j] = arr[i];
-      arr[i] = temp;
-    }
-    return arr;
-  };
+    let translatableWords = pickTranslatableWords(words, state.index);
+    let verifiableWords = words[state.index]?.word;
+    let verifiableWordsAudio = words[state.index]?.audio;
 
-  let wordAudio = new Audio(`${address}${state.verifiableWordsAudio}`);
+    dispatch({ type: "translatableWords", value: translatableWords });
+    dispatch({ type: "verifiableWords", value:verifiableWords });
+    dispatch({ type: "verifiableWordsAudio", value: verifiableWordsAudio });
+  }, [state.index, state.counter, words]);
+
+  let wordAudio = loadAudio(state.verifiableWordsAudio);
   let faildAudio = new Audio("audio/faild.mp3");
 
-  const hendlerClick = (e: any) => {
-    if (state.verifiableWords === e.target.attributes[1].value) {
-      dispatch({ type: "counter", value: state.counter + 1 });
-      dispatch({ type: "index", value: state.index + 1 });
-      state.isMusic ? wordAudio.play() : wordAudio.pause();
-      guessedWords.current.push(state.verifiableWords);
-    } else if (state.verifiableWords !== e.target.attributes[1].value) {
-      state.isMusic ? faildAudio.play() : faildAudio.pause();
-      dispatch({ type: "counterLife", value: state.counterLife - 1 });
-      if (state.counter > 0) {
-        dispatch({ type: "counter", value: state.counter - 1 });
-      } else {
-        state.counter = 0;
-      }
+  const handleSuccessGuess = () => {
+    dispatch({ type: "counter", value: state.counter + 1 });
+    dispatch({ type: "index", value: state.index + 1 });
+    state.isMusic ? wordAudio.play() : wordAudio.pause();
+    guessedWords.current.push(state.verifiableWords);
+  };
+
+  const handleFailedGuess = () => {
+    state.isMusic ? faildAudio.play() : faildAudio.pause();
+    dispatch({ type: "counterLife", value: state.counterLife - 1 });
+    if (state.counter > 0) {
+      dispatch({ type: "counter", value: state.counter - 1 });
+    } else {
+      state.counter = 0;
     }
+  };
+
+  const hendlerClick = (e: any) => {
+    guessWord(e, state, handleSuccessGuess.bind(this), handleFailedGuess.bind(this));
   };
 
   const addAnimation = () => {
@@ -448,7 +405,6 @@ const SavannahGamePage: React.FC = () => {
       {(state.counterLife < 1 || state.index === 20) && (
         <GameOver lengthWords={guessedWords.current.length}>
           <div className="d-flex">
-            <h3>Саванна</h3>
             <NavLink to="/mini-games/" data-name="Mini Games">
               <button type="button" className="btn btn-danger">
                 <VscChromeClose />
@@ -549,7 +505,6 @@ const SavannahGamePage: React.FC = () => {
             </Button>
           </SettingsWindow>
         )}
-        <Titile>Саванна</Titile>
         <Statistics counterLife={state.counterLife}>
           <NavLink to="/mini-games/" data-name="Mini Games">
             <button type="button" className="btn btn-danger">
@@ -572,7 +527,7 @@ const SavannahGamePage: React.FC = () => {
         </Statistics>
       </Container>
       <AnswerWord>
-        {shuffle(state.arrWords).map((word) => (
+        {shuffleWords(state.translatableWords).map((word) => (
           <input
             type="button"
             key={`${word.word}${words[state.index]}`}
