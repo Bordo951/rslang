@@ -53,14 +53,7 @@ const Container = styled.div`
     }
   }
 `;
-const Titile = styled.h3`
-  font-size: 3rem;
-  margin-left: 14%;
-  font-weight: 900;
-  font-family: "BubblegumSans-Regular";
-  color: rgb(0, 206, 209);
-  text-shadow: 3px 2px 3px rgb(2, 2, 2);
-`;
+
 const SettingsBtn = styled.div`
   display: flex;
   flex-direction: column;
@@ -345,7 +338,6 @@ const Game3: React.FC = () => {
           <SettingsBtn>
             <GameControls />
           </SettingsBtn>
-          <Titile>Memory</Titile>
           <MiniGameStatistics
               counterLife={state.counterLife}
               index={-1}

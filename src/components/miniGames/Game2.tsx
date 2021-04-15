@@ -22,6 +22,25 @@ const GameContainer = styled.div`
   position: relative;
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+    padding: 0.2rem 0.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    box-shadow: 0 0 10px #b6b8b9;
+    border-radius: 10px;
+    display: block;
+    outline: none;
+    &:hover {
+      background-position: right center;
+      color: #f10e0e;
+      text-decoration: none;
+    }
+`;
+
 const Game2: React.FC = () => {
     const group = MiniGamesWordsGroup();
     const page = MiniGamesWordsPage();
@@ -117,11 +136,11 @@ const Game2: React.FC = () => {
                     gameOverBackground={AudioGameInitialState.gameOverBackground}
                 />
             )}
-
+            <Container>
             <GameControls/>
-            <MiniGamesSettingsButton handleClickOnButton={() => {
-                showSettingWindow()
-            }}/>
+            {/*<MiniGamesSettingsButton handleClickOnButton={() => {*/}
+            {/*    showSettingWindow()*/}
+            {/*}}/>*/}
             {state.isSettingsWindow && (
                 <MiniGamesSettingsWindows
                     idSpeed={state.idSpeed}
@@ -132,10 +151,6 @@ const Game2: React.FC = () => {
                 />
             )}
 
-            <button>Game2, group: {group}, page: {page}</button>
-            <br/>
-            <button>verifiableWords: {state.verifiableWords},
-                verifiableWordsAudio: {state.verifiableWordsAudio}</button>
             <button onClick={() => playSound()}>Play Sound</button>
             <br/>
             {shuffleWords(state.translatableWords).map((word) => (
@@ -154,6 +169,7 @@ const Game2: React.FC = () => {
                 index={state.index}
                 counter={state.counter}
             />
+            </Container>
         </GameContainer>
     </div>;
 };
