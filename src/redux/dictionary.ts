@@ -11,8 +11,11 @@ export type UserSetWordType = {
   word: object;
 };
 export type UserGetWordsType = {
-  wordId: string;
+  paginatedResults: any;
+  word: string;
+  _id: string;
 };
+
 export type UserGetWordType = {
   userId: string | null;
   wordId: string;
@@ -119,37 +122,38 @@ export const getAgregatedWords = (userId: string | null) => async (
   dispatch(setRequestStatus('loading'));
   try {
     const { data } = await axios.get<UserGetWordsType[]>(url, { headers });
-
-    dispatch(setWordsData(data));
+    let words = data[0].paginatedResults;
+    console.log(data);
+    dispatch(setWordsData(words));
   } catch (error) {
     dispatch(setErrorMessage(error.message));
   }
 };
-export const getUserWords = (userId: string | null) => async (
-  dispatch: AppDispatch,
-  getState: () => AppState
-) => {
-  const url = `https://vhoreho-rslang.herokuapp.com/users/${userId}/words`;
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    Accept: 'application/json',
-  };
-  dispatch(setRequestStatus('loading'));
-  try {
-    const { data } = await axios.get<UserGetWordsType[]>(url, { headers });
-    const wordsId = data.map((el) => ({
-      wordId: el.wordId,
-    }));
-    // console.log(wordsId);
-    // dispatch(setWordsData(wordsId));
-    // for (let id of wordsId) {
-    //   let wordId = id.wordId;
-    //   dispatch(fetchWordData(wordId));
-    // }
-  } catch (error) {
-    dispatch(setErrorMessage(error.message));
-  }
-};
+// export const getUserWords = (userId: string | null) => async (
+//   dispatch: AppDispatch,
+//   getState: () => AppState
+// ) => {
+//   const url = `https://vhoreho-rslang.herokuapp.com/users/${userId}/words`;
+//   const headers = {
+//     Authorization: `Bearer ${token}`,
+//     Accept: 'application/json',
+//   };
+//   dispatch(setRequestStatus('loading'));
+//   try {
+//     const { data } = await axios.get<UserGetWordsType[]>(url, { headers });
+//     const wordsId = data.map((el) => ({
+//       wordId: el.wordId,
+//     }));
+//     // console.log(wordsId);
+//     // dispatch(setWordsData(wordsId));
+//     // for (let id of wordsId) {
+//     //   let wordId = id.wordId;
+//     //   dispatch(fetchWordData(wordId));
+//     // }
+//   } catch (error) {
+//     dispatch(setErrorMessage(error.message));
+//   }
+// };
 
 //actions
 
