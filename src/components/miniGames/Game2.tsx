@@ -13,7 +13,7 @@ import {loadAudio, loadFailedAudio} from "../../helpers/AudioPlayer";
 import {guessWord} from "../../helpers/WordGuesser";
 import MiniGameStatistics from "./MiniGamesStatistics";
 import MiniGamesGameOver from "./MiniGamesGameOver";
-import MiniGamesSettingsButton from "./MiniGamesSettingsButton";
+
 import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
 
 const GameContainer = styled.div` 
@@ -23,7 +23,6 @@ const GameContainer = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex;
   justify-content: space-between;
     padding: 0.2rem 0.2rem;
     text-align: center;
@@ -34,11 +33,6 @@ const Container = styled.div`
     border-radius: 10px;
     display: block;
     outline: none;
-    &:hover {
-      background-position: right center;
-      color: #f10e0e;
-      text-decoration: none;
-    }
 `;
 
 const Game2: React.FC = () => {
@@ -136,39 +130,37 @@ const Game2: React.FC = () => {
                     gameOverBackground={AudioGameInitialState.gameOverBackground}
                 />
             )}
-            <Container>
-            <GameControls/>
-            {/*<MiniGamesSettingsButton handleClickOnButton={() => {*/}
-            {/*    showSettingWindow()*/}
-            {/*}}/>*/}
-            {state.isSettingsWindow && (
-                <MiniGamesSettingsWindows
-                    idSpeed={state.idSpeed}
-                    handleSpeedChange={checkOnlyOne}
-                    isMusic={state.isMusic}
-                    handleSwitchMusic={switchMusic}
-                    closeSettingWindow={closeSettingWindow}
-                />
-            )}
 
-            <button onClick={() => playSound()}>Play Sound</button>
-            <br/>
-            {shuffleWords(state.translatableWords).map((word) => (
-                <input
-                    type="button"
-                    key={`${word.word}${words[state.index]}`}
-                    value={word.wordTranslate}
-                    data-value={word.word}
-                    onClick={(e) => {
-                        handleClick(e);
-                    }}
+                <GameControls showSettingWindow={showSettingWindow}/>
+                {state.isSettingsWindow && (
+                    <MiniGamesSettingsWindows
+                        idSpeed={state.idSpeed}
+                        handleSpeedChange={checkOnlyOne}
+                        isMusic={state.isMusic}
+                        handleSwitchMusic={switchMusic}
+                        closeSettingWindow={closeSettingWindow}
+                    />
+                )}
+
+            <Container>
+                <button onClick={() => playSound()}>Play Sound</button>
+                <br/>
+                {shuffleWords(state.translatableWords).map((word) => (
+                    <input
+                        type="button"
+                        key={`${word.word}${words[state.index]}`}
+                        value={word.wordTranslate}
+                        data-value={word.word}
+                        onClick={(e) => {
+                            handleClick(e);
+                        }}
+                    />
+                ))}
+                <MiniGameStatistics
+                    counterLife={state.counterLife}
+                    index={state.index}
+                    counter={state.counter}
                 />
-            ))}
-            <MiniGameStatistics
-                counterLife={state.counterLife}
-                index={state.index}
-                counter={state.counter}
-            />
             </Container>
         </GameContainer>
     </div>;

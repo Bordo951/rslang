@@ -21,6 +21,7 @@ import MiniGamesGameOver from "./MiniGamesGameOver";
 import MiniGamesLoader from "./MiniGamesLoader";
 import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
 import MiniGamesSettingsButton from "./MiniGamesSettingsButton";
+import GameControls from "./GameControls";
 
 const GameContainer = styled.div` 
   background: url(${SavannahGameInitialState.gameBackground}) center center/cover no-repeat;
@@ -260,9 +261,7 @@ const SavannahGamePage: React.FC = () => {
             )}
             {state.index !== 20 && <Word/>}
             <Container>
-                <MiniGamesSettingsButton handleClickOnButton={() => {
-                    showSettingWindow()
-                }}/>
+                <GameControls showSettingWindow={showSettingWindow}/>
                 {state.isSettingsWindow && (
                     <MiniGamesSettingsWindows
                         idSpeed={state.idSpeed}

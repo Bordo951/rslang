@@ -335,9 +335,7 @@ const Game3: React.FC = () => {
             <MiniGamesLoader/>
         )}
         <Container>
-          <SettingsBtn>
-            <GameControls />
-          </SettingsBtn>
+          <GameControls showSettingWindow={false}/>
           <MiniGameStatistics
               counterLife={state.counterLife}
               index={-1}

@@ -1,29 +1,29 @@
 import {VscSettingsGear} from "react-icons/all";
 import React from "react";
 import styled from "styled-components";
+
 interface Props {
     handleClickOnButton: any
 }
 
-const SettingsBtn = styled.div`
-  display: flex;
-  flex-direction: column;
+const StyledButton = styled.div`
+    button {
+        padding: 5px 8px;
+    }
+    svg {
+        margin-right: 5px;
+    }
 `;
 
 const MiniGamesSettingsButton: React.FC<Props> = ({handleClickOnButton}) => {
     return (
-        <SettingsBtn>
-        <button
-            type="button"
-            className="btn btn-dark"
-            onClick={() => handleClickOnButton()}
-        >
-            <div className="d-flex align-items-center">
-                <VscSettingsGear/>
-                Settings
-            </div>
-        </button>
-    </SettingsBtn>
+        <StyledButton>
+            <button type="button" onClick={() => handleClickOnButton()}>
+                <div className="d-flex align-items-center">
+                    <VscSettingsGear/> Settings
+                </div>
+            </button>
+        </StyledButton>
     );
 };
 
