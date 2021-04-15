@@ -87,7 +87,9 @@ const SignForm = styled.div`
   width: 300px;
   height: 400px;
   position: absolute;
-  background-color: #bebebe;
+  background-color: rgb(234, 240, 240, 0.9);
+  border: 4px solid #17a2b8;
+  border-radius: 4px;
   z-index: 10;
   top: 50%;
   left: 50%;
