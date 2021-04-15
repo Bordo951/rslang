@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Header from '../parts/Header';
 import { AppDispatch, AppState } from './store';
+import { fetchWordData } from './wordSlice';
 
 //types
 
@@ -9,15 +10,18 @@ export type UserSetWordType = {
   wordId: string;
   word: object;
 };
+export type UserGetWordsType = {
+  wordId: string;
+};
 export type UserGetWordType = {
-  userId: string;
+  userId: string | null;
   wordId: string;
 };
 
 type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export type UserWordsState = {
-  entities: UserSetWordType[];
+  entities: UserGetWordsType[];
   status: RequestStatus;
   error: string;
 };
@@ -34,16 +38,16 @@ export const userWordsReducer = (
   action: UserWordsActions
 ): UserWordsState => {
   switch (action.type) {
-    case 'words/setWordsData':
+    case 'userWords/setWordsData':
       return {
         ...state,
         entities: action.payload,
         status: 'succeeded',
         error: '',
       };
-    case 'words/setRequestStatus':
+    case 'userWords/setRequestStatus':
       return { ...state, status: action.payload };
-    case 'words/setErrorMessage':
+    case 'userWords/setErrorMessage':
       return {
         ...state,
         status: 'failed',
@@ -73,17 +77,12 @@ export const createUserWord = ({
     'Content-Type': 'application/json',
   };
   const WordData = {
-    word,
+    ...word,
   };
-  // const params: UserSetWordType = {
-  //   userId,
-  //   wordId,
-  //   word,
-  // };
 
   dispatch(setRequestStatus('loading'));
   try {
-    const { data } = await axios.post(url, { headers, WordData });
+    const { data } = await axios.post(url, WordData, { headers });
     console.log(data);
   } catch (error) {
     dispatch(setErrorMessage(error.message));
@@ -94,30 +93,74 @@ export const createUserWord = ({
 //   dispatch: AppDispatch,
 //   getState: () => AppState
 // ) => {
-//   const url = 'https://vhoreho-rslang.herokuapp.com/users';
-//   const params: UserGetWordType = {
-//     userId,
-//     wordId,
+//   const url = `https://vhoreho-rslang.herokuapp.com/users/${userId}/words/${wordId}`;
+//   const headers = {
+//     Authorization: `Bearer ${token}`,
+//     Accept: 'application/json',
 //   };
 //   dispatch(setRequestStatus('loading'));
 //   try {
-//     const { data } = await axios.get(url, params);
-//     console.log(data);
+//     const { data } = await axios.get(url, { headers });
+//     console.log(data.wordId);
 //   } catch (error) {
 //     dispatch(setErrorMessage(error.message));
 //   }
 // };
 
+export const getAgregatedWords = (userId: string | null) => async (
+  dispatch: AppDispatch,
+  getState: () => AppState
+) => {
+  const url = `https://vhoreho-rslang.herokuapp.com/users/${userId}/aggregatedWords`;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/json',
+  };
+  dispatch(setRequestStatus('loading'));
+  try {
+    const { data } = await axios.get<UserGetWordsType[]>(url, { headers });
+
+    dispatch(setWordsData(data));
+  } catch (error) {
+    dispatch(setErrorMessage(error.message));
+  }
+};
+export const getUserWords = (userId: string | null) => async (
+  dispatch: AppDispatch,
+  getState: () => AppState
+) => {
+  const url = `https://vhoreho-rslang.herokuapp.com/users/${userId}/words`;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/json',
+  };
+  dispatch(setRequestStatus('loading'));
+  try {
+    const { data } = await axios.get<UserGetWordsType[]>(url, { headers });
+    const wordsId = data.map((el) => ({
+      wordId: el.wordId,
+    }));
+    // console.log(wordsId);
+    // dispatch(setWordsData(wordsId));
+    // for (let id of wordsId) {
+    //   let wordId = id.wordId;
+    //   dispatch(fetchWordData(wordId));
+    // }
+  } catch (error) {
+    dispatch(setErrorMessage(error.message));
+  }
+};
+
 //actions
 
-const setWordsData = (entities: UserSetWordType[]) =>
-  ({ type: 'words/setWordsData', payload: entities } as const);
+const setWordsData = (entities: UserGetWordsType[]) =>
+  ({ type: 'userWords/setWordsData', payload: entities } as const);
 
 const setRequestStatus = (status: RequestStatus) =>
-  ({ type: 'words/setRequestStatus', payload: status } as const);
+  ({ type: 'userWords/setRequestStatus', payload: status } as const);
 
 const setErrorMessage = (message: string) =>
-  ({ type: 'words/setErrorMessage', payload: message } as const);
+  ({ type: 'userWords/setErrorMessage', payload: message } as const);
 
 export type UserWordsActions =
   | ReturnType<typeof setWordsData>
@@ -125,6 +168,6 @@ export type UserWordsActions =
   | ReturnType<typeof setErrorMessage>;
 
 //selectors
-export const getWordsData = (state: AppState) => state.words.entities;
+export const getWordsData = (state: AppState) => state.userWords.entities;
 export const getErrorMessage = (state: AppState) => state.words.error;
 export const getRequestStatus = (state: AppState) => state.words.status;
