@@ -292,18 +292,18 @@ const Game2: React.FC = () => {
     return { ...state, [action.type]: action.value };
   }
   const [state, dispatch] = useReducer(reducer, initialState);
-  // useEffect(() => {
-  //   if (status === "succeeded") {
-  //     let myInterval = setInterval(() => {
-  //       if (state.seconds > 0) {
-  //         dispatch({ type: "seconds", value: state.seconds - 1 });
-  //       } else clearInterval(myInterval);
-  //     }, 1000);
-  //     return () => {
-  //       clearInterval(myInterval);
-  //     };
-  //   }
-  // });
+  useEffect(() => {
+    if (status === "succeeded") {
+      let myInterval = setInterval(() => {
+        if (state.seconds > 0) {
+          dispatch({ type: "seconds", value: state.seconds - 1 });
+        } else clearInterval(myInterval);
+      }, 1000);
+      return () => {
+        clearInterval(myInterval);
+      };
+    }
+  });
 
   useEffect(() => {
     const wordsCopy = [...words].splice(10);
