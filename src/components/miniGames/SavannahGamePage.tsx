@@ -140,6 +140,8 @@ const SavannahGamePage: React.FC = () => {
 
     // const group = MiniGamesWordsGroup();
     // const page = MiniGamesWordsPage();
+    //const words = MiniGamesWordsFetcher();
+    //const [words, changeWords] = MiniGamesWordsFetcher();
     const words = MiniGamesWordsFetcher();
     console.log('dataWords for Game 1', words);
 

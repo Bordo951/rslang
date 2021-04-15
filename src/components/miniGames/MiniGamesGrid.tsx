@@ -61,7 +61,7 @@ const MiniGamesGrid: React.FC = () => {
                 <button onClick={() => startGame(2)}>Начать игру</button>
             </GroupContainer>
             <GroupContainer data-name="game-3">
-                <h3>Игра 3</h3>
+                <h3>Игра на память</h3>
                 <MiniGamesLevels gameId={3}/>
                 <button onClick={() => startGame(3)}>Начать игру</button>
             </GroupContainer>

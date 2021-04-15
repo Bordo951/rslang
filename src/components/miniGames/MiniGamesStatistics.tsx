@@ -24,6 +24,9 @@ const Statistics = styled.div<Partial<MiniGamesStateType>>`
     list-style-type: none;
     height: 2rem;
     text-align: center;
+    @media (max-width: 993px) {
+      width: ${(p) => (p.counterLife || 0) * 1.2}rem;
+    }
   }
 
   li {
@@ -31,6 +34,10 @@ const Statistics = styled.div<Partial<MiniGamesStateType>>`
     width: 2rem;
     padding: 8px 0.4rem;
     background: url(/images/heart.svg) center center/cover no-repeat;
+    @media (max-width: 993px) {
+    width:1.2rem;
+    height: 1.2rem;
+  }
   }
 
   a {
