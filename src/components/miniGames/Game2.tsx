@@ -111,7 +111,11 @@ const Game2: React.FC = () => {
     return <div>
         <GameContainer id="game">
             {(state.counterLife < 1 || state.index === 20) && (
-                <MiniGamesGameOver guessedWords={guessedWords} repeatGameAction={repeatGame}/>
+                <MiniGamesGameOver
+                    guessedWords={guessedWords}
+                    repeatGameAction={repeatGame}
+                    gameOverBackground={AudioGameInitialState.gameOverBackground}
+                />
             )}
 
             <GameControls/>

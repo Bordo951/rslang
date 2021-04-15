@@ -249,7 +249,11 @@ const SavannahGamePage: React.FC = () => {
     return (
         <GameContainer id="game">
             {(state.counterLife < 1 || state.index === 20) && (
-                <MiniGamesGameOver guessedWords={guessedWords} repeatGameAction={repeatGame}/>
+                <MiniGamesGameOver
+                    guessedWords={guessedWords}
+                    repeatGameAction={repeatGame}
+                    gameOverBackground={SavannahGameInitialState.gameOverBackground}
+                />
             )}
             {(status === "loading") && (
                 <MiniGamesLoader/>

@@ -24,7 +24,7 @@ import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
 // import Loading from "./componentsMemory/Loading";
 
 const GameContainer = styled.div`
-  background: url(/images/brain.jpg) center center/cover no-repeat fixed;
+  background: url(${MemoryGameInitialState.gameBackground}) center center/cover no-repeat fixed;
   height: 100%;
 `;
 const Container = styled.div`
@@ -382,34 +382,11 @@ const Game3: React.FC = () => {
         {(state.counterLife < 1 ||
             state.seconds === 0 ||
             state.counter === 10) && (
-            <GameOver lengthWords={guessedWords.current.length}>
-              <div className="d-flex">
-                <h3>Memory</h3>
-                <NavLink to="/mini-games/" data-name="Mini Games">
-                  <button type="button" className="btn btn-danger">
-                    <VscChromeClose />
-                  </button>
-                </NavLink>
-              </div>
-              <h4 className="mx-auto">Конец игры</h4>
-              <p>Правильных слов: {guessedWords.current.length}</p>
-              {!!guessedWords.current.length ? (
-                  <ol>
-                    {guessedWords.current.map((word) => (
-                        <li key={`${word}${new Date()}`}>{word}</li>
-                    ))}
-                  </ol>
-              ) : (
-                  <span>Все получиться!Попробуй еще раз</span>
-              )}
-              <Button
-                  variant="success"
-                  className="mx-auto w-25"
-                  onClick={() => newGame()}
-              >
-                Повторить
-              </Button>
-            </GameOver>
+            <MiniGamesGameOver
+                guessedWords={guessedWords}
+                repeatGameAction={newGame}
+                gameOverBackground={MemoryGameInitialState.gameOverBackground}
+            />
         )}
         {(status === "loading") && (
             <MiniGamesLoader/>

@@ -7,14 +7,15 @@ import styled from "styled-components";
 interface Props {
     guessedWords: any;
     repeatGameAction: any;
+    gameOverBackground: string;
 }
 
-const GameOver = styled.div<{ lengthWords: number }>`
+const GameOver = styled.div<{ lengthWords: number, gameOverBackground: string }>`
   display: flex;
   flex-direction: column;
   position: absolute;
   z-index: 3;
-  background: url("https://i.pinimg.com/originals/bc/8a/3f/bc8a3f3da923e06aaae99fa28bbfdce3.png")
+  background: url(${(p) => p.gameOverBackground})
     center center/cover no-repeat fixed;
   width: 100%;
   height: 100vh;
@@ -84,9 +85,9 @@ const GameOver = styled.div<{ lengthWords: number }>`
   }
 `;
 
-const MiniGamesGameOver: React.FC<Props> = ({guessedWords, repeatGameAction}) => {
+const MiniGamesGameOver: React.FC<Props> = ({guessedWords, repeatGameAction, gameOverBackground}) => {
     return (
-        <GameOver lengthWords={guessedWords.current.length}>
+        <GameOver lengthWords={guessedWords.current.length} gameOverBackground={gameOverBackground}>
             <div className="d-flex">
                 <NavLink to="/mini-games/" data-name="Mini Games">
                     <button type="button" className="btn btn-danger">
