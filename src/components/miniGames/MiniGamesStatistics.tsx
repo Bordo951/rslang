@@ -75,10 +75,12 @@ const MiniGameStatistics: React.FC<Props> = ({counterLife, index, counter}) => {
         <ul>
             {lifes}
         </ul>
-        <div>
-            <span>Слов:</span>
-            {index + 1} / 20
-        </div>
+        {(index !== -1) && (
+            <div>
+                <span>Слов:</span>
+                {index + 1} / 20
+            </div>
+        )}
         <div>
             <span>Очки:</span>
             {counter}

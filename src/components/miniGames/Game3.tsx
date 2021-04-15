@@ -9,8 +9,6 @@ import {
 import { VscChromeClose, VscSettingsGear } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 import { getRequestStatus, WordType } from "../../redux/wordsSlice";
-import GameOver from "./componentsMemory/GameOver";
-import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import MiniGamesLoader from "./MiniGamesLoader";
 import {shuffleWords} from "../../helpers/WordsShuffler";
@@ -21,7 +19,6 @@ import MiniGameStatistics from "./MiniGamesStatistics";
 import MiniGamesGameOver from "./MiniGamesGameOver";
 import MiniGamesSettingsButton from "./MiniGamesSettingsButton";
 import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
-// import Loading from "./componentsMemory/Loading";
 
 const GameContainer = styled.div`
   background: url(${MemoryGameInitialState.gameBackground}) center center/cover no-repeat fixed;
@@ -91,53 +88,6 @@ const SettingsBtn = styled.div`
   }
 `;
 
-const Statistics = styled.div<Partial<MemoryGameInitialStateType>>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(253, 249, 249, 0.308);
-  width: 23%;
-  ul {
-    margin-top: 25px;
-    display: flex;
-    justify-content: space-evenly;
-    width: ${(p) => (p.counterLife || 0) * 2.5}rem;
-    list-style-type: none;
-    height: 2rem;
-    text-align: center;
-    @media (max-width: 993px) {
-      width: ${(p) => (p.counterLife || 0) * 1.2}rem;
-    }
-  }
-  li {
-    display: inline-block;
-    width: 2rem;
-    padding: 8px 0.4rem;
-    background: url(/images/heart.svg) center center/cover no-repeat;
-    @media (max-width: 993px) {
-      width: 1.2rem;
-      height: 1.2rem;
-    }
-  }
-  a {
-    margin: 0.3rem 0.3rem 0 0;
-    align-self: flex-end;
-  }
-  div {
-    margin-top: 5px;
-    color: rgba(252, 106, 22, 0.803);
-    font-size: 1.5rem;
-    font-family: "BubblegumSans-Regular";
-    text-shadow: 1px 1px 1px rgb(255, 253, 253);
-    span {
-      text-shadow: 3px 3px 3px rgba(241, 4, 4, 0.774);
-      color: whitesmoke;
-      font-size: 2rem;
-      font-family: "BubblegumSans-Regular";
-      margin-right: 0.8rem;
-    }
-  }
-`;
 const Timer = styled.div`
   color: yellow;
   font-size: 2rem;
@@ -396,22 +346,11 @@ const Game3: React.FC = () => {
             <GameControls />
           </SettingsBtn>
           <Titile>Memory</Titile>
-          <Statistics counterLife={state.counterLife}>
-            <NavLink to="/mini-games/" data-name="Mini Games">
-              <button type="button" className="btn btn-danger">
-                <VscChromeClose />
-              </button>
-            </NavLink>
-            <ul>
-              {new Array(state.counterLife).fill(1).map((_, index) => (
-                  <li key={index} />
-              ))}
-            </ul>
-            <div>
-              <span>Очки:</span>
-              {state.counter}
-            </div>
-          </Statistics>
+          <MiniGameStatistics
+              counterLife={state.counterLife}
+              index={-1}
+              counter={state.counter}
+          />
         </Container>
         <CardTimer>
           <VerifiableWord>

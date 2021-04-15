@@ -29,9 +29,9 @@ export const SavannahGameInitialState: MiniGamesStateType = {
     isMusic: true,
     speed: 8,
     idSpeed: "midle",
-    isSettingsWindow: false, ///images/Savannah.jpg
+    isSettingsWindow: false,
     gameBackground: 'https://img5.goodfon.com/original/1920x1200/4/9e/jungle-river-trees-nature-sky-art-dzhungli-reka-derevia-prir.jpg',
-    gameOverBackground: 'https://img5.goodfon.com/original/1920x1200/4/9e/jungle-river-trees-nature-sky-art-dzhungli-reka-derevia-prir.jpg'
+    gameOverBackground: 'https://i.pinimg.com/originals/bc/8a/3f/bc8a3f3da923e06aaae99fa28bbfdce3.png'
 };
 
 export const AudioGameInitialState: MiniGamesStateType = {
@@ -48,7 +48,7 @@ export const AudioGameInitialState: MiniGamesStateType = {
     idSpeed: "midle",
     isSettingsWindow: false,
     gameBackground: 'https://img5.goodfon.com/original/1920x1200/1/30/personal-diary-memories-photos.jpg',
-    gameOverBackground: 'https://i.pinimg.com/originals/bc/8a/3f/bc8a3f3da923e06aaae99fa28bbfdce3.png'
+    gameOverBackground: 'images/Savannah.jpg'
 };
 
 export type WordTypeForButton = WordType & { isDisabled: boolean };
