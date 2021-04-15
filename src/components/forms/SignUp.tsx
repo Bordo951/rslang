@@ -5,6 +5,7 @@ import { userSingUp } from '../../redux/authSlice';
 import styled from 'styled-components';
 
 const Form = styled.form`
+  position: relative;
   padding: 10px;
   input {
     width: 100%;
@@ -25,6 +26,15 @@ const ErrorContainer = styled.div`
   font-size: 12px;
   color: red;
   margin-bottom: 5px;
+`;
+const CloseBtn = styled.button`
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  width: 10px !important;
+  background-color: transparent !important;
+  border: none !important;
+  font-size: 20px;
 `;
 interface PageInterface {
   setSignUpOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -88,6 +98,7 @@ const SignUp: React.FC<PageInterface> = ({ setSignUpOpen }) => {
         />
         <ErrorContainer>{errorPass}</ErrorContainer>
         <button>Sign Up</button>
+        <CloseBtn onClick={() => setSignUpOpen(false)}>x</CloseBtn>
       </Form>
     </div>
   );

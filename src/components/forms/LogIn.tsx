@@ -26,6 +26,15 @@ const ErrorContainer = styled.div`
   color: red;
   margin-bottom: 5px;
 `;
+const CloseBtn = styled.button`
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  width: 10px !important;
+  background-color: transparent !important;
+  border: none !important;
+  font-size: 20px;
+`;
 interface PageInterface {
   setLogInOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
@@ -90,6 +99,7 @@ const LogIn: React.FC<PageInterface> = ({ setLogInOpen }) => {
         />
         <ErrorContainer>{errorPass}</ErrorContainer>
         <button>Sign Up</button>
+        <CloseBtn onClick={() => setLogInOpen(false)}>x</CloseBtn>
       </Form>
     </div>
   );
