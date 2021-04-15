@@ -10,6 +10,16 @@ const AboutAppWrapper = styled.div`
   text-align: center;
   background-color: #F0F3F3;
   border-radius: 5px;
+  
+  @media(max-width: 768px) {
+    width: 80%;
+    margin: 20px auto;
+    padding: 0;
+  }
+  @media(max-width: 576px) {
+    width: 95%;
+    padding: 0;
+  }
 `;
 const Title = styled.h3`
   font-family: 'BubblegumSans-Regular', cursive, sans-serif;
@@ -38,25 +48,26 @@ const Title = styled.h3`
     margin: 0 auto;
     background-size: 100% 100%;
   }
-`;
-const Description = styled.p`
-  background-color: rgba(255, 255, 255, 0.7);
-  width: 70%;
-  margin: 10px auto;
-  padding: 0.8rem 0.3rem;
-  border: 10px #52d0f7 solid;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-align: center;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
-
-  @media (max-width: 721px) {
-    font-size: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 26px;
+    margin: 10px 0;
+    padding: 0 0 10px;
+    
+    &:after {
+      width: 122px;
+      height: 14px;
+    }   
   }
-  @media (max-width: 567px) {
-    width: 90%;
-    font-size: 1rem;
+  @media (max-width: 576px) {
+    font-size: 24px;
+    margin: 5px 0;
+    padding: 0 0 6px;
+    
+    &:after {
+      width: 111px;
+      height: 11px;
+    }   
   }
 `;
 const AtHand = styled.div`
@@ -68,33 +79,75 @@ const AtHand = styled.div`
   div {
     width: 40%;
   }
+  @media (max-width: 992px) {
+    flex-direction: column;
+    margin: 10px 0;
+    div {
+      width: 90%;
+    }
+    img {
+      width: 100%;
+    }
+  }
 `;
 const AtHandContent = styled.div`
   text-align: start;
     h4 {
-          margin: 10px 0 20px;
-          font-family: 'BubblegumSans-Regular', cursive, sans-serif;
-          font-weight: 600;
-          font-size: 26px;
-          color: #2f2f2f;
+      margin: 10px 0 20px;
+      font-family: 'BubblegumSans-Regular', cursive, sans-serif;
+      font-weight: 600;
+      font-size: 26px;
+      color: #2f2f2f;
     }      
     p {
       font-size: 18px;
       color: #7e919f;
-    }    
+    } 
+    @media (max-width: 768px) {
+        text-align: center;
+        h4 {
+          font-size: 24px;
+          line-height: 1.4;
+          margin: 10px 0;
+        }
+        p {
+          font-size: 16px;
+          margin: 10px 0;
+        }  
+    }   
+  @media (max-width: 576px) {
+    h4 {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    p {
+      font-size: 14px;
+    }  
+  }  
 `;
 const AdvantagesRow = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 100px 0;
+  @media (max-width: 992px) {
+    margin: 70px 0;
+  }
+  @media(max-width: 768px) {
+    margin: 40px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media(max-width: 576px) {
+    margin: 40px 0;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const Advantage = styled.div`
   max-width: 30%;
   
-  div {
-    img {
+  img {
       width: 75px;
-    }
   }
   h4 {
       margin: 10px 0;
@@ -107,6 +160,19 @@ const Advantage = styled.div`
     font-size: 16px;
     white-space: pre-wrap;
     color: #7e919f;
+  }
+  @media(max-width: 768px) {
+    max-width: 90%;
+  }
+  @media(max-width: 576px) {
+    max-width: 90%;
+    
+    h4 {
+          margin: 5px 0;
+    }    
+    img {
+      width: 40%;
+    }
   }
 `;
 const Games = styled.div`
@@ -138,10 +204,48 @@ const Games = styled.div`
   img {
         width: 100%;
   }
+  @media (max-width: 768px) {
+    margin: 20px 0;
+    flex-direction: column;
+    text-align: center;
+    div {
+      width: 90%;
+    }
+    img {
+      width: 70%;
+    }
+    h4 {
+      font-size: 24px;
+      line-height: 1.4;
+      margin: 10px 0;
+    }
+    p {
+          font-size: 16px;
+          margin: 10px 0;
+    }  
+  }
+  @media (max-width: 576px) {
+    margin: 20px 0;
+    flex-direction: column;
+    text-align: center;
+    div {
+      width: 90%;
+    }
+    h4 {
+      font-size: 20px;
+      line-height: 1.2;
+      margin: 10px 0;
+    }
+    p {
+      font-size: 16px;
+      margin: 0;
+    }
+    button {
+      font-size: 16px;
+    }
+  }
 `;
-const Content = styled.div`
-  
-`;
+const Content = styled.div``;
 const AboutApp: React.FC = () => {
     function openGames() {
         window.location.href = '#/mini-games';
