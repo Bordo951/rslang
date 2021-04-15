@@ -40,6 +40,7 @@ interface PageInterface {
 SwiperCore.use([Navigation, Pagination]);
 const Page: React.FC<PageInterface> = ({ groupNum }) => {
   const words = useSelector(getWordsData);
+  console.log(words);
   // console.log(words[0]);
   const status = useSelector(getRequestStatus);
   const error = useSelector(getErrorMessage);
