@@ -67,6 +67,16 @@ const MenuItem = styled.li`
       }
     }
 
+    &[data-name='Словарь'] {
+      border-color: #ffcd29;
+      &:before {
+        color: #ffcd29;
+      }
+      span {
+        background: #ffcd29;
+      }
+    }
+
     &[data-name='Игры'] {
       border-color: #ea9d5f;
       &:before {
@@ -136,6 +146,11 @@ const Menu: React.FC = () => {
         <MenuItem>
           <NavLink to='/text-book' data-name='Учебник'>
             <span data-name='Учебник'></span>
+          </NavLink>
+        </MenuItem>
+        <MenuItem>
+          <NavLink to='/dictionary' data-name='Словарь'>
+            <span data-name='Cловарь'></span>
           </NavLink>
         </MenuItem>
         <MenuItem>

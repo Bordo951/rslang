@@ -7,20 +7,21 @@ const parseHash = () => queryString.parseUrl(window.location.hash.slice(19)); //
 
 export const MiniGamesWordsGroup = () => {
     const parsed: any = parseHash();
+    const defaultGroup = 1;
 
-    return Number.isInteger(+parsed.query.group) ? +parsed.query.group : 1;
+    return Number.isInteger(+parsed.query.group) ? +parsed.query.group : defaultGroup;
 };
 
 export const MiniGamesWordsPage = () => {
-    // const parsed: any = parseHash();
-return Math.floor(Math.random() * 28)
-    // return Number.isInteger(+parsed.query.page) ? +parsed.query.page : 0;
+    const parsed: any = parseHash();
+    const defaultPage = 0;
+
+    return Number.isInteger(+parsed.query.page) ? +parsed.query.page : defaultPage;
 };
-const randomPage = Math.floor(Math.random() * 28);
 
 export const MiniGamesWordsFetcher = () => {
     let group = MiniGamesWordsGroup();
-    let page = randomPage;
+    let page = MiniGamesWordsPage();
 
     const dispatch = useDispatch();
 
