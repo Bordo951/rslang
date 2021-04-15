@@ -15,8 +15,14 @@ const Main = styled.div`
 const Screen = styled.img`
   margin: 40px;
   width: 50%;
+  @media (max-width: 992px) {
+    margin: 30px;
+  }
   @media (max-width: 768px) {
     width: 70%;
+  }
+  @media (max-width: 576px) {
+    margin: 20px;
   }
 `;
 const VideoOnScreen = styled.iframe`
@@ -66,7 +72,27 @@ const Title = styled.h3`
     right: 0;
     margin: 0 auto;
     background-size: 100% 100%;
-  }   
+  } 
+  @media (max-width: 768px) {
+    font-size: 26px;
+    margin: 10px 0;
+    padding: 0 0 10px;
+    
+    &:after {
+      width: 122px;
+      height: 15px;
+    }   
+  }  
+  @media (max-width: 576px) {
+    font-size: 24px;
+    margin: 5px 0;
+    padding: 0 0 6px;
+    
+    &:after {
+      width: 111px;
+      height: 11px;
+    }   
+  }
 `;
 const Container = styled.div`
   width: 80%;
@@ -76,6 +102,17 @@ const Container = styled.div`
   text-align: center;
   background-color: #F0F3F3;
   border-radius: 5px;
+  
+  @media (max-width: 768px) {
+    img {
+      margin: 30px auto;
+    }
+  }
+  @media (max-width: 576px) {
+    width: 95%;
+    margin: 20px auto;
+    padding: 0;
+  }
 `;
 
 const MainPage: React.FC = () => {

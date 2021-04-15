@@ -17,16 +17,20 @@ const PromoText = styled.div`
   @media (max-width: 1100px) {
     width: 30%;
   }
-  @media (max-width: 910px) {
-    width: 55%;
+  @media (max-width: 992px) {
+    width: 90%;
+    top: 10%;
+    left: 5%;
   }
-  @media (max-width: 687px) {
-    width: 65%;
-    top: 5;
+  @media (max-width: 768px) {
+    width: 90%;
+    top: 25%;
+    left: 10%;
   }
-  @media (max-width: 567px) {
-    width: 85%;
-    top: 0;
+  @media (max-width: 576px) {
+    width: 100%;
+    top: 25%;
+    left: 10%;
   }
   h3 {
     width: 45%;
@@ -37,7 +41,22 @@ const PromoText = styled.div`
     letter-spacing: .92px;
     text-shadow: 0 2px 7px rgba(0, 0, 0, .55);
     color: rgb(255, 255, 255);
+    @media (max-width: 992px) {
+      width: 70%;
+      line-height: 1;
+    }
+    @media (max-width: 768px) {
+      width: 70%;
+      font-size: 36px;
+      text-shadow: 0 2px 7px rgba(0, 0, 0, .55);
+    }
+    @media (max-width: 576px) {
+      width: 60%;
+      font-size: 18px;
+      text-shadow: 0 2px 7px rgba(0, 0, 0, .55);
+    }
   }
+  
   p {
     margin: 3rem 0;
     font-family: Arial,sans-serif;
@@ -45,17 +64,26 @@ const PromoText = styled.div`
     width: 50%;
     text-shadow: 0 2px 7px rgba(0, 0, 0, .55);
     color: rgb(255, 255, 255);
-    @media (max-width: 687px) {
-      margin: 1rem 0;
-    font-size: 1rem;
+    @media (max-width: 992px) {
+      margin: 2rem 0;
+      width: 70%;
     }
-    @media (max-width: 567px) {
-      margin: 0.3rem 0;
+    @media (max-width: 768px) {
+      display: none;
     }
   }
   button {
       font-size: 20px;
       text-shadow: 0 2px 7px rgba(0, 0, 0, .55);
+      
+    @media (max-width: 768px) {
+      margin: 20px 0;
+      font-size: 18px;
+    }      
+    @media (max-width: 576px) {
+      margin: 10px 0;
+      font-size: 16px;
+    }
   }
 `;
 

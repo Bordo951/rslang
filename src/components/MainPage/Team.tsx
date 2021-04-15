@@ -6,6 +6,13 @@ const TeamInformation = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  @media (max-width: 768px) {
+    margin: 0;
+  }
+  @media(max-width: 576px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const DeveloperCard = styled.div`
   width: 23%;
@@ -15,6 +22,19 @@ const DeveloperCard = styled.div`
   margin: 0 0.2rem;
   padding: 0.2rem;
   text-align: center;
+  @media (max-width: 992px) {
+    width: 45%;
+    //margin: 20px 0.2rem;
+  }
+  @media (max-width: 768px) {
+    width: 90%;
+    margin: 20px 0.2rem;
+  }
+  @media(max-width: 576px) {
+    width: 60%;
+    margin: 0;
+  }
+  
   div {
     margin: 0 0 15px;
     max-width: 200px;
@@ -34,6 +54,10 @@ const DeveloperCard = styled.div`
   p {
     font-family: 'BubblegumSans-Regular', cursive, sans-serif;
     color: #5c5c5c;
+    
+    @media (max-width: 576px) {
+      display: none;
+    }
   }
   h5 {
     font-family: 'Lato-Regular', sans-serif;
@@ -44,6 +68,10 @@ const DeveloperCard = styled.div`
     margin-bottom: 20px;
     line-height: 1.2;
     
+    @media (max-width: 576px) {
+      font-size: 1.2rem;
+      margin: 0;
+    }
   }
   h3 {
     font-family: 'Bubblegum Sans', cursive, sans-serif;
@@ -53,13 +81,9 @@ const DeveloperCard = styled.div`
     margin: 0 0 10px;
     line-height: 1.2;
     
-    @media (max-width: 587px) {
-      font-size: 1.4rem;
+    @media (max-width: 576px) {
+      font-size: 1.2rem;
     }
-  }
-  @media (max-width: 900px) {
-    width: 45%;
-    margin-bottom: 20px;
   }
 `;
 
@@ -70,6 +94,11 @@ const TeamContainer = styled.div`
   padding: 1rem;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+      
+  @media (max-width: 576px) {
+    width: 95%;
+    padding: 0;
+  }
 `;
 
 const Title = styled.h3`
@@ -99,6 +128,27 @@ const Title = styled.h3`
     margin: 0 auto;
     background-size: 100% 100%;
   }      
+  
+  @media (max-width: 768px) {
+    font-size: 26px;
+    margin: 10px 0;
+    padding: 0 0 10px;
+    
+    &:after {
+      width: 122px;
+      height: 15px;
+    }   
+  }
+  @media (max-width: 576px) {
+    font-size: 24px;
+    margin: 5px 0;
+    padding: 0 0 6px;
+    
+    &:after {
+      width: 111px;
+      height: 11px;
+    }   
+  }
 `;
 const Team: React.FC = () => {
     return (
@@ -112,7 +162,7 @@ const Team: React.FC = () => {
                     <h3>Фаррух<br/> Хусанов</h3>
                     <h5>FrontEnd-разработка</h5>
                     <p>Проведение митингов. Реализация логики основного приложения. Разработка отображения данных,
-                        получаемых с сервера. Работа с Redux.
+                        получаемых с сервера. Работа с Redux. Работа со словарем.
                         Реализация авторизации. </p>
                 </DeveloperCard>
                 <DeveloperCard>
@@ -122,7 +172,7 @@ const Team: React.FC = () => {
                     <h3>Ирина<br/> Селиванова</h3>
                     <h5>FrontEnd-разработка</h5>
                     <p>Распределение задач. Проведение митингов. Дизайн приложения. Реализация страницы электронного
-                        учебника. Разработка навигации приложения.</p>
+                        учебника. Реализация мини-игр Аудиовызов. Разработка навигации приложения.</p>
                 </DeveloperCard>
                 <DeveloperCard>
                     <div>
@@ -139,7 +189,7 @@ const Team: React.FC = () => {
                     </div>
                     <h3>Кирилл<br/> Плющеня</h3>
                     <h5>FrontEnd-разработка</h5>
-                    <p>Участие в митингах. Реализация promo-страницы. Реализация мини-игры Саванна. Помощь в поиске
+                    <p>Участие в митингах. Реализация promo-страницы. Реализация мини-игр Саванна и Мемори. Помощь в поиске
                         решений поставленных задач.</p>
                 </DeveloperCard>
             </TeamInformation>
