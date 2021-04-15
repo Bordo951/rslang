@@ -2,7 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-const MainMenu = styled.nav``;
+const MainMenu = styled.nav`
+  @media(max-width: 576px) {
+    //display: none;
+  }
+`;
 const MenuList = styled.ul`
   width: 100%;
   height: 70px;
@@ -20,6 +24,9 @@ const MenuItem = styled.li`
   font-family: 'Bubblegum Sans', cursive, sans-serif;
   font-size: 24px;
   font-weight: 600;
+  @media(max-width: 768px) {
+     font-size: 18px;
+  }
 
   a {
     cursor: pointer;
