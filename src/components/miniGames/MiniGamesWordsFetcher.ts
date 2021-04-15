@@ -1,7 +1,8 @@
 import {useEffect} from 'react';
 import queryString from "query-string";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchWordsData, getWordsData} from "../../redux/wordsSlice";
+import {fetchWordsData, getWordsData, WordType} from "../../redux/wordsSlice";
+import { useState } from 'react';
 
 const parseHash = () => queryString.parseUrl(window.location.hash.slice(19)); //@toDo: since we are using hash router
 
@@ -19,8 +20,12 @@ return Math.floor(Math.random() * 28)
 const randomPage = Math.floor(Math.random() * 28);
 
 export const MiniGamesWordsFetcher = () => {
+    const [page, setPage] = useState(MiniGamesWordsPage())
     let group = MiniGamesWordsGroup();
-    let page = randomPage;
+
+    const changePage = () => {
+        setPage(MiniGamesWordsPage())
+    }
 
     const dispatch = useDispatch();
 
@@ -28,7 +33,7 @@ export const MiniGamesWordsFetcher = () => {
         dispatch(fetchWordsData(group, page))
     }, [dispatch, group, page]);
 
-    return useSelector(getWordsData);
+    return [useSelector(getWordsData), changePage] as [WordType[], () => void]
 };
 
 export default MiniGamesWordsFetcher;
