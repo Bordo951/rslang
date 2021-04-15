@@ -48,6 +48,36 @@ export const AudioGameInitialState: MiniGamesStateType = {
     gameBackground: 'https://img5.goodfon.com/original/1920x1200/1/30/personal-diary-memories-photos.jpg'
 };
 
+export type WordTypeForButton = WordType & { isDisabled: boolean };
+
+export type MemoryGameInitialStateType = {
+    seconds: number;
+    enWords: WordTypeForButton[];
+    ruWords: WordTypeForButton[];
+    counter: number;
+    counterLife: number;
+    translitionValue: string;
+    verifiableValue: string;
+    isClickedTranslitionButton: boolean;
+    isClickedVerifiableButton: boolean;
+    opacity: number;
+    isSettingsWindow: boolean;
+};
+
+export const MemoryGameInitialState: MemoryGameInitialStateType = {
+    enWords: [],
+    ruWords: [],
+    seconds: 60,
+    opacity: 1,
+    counter: 0,
+    counterLife: 5,
+    translitionValue: "",
+    verifiableValue: "",
+    isClickedTranslitionButton: false,
+    isClickedVerifiableButton: false,
+    isSettingsWindow: false,
+};
+
 export type MiniGamesAction = {
     type: keyof MiniGamesStateType;
     value: MiniGamesStateType[keyof MiniGamesStateType];

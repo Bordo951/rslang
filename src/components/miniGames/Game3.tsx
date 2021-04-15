@@ -12,7 +12,16 @@ import { getRequestStatus, WordType } from "../../redux/wordsSlice";
 import GameOver from "./componentsMemory/GameOver";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Loading from "./componentsMemory/Loading";
+import MiniGamesLoader from "./MiniGamesLoader";
+import {shuffleWords} from "../../helpers/WordsShuffler";
+import {MemoryGameInitialStateType, MemoryGameInitialState} from './MiniGamesStateType';
+import {loadAudio, loadFailedAudio} from "../../helpers/AudioPlayer";
+import {guessWord} from "../../helpers/WordGuesser";
+import MiniGameStatistics from "./MiniGamesStatistics";
+import MiniGamesGameOver from "./MiniGamesGameOver";
+import MiniGamesSettingsButton from "./MiniGamesSettingsButton";
+import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
+// import Loading from "./componentsMemory/Loading";
 
 const GameContainer = styled.div`
   background: url(/images/brain.jpg) center center/cover no-repeat fixed;
@@ -82,7 +91,7 @@ const SettingsBtn = styled.div`
   }
 `;
 
-const Statistics = styled.div<Partial<stateType>>`
+const Statistics = styled.div<Partial<MemoryGameInitialStateType>>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,7 +160,7 @@ const CardTimer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const VerifiableWord = styled.div<Partial<stateType>>`
+const VerifiableWord = styled.div<Partial<MemoryGameInitialStateType>>`
   background-color: rgba(0, 4, 255, 0.5);
   border-radius: 20px;
   padding: 10px 1rem;
@@ -198,7 +207,7 @@ const VerifiableWord = styled.div<Partial<stateType>>`
     }
   }
 `;
-const TranslationWords = styled.div<Partial<stateType>>`
+const TranslationWords = styled.div<Partial<MemoryGameInitialStateType>>`
   background-color: rgba(255, 0, 0, 0.5);
   border-radius: 20px;
   padding: 10px 1rem;
@@ -248,20 +257,6 @@ const TranslationWords = styled.div<Partial<stateType>>`
   }
 `;
 
-type WordTypeForButton = WordType & { isDisabled: boolean };
-type stateType = {
-  seconds: number;
-  enWords: WordTypeForButton[];
-  ruWords: WordTypeForButton[];
-  counter: number;
-  counterLife: number;
-  translitionValue: string;
-  verifiableValue: string;
-  isClickedTranslitionButton: boolean;
-  isClickedVerifiableButton: boolean;
-  opacity: number;
-  isSettingsWindow: boolean;
-};
 const Game3: React.FC = () => {
   const status = useSelector(getRequestStatus);
   //const [words, changeWords] = MiniGamesWordsFetcher();
@@ -270,27 +265,14 @@ const Game3: React.FC = () => {
   let faildAudio = new Audio("audio/faild.mp3");
   // const group = MiniGamesWordsGroup();
   // const page = MiniGamesWordsPage();
-  const initialState: stateType = {
-    enWords: [],
-    ruWords: [],
-    seconds: 60,
-    opacity: 1,
-    counter: 0,
-    counterLife: 5,
-    translitionValue: "",
-    verifiableValue: "",
-    isClickedTranslitionButton: false,
-    isClickedVerifiableButton: false,
-    isSettingsWindow: false,
-  };
   type Action = {
-    type: keyof stateType;
-    value: stateType[keyof stateType];
+    type: keyof MemoryGameInitialStateType;
+    value: MemoryGameInitialStateType[keyof MemoryGameInitialStateType];
   };
-  function reducer(state: stateType, action: Action) {
+  function reducer(state: MemoryGameInitialStateType, action: Action) {
     return { ...state, [action.type]: action.value };
   }
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, MemoryGameInitialState);
   useEffect(() => {
     if (status === "succeeded") {
       let myInterval = setInterval(() => {
@@ -306,11 +288,11 @@ const Game3: React.FC = () => {
 
   useEffect(() => {
     const wordsCopy = [...words].splice(10);
-    const enWords = shuffle(wordsCopy).map((obj) => ({
+    const enWords = shuffleWords(wordsCopy).map((obj) => ({
       ...obj,
       isDisabled: false,
     }));
-    const ruWords = shuffle(wordsCopy).map((obj) => ({
+    const ruWords = shuffleWords(wordsCopy).map((obj) => ({
       ...obj,
       isDisabled: false,
     }));
@@ -378,17 +360,6 @@ const Game3: React.FC = () => {
     dispatch({ type: "isClickedTranslitionButton", value: false });
     dispatch({ type: "isClickedVerifiableButton", value: false });
   }
-  const shuffle = (array: WordType[]) => {
-    const arr = [...array];
-    let j, temp;
-    for (let i = arr.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      temp = arr[j];
-      arr[j] = arr[i];
-      arr[i] = temp;
-    }
-    return arr;
-  };
 
   const newGame = () => {
     //changeWords();
@@ -440,7 +411,9 @@ const Game3: React.FC = () => {
               </Button>
             </GameOver>
         )}
-        {status === "loading" && <Loading />}
+        {(status === "loading") && (
+            <MiniGamesLoader/>
+        )}
         <Container>
           <SettingsBtn>
             <GameControls />
@@ -481,15 +454,15 @@ const Game3: React.FC = () => {
             <span>{state.seconds}</span>
           </Timer>
           <TranslationWords>
-            {state.ruWords.map((translaation) => (
+            {state.ruWords.map((translation) => (
                 <input
-                    style={{ opacity: translaation.isDisabled ? 0.7 : 1 }}
-                    disabled={translaation.isDisabled}
+                    style={{ opacity: translation.isDisabled ? 0.7 : 1 }}
+                    disabled={translation.isDisabled}
                     type="button"
-                    key={`${translaation.word}${translaation.id}`}
-                    data-value={translaation.word}
+                    key={`${translation.word}${translation.id}`}
+                    data-value={translation.word}
                     onClick={(e) => hendlerCheckTranslition(e)}
-                    value={translaation.wordTranslate}
+                    value={translation.wordTranslate}
                 />
             ))}
           </TranslationWords>
