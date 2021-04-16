@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import {AiOutlineFullscreen} from "react-icons/all";
 
-const StyledButton = styled.button`
-  background-color: white;
-  border: 2px solid gray;
+const StyledButton = styled.div`
+    button {
+        padding: 5px 8px;
+    }
+    svg {
+        margin-right: 5px;
+    }
 `;
 
 interface FullScreenerInterface {
@@ -27,8 +32,13 @@ const FullScreener: React.FC<FullScreenerInterface> = ({targetObjectId}) => {
     };
 
     return (
-        <StyledButton onClick={() => enterFullscreen(targetObjectId)}>
-            FullScreen Game
+        <StyledButton>
+            <button className='button' onClick={() => enterFullscreen(targetObjectId)}>
+                <div className="d-flex align-items-center">
+                    <AiOutlineFullscreen />
+                    Full Screen
+                </div>
+            </button>
         </StyledButton>
     );
 };

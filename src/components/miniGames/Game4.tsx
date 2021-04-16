@@ -15,7 +15,7 @@ const Game4: React.FC = () => {
   console.log('dataWords for Game 4', words);
 
   return <div>
-    <GameControls/>
+    <GameControls showSettingWindow={false}/>
     <GameContainer id="game">
       Game4, group: {group}, page: {page}
     </GameContainer>

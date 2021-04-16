@@ -1,4 +1,3 @@
-import GameControls from "./GameControls";
 import {Button, Form, Spinner} from "react-bootstrap";
 import React from "react";
 import styled from "styled-components";
@@ -37,7 +36,6 @@ const SettingsWindow = styled.div`
 const MiniGamesSettingsWindows: React.FC<Props> = ({idSpeed, handleSpeedChange, isMusic, handleSwitchMusic, closeSettingWindow}) => {
     return (
         <SettingsWindow>
-            <GameControls />
             Скорость игры:
             <Form>
                 <Form.Check

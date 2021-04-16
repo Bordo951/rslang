@@ -12,19 +12,19 @@ const MiniGames: React.FC = () => {
             <HashRouter>
                 <Switch>
                     <Route path="/mini-games/game-1">
-                        {/*<SectionTitle title="Game 1 title" />*/}
+                        <SectionTitle title="Саванна" />
                         <SavannahGamePage />
                     </Route>
                     <Route path='/mini-games/game-2'>
-                        {/*<SectionTitle title="Game 2 title" />*/}
+                        <SectionTitle title="Аудиовызов" />
                         <Game2 />
                     </Route>
                     <Route path='/mini-games/game-3'>
-                        {/*<SectionTitle title="Game 3 title" />*/}
+                        <SectionTitle title="Игра на память" />
                         <Game3 />
                     </Route>
                     <Route path='/mini-games/game-4'>
-                        {/*<SectionTitle title="Game 4 title" />*/}
+                        <SectionTitle title="Игра 4" />
                         <Game4 />
                     </Route>
                     <Route path='/mini-games/'>
