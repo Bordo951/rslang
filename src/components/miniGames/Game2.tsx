@@ -15,6 +15,9 @@ import MiniGameStatistics from "./MiniGamesStatistics";
 import MiniGamesGameOver from "./MiniGamesGameOver";
 
 import MiniGamesSettingsWindows from "./MiniGamesSettingsWindows";
+import MiniGamesLoader from "./MiniGamesLoader";
+import {useSelector} from "react-redux";
+import {getRequestStatus} from "../../redux/wordsSlice";
 
 const GameContainer = styled.div` 
   background: url(${AudioGameInitialState.gameBackground}) center center/cover no-repeat;
@@ -23,7 +26,8 @@ const GameContainer = styled.div`
 `;
 
 const Container = styled.div`
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     padding: 0.2rem 0.2rem;
     text-align: center;
     text-transform: uppercase;
@@ -31,11 +35,35 @@ const Container = styled.div`
     background-size: 200% auto;
     box-shadow: 0 0 10px #b6b8b9;
     border-radius: 10px;
-    display: block;
     outline: none;
 `;
 
+const CardTimer = styled.div`
+  background-color: rgba(255, 255, 255, 0.603);
+  margin: 20px auto 0;
+  width: 80%;
+  border-radius: 20px;
+  padding: 20px 0;
+  flex: 6 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Timer = styled.div`
+  color: yellow;
+  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 10px auto;
+  border-radius: 50%;
+  background-color: black;
+  text-align: center;
+`;
+
 const Game2: React.FC = () => {
+    const status = useSelector(getRequestStatus);
     const group = MiniGamesWordsGroup();
     const page = MiniGamesWordsPage();
     const words = MiniGamesWordsFetcher();
@@ -51,6 +79,7 @@ const Game2: React.FC = () => {
 
     const [state, dispatch] = useReducer(reducer, AudioGameInitialState);
 
+
     useEffect(() => {
         if (!words.length) return;
 
@@ -61,7 +90,21 @@ const Game2: React.FC = () => {
         dispatch({type: "translatableWords", value: translatableWords});
         dispatch({type: "verifiableWords", value: verifiableWords});
         dispatch({type: "verifiableWordsAudio", value: verifiableWordsAudio});
-    }, [state.index, state.counter, words]);
+
+        if (status === "succeeded") {
+            let myInterval = setInterval(() => {
+                if (state.seconds >= 0) {
+                    dispatch({ type: "seconds", value: state.seconds--});
+                    if(state.seconds % 10 === 3) {
+                        playSound();
+                    }
+                } else clearInterval(myInterval);
+            }, 1000);
+            return () => {
+                clearInterval(myInterval);
+            };
+        }
+    }, [state.index, state.counter, words, state.seconds]);
 
     const playSound = () => {
         if (state.verifiableWordsAudio) {
@@ -76,7 +119,6 @@ const Game2: React.FC = () => {
         dispatch({type: "index", value: state.index + 1}); // get new word
         //state.isMusic ? wordAudio.play() : wordAudio.pause();
         guessedWords.current.push(state.verifiableWords);
-        //playSound();
     };
 
     const handleFailedGuess = () => {
@@ -95,6 +137,7 @@ const Game2: React.FC = () => {
 
     const repeatGame = () => {
         dispatch({type: "counterLife", value: 5});
+        dispatch({ type: "seconds", value: 60 });
         dispatch({type: "index", value: 0});
         dispatch({type: "counter", value: 0});
         guessedWords.current = [];
@@ -119,19 +162,17 @@ const Game2: React.FC = () => {
         dispatch({type: "isTurnOn", value: true});
     };
 
-    //playSound();
-
     return <div>
         <GameContainer id="game">
-            {(state.counterLife < 1 || state.index === 20) && (
+            {(state.counterLife < 1 ||
+                state.seconds <= 0 ||
+                state.index === 20) && (
                 <MiniGamesGameOver
                     guessedWords={guessedWords}
                     repeatGameAction={repeatGame}
                     gameOverBackground={AudioGameInitialState.gameOverBackground}
                 />
             )}
-
-                <GameControls showSettingWindow={showSettingWindow}/>
                 {state.isSettingsWindow && (
                     <MiniGamesSettingsWindows
                         idSpeed={state.idSpeed}
@@ -141,27 +182,36 @@ const Game2: React.FC = () => {
                         closeSettingWindow={closeSettingWindow}
                     />
                 )}
-
+            {(status === "loading") && (
+                <MiniGamesLoader/>
+            )}
             <Container>
-                <button onClick={() => playSound()}>Play Sound</button>
-                <br/>
-                {shuffleWords(state.translatableWords).map((word) => (
-                    <input
-                        type="button"
-                        key={`${word.word}${words[state.index]}`}
-                        value={word.wordTranslate}
-                        data-value={word.word}
-                        onClick={(e) => {
-                            handleClick(e);
-                        }}
-                    />
-                ))}
+                <GameControls showSettingWindow={showSettingWindow}/>
                 <MiniGameStatistics
                     counterLife={state.counterLife}
                     index={state.index}
                     counter={state.counter}
                 />
             </Container>
+            <CardTimer>
+            <button onClick={() => playSound()}>Play Sound</button>
+                <Timer>
+                    <span>{state.seconds}</span>
+                </Timer>
+            <div>
+            {state.translatableWords.map((word) => (
+                <input
+                    type="button"
+                    key={`${word.word}${words[state.index]}`}
+                    value={word.wordTranslate}
+                    data-value={word.word}
+                    onClick={(e) => {
+                        handleClick(e);
+                    }}
+                />
+            ))}
+            </div>
+            </CardTimer>
         </GameContainer>
     </div>;
 };

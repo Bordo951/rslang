@@ -54,33 +54,6 @@ const Container = styled.div`
   }
 `;
 
-const SettingsBtn = styled.div`
-  display: flex;
-  flex-direction: column;
-  button {
-    background-image: linear-gradient(
-      to right,
-      #232526 0%,
-      #414345 51%,
-      #232526 100%
-    );
-    padding: 5px;
-    text-align: center;
-    text-transform: uppercase;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: white;
-    box-shadow: 0 0 20px #eee;
-    border-radius: 10px;
-    display: block;
-    &:hover {
-      background-position: right center; /* change the direction of the change here */
-      color: #fff;
-      text-decoration: none;
-    }
-  }
-`;
-
 const Timer = styled.div`
   color: yellow;
   font-size: 2rem;
@@ -91,6 +64,7 @@ const Timer = styled.div`
   background-color: black;
   text-align: center;
 `;
+
 const CardTimer = styled.div`
   background-color: rgba(255, 255, 255, 0.603);
   margin: 20px auto 0;

@@ -1,6 +1,7 @@
 import {WordType} from "../../redux/wordsSlice";
 
 export type MiniGamesStateType = {
+    seconds: number;
     index: number;
     verifiableWords: string;
     translatableWords: WordType[];
@@ -18,6 +19,7 @@ export type MiniGamesStateType = {
 };
 
 export const SavannahGameInitialState: MiniGamesStateType = {
+    seconds: 60,
     index: 0,
     verifiableWords: " ",
     translatableWords: [],
@@ -35,6 +37,7 @@ export const SavannahGameInitialState: MiniGamesStateType = {
 };
 
 export const AudioGameInitialState: MiniGamesStateType = {
+    seconds: 60,
     index: 0,
     verifiableWords: " ",
     translatableWords: [],
