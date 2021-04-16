@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import {Button} from 'react-bootstrap';
 import MiniGamesLevels from "./MiniGamesLevels";
 
 const GridContainer = styled.div`
@@ -15,6 +16,7 @@ const GridContainer = styled.div`
 const GroupContainer = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
+  display: flex;
   
   &[data-name = 'game-1'] {
     background-image: url('/assets/images/game-1.png');
@@ -27,6 +29,9 @@ const GroupContainer = styled.div`
   }
   &[data-name = 'game-4'] {
     background-image: url('/assets/images/game-4.png');
+  }
+  div {
+  width: 45%;
   }
 
   a {
@@ -51,24 +56,46 @@ const MiniGamesGrid: React.FC = () => {
     return (
         <GridContainer>
             <GroupContainer data-name="game-1">
-                <h3>Саванна</h3>
-                <MiniGamesLevels gameId={1}/>
-                <button onClick={() => startGame(1)}>Начать игру</button>
+                <div>
+                    <h3>Саванна</h3>
+                    <MiniGamesLevels gameId={1}/>
+                    <Button variant="success" onClick={() => startGame(1)}>Начать игру</Button>
+                </div>
+                <div>«Саванна» - это тренировка по переводу пассивного изученного словаря в активную стадию. После
+                    запуска игры вы увидите падающее слово на английском и четыре варианта перевода на русский язык.
+                    Выбрать правильный ответ можно, кликнув по нему мышью.
+                </div>
             </GroupContainer>
             <GroupContainer data-name="game-2">
-                <h3>Аудиовызов</h3>
-                <MiniGamesLevels gameId={2}/>
-                <button onClick={() => startGame(2)}>Начать игру</button>
+                <div>
+                    <h3>Аудиовызов</h3>
+                    <MiniGamesLevels gameId={2}/>
+                    <Button variant="warning" onClick={() => startGame(2)}>Начать игру</Button>
+                </div>
+                <div>«Аудиовызов» - это тренировка, развивающая навыки речи и перевода.
+                    Вы слышите слово и видите 4 варианта перевода. Выбрать правильный ответ можно, кликнув по нему
+                    мышью.
+                </div>
             </GroupContainer>
             <GroupContainer data-name="game-3">
-                <h3>Игра на память</h3>
-                <MiniGamesLevels gameId={3}/>
-                <button onClick={() => startGame(3)}>Начать игру</button>
+                <div>
+                    <h3>Игра на память</h3>
+                    <MiniGamesLevels gameId={3}/>
+                    <Button variant="info" onClick={() => startGame(3)}>Начать игру</Button>
+                </div>
+                <div>«Игра на память» - эта игра представляет собой группу английских слов и группу из русских
+                    слов, которые нужно соотнести между собой.
+                </div>
             </GroupContainer>
             <GroupContainer data-name="game-4">
-                <h3>Игра 4</h3>
-                <MiniGamesLevels gameId={4}/>
-                <button onClick={() => startGame(4)}>Начать игру</button>
+                <div>
+                    <h3>Спринт</h3>
+                    <MiniGamesLevels gameId={4}/>
+                    <Button variant="danger" onClick={() => startGame(4)}>Начать игру</Button>
+                </div>
+                <div>«Спринт» - это тренировка для повторения заученных слов из вашего словаря. После запуска
+                    игры вы увидите слово и перевод. Вам нужно выбрать правильный вариант ответа.
+                </div>
             </GroupContainer>
         </GridContainer>
     );
